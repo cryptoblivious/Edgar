@@ -1,2 +1,2 @@
 # Edgar
-Your private culinary assistant
+Your personal culinary assistant
