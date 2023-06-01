@@ -16,21 +16,21 @@ class App extends StatelessWidget {
           fontFamily: 'Montez',
           useMaterial3: true,
           splashColor: Colors.amber[800]!.withAlpha(50)),
-      home: const HomePage(titleTextValue: 'Edgar : Your Personal Chef'),
+      home: const PantryPage(titleTextValue: 'Edgar : Your Personal Chef'),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.titleTextValue});
+class PantryPage extends StatefulWidget {
+  const PantryPage({super.key, required this.titleTextValue});
 
   final String titleTextValue;
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PantryPage> createState() => _PantryPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PantryPageState extends State<PantryPage> {
   int _counter = 0;
   int _selectedIndex = 0;
 
@@ -87,143 +87,33 @@ class _HomePageState extends State<HomePage> {
         body: Container(
           color: Colors.grey[800],
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: _incrementCounter,
-                    icon: const Icon(
-                      Icons.lunch_dining,
-                    ),
-                    label: const Text(
-                      'Potato',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.onPrimary,
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return Colors.amber[800]!.withAlpha(50);
-                          }
-                          return null; // Defer to the widget's default.
-                        },
-                      ),
-                    ),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: _incrementCounter,
-                    icon: const Icon(
-                      Icons.lunch_dining,
-                    ),
-                    label: const Text(
-                      'Tomato',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.onPrimary,
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return Colors.amber[800]!.withAlpha(50);
-                          }
-                          return null; // Defer to the widget's default.
-                        },
-                      ),
-                    ),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: _incrementCounter,
-                    icon: const Icon(
-                      Icons.lunch_dining,
-                    ),
-                    label: const Text(
-                      'Mango',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.onPrimary,
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return Colors.amber[800]!.withAlpha(50);
-                          }
-                          return null; // Defer to the widget's default.
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const Expanded(
+              Expanded(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Expanded(
-                      child: Image(
-                        image: NetworkImage(
-                            'https://images.pexels.com/photos/16998585/pexels-photo-16998585/free-photo-of-food-apple-agriculture-fall.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                        semanticLabel: 'Fruits on display',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    ProductIconLabelButton(
+                        productName: 'Potato',
+                        productIcon: Icons.lunch_dining,
+                        onPressed: _incrementCounter),
+                    const ProductIconLabelButton(
+                        productName: 'Tomato',
+                        productIcon: Icons.dinner_dining),
+                    const ProductIconLabelButton(
+                        productName: 'Mango', productIcon: Icons.brunch_dining),
                   ],
                 ),
               ),
               Container(
                 padding: const EdgeInsets.all(5),
                 color: Theme.of(context).colorScheme.secondary,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 80,
-                      child: Center(
-                        child: Text(
-                          '(You have pushed the potato button this many times) :',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Theme.of(context).colorScheme.onSecondary,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 20,
-                      child: Text(
-                        '$_counter',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                  ],
+                child: Text(
+                  'You have pushed the potato button this many times : $_counter',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                  ),
                 ),
               ),
             ],
@@ -268,5 +158,49 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ));
+  }
+}
+
+class ProductIconLabelButton extends StatelessWidget {
+  const ProductIconLabelButton(
+      {super.key,
+      required this.productName,
+      required this.productIcon,
+      this.onPressed});
+
+  final String productName;
+  final IconData productIcon;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: onPressed,
+      icon: Icon(
+        productIcon,
+      ),
+      label: Text(
+        productName,
+        style: const TextStyle(
+          fontSize: 25,
+        ),
+      ),
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all<Color>(
+          Theme.of(context).colorScheme.onPrimary,
+        ),
+        backgroundColor: MaterialStateProperty.all<Color>(
+          Theme.of(context).colorScheme.primary,
+        ),
+        overlayColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.pressed)) {
+              return Colors.amber[800]!.withAlpha(50);
+            }
+            return null; // Defer to the widget's default.
+          },
+        ),
+      ),
+    );
   }
 }
