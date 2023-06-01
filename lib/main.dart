@@ -52,44 +52,131 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
+          elevation: 0,
           leading: Image.asset('assets/icons/edgar.png'),
-          title: Text(widget.titleTextValue,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                letterSpacing: 2.0,
-              )),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(widget.titleTextValue,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    letterSpacing: 2.0,
+                  )),
+              const SizedBox(width: 10),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    width: 2,
+                  ),
+                  shape: BoxShape.circle,
+                ),
+                child: CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 22,
+                  child: Icon(Icons.person,
+                      color: Theme.of(context).colorScheme.onPrimary, size: 35),
+                ),
+              )
+            ],
+          ),
           centerTitle: true,
         ),
-        body: Center(
+        body: Container(
+          color: Colors.grey[800],
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Center(
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  color: Theme.of(context).colorScheme.secondary,
-                  child: Center(
-                    child: ElevatedButton.icon(
-                      icon: const Icon(Icons.lunch_dining),
-                      onPressed: _incrementCounter,
-                      label:
-                          const Text('Potato', style: TextStyle(fontSize: 25)),
-                      style: ButtonStyle(
-                        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Colors.amber[800]!.withAlpha(50);
-                            }
-                            return null; // Defer to the widget's default.
-                          },
-                        ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: _incrementCounter,
+                    icon: const Icon(
+                      Icons.lunch_dining,
+                    ),
+                    label: const Text(
+                      'Potato',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                        Theme.of(context).colorScheme.onPrimary,
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return Colors.amber[800]!.withAlpha(50);
+                          }
+                          return null; // Defer to the widget's default.
+                        },
                       ),
                     ),
                   ),
-                ),
+                  ElevatedButton.icon(
+                    onPressed: _incrementCounter,
+                    icon: const Icon(
+                      Icons.lunch_dining,
+                    ),
+                    label: const Text(
+                      'Tomato',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                        Theme.of(context).colorScheme.onPrimary,
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return Colors.amber[800]!.withAlpha(50);
+                          }
+                          return null; // Defer to the widget's default.
+                        },
+                      ),
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: _incrementCounter,
+                    icon: const Icon(
+                      Icons.lunch_dining,
+                    ),
+                    label: const Text(
+                      'Mango',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                        Theme.of(context).colorScheme.onPrimary,
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return Colors.amber[800]!.withAlpha(50);
+                          }
+                          return null; // Defer to the widget's default.
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const Expanded(
                 child: Row(
@@ -144,8 +231,9 @@ class _HomePageState extends State<HomePage> {
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            color: Colors
-                .grey[200], // Set the desired background color for the ledge
+            color: Theme.of(context)
+                .colorScheme
+                .background, // Set the desired background color for the ledge
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.3),
