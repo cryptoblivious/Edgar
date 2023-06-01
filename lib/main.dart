@@ -66,24 +66,10 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Image(
-                        image: NetworkImage(
-                            'https://images.pexels.com/photos/16998585/pexels-photo-16998585/free-photo-of-food-apple-agriculture-fall.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                        semanticLabel: 'Fruits on display',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               Center(
                 child: Container(
-                  padding: const EdgeInsets.all(5),
                   width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   color: Theme.of(context).colorScheme.secondary,
                   child: Center(
                     child: ElevatedButton.icon(
@@ -105,27 +91,49 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              const Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Image(
+                        image: NetworkImage(
+                            'https://images.pexels.com/photos/16998585/pexels-photo-16998585/free-photo-of-food-apple-agriculture-fall.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                        semanticLabel: 'Fruits on display',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Container(
                 padding: const EdgeInsets.all(5),
                 color: Theme.of(context).colorScheme.secondary,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      '(You have pushed the potato button this many times) :',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Theme.of(context).colorScheme.onSecondary,
+                    Expanded(
+                      flex: 80,
+                      child: Center(
+                        child: Text(
+                          '(You have pushed the potato button this many times) :',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Theme.of(context).colorScheme.onSecondary,
+                          ),
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    Text(
-                      '$_counter',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(
-                              color: Theme.of(context).colorScheme.onSecondary),
+                    Expanded(
+                      flex: 20,
+                      child: Text(
+                        '$_counter',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary),
+                      ),
                     ),
                     const SizedBox(width: 10),
                   ],
