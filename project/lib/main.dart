@@ -29,6 +29,7 @@ class App extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+        fontFamily: 'Montez',
         useMaterial3: true,
       ),
       home: const HomePage(titleTextValue: 'Edgar : Your Personal Culinarian'),
@@ -84,7 +85,13 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.titleTextValue),
+        title: Text(widget.titleTextValue,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+              letterSpacing: 2.0,
+            )),
         centerTitle: true,
       ),
       body: Center(
