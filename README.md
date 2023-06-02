@@ -16,13 +16,9 @@ Welcome to the GitHub repository for Edgar, an intelligent personal chef app tha
 
 ...and more!
 
-## Getting Started :rocket:
-
-<!-- Insert details about how to setup and run your project here. -->
-
 ## Contributing :handshake:
 
-<!--We welcome contributions to Edgar! Please see our [Contributing Guide](CONTRIBUTING.md) for more details. -->
+We welcome contributions to Edgar! Please see our [Insert contributing guide link here ]<!--[Contributing Guide](CONTRIBUTING.md)--> for more details. 
 
 ## License :scroll:
 
