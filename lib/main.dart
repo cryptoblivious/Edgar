@@ -77,13 +77,13 @@ class _HomeState extends State<Home> {
           elevation: 0,
           leading: Image.asset('assets/icons/edgar.png'),
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text('Edgar, your personal Chef',
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimary,
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: 18,
                     letterSpacing: 2.0,
                   )),
               const SizedBox(width: 10),
@@ -182,7 +182,7 @@ class _ProductIconLabelButtonState extends State<ProductIconLabelButton> {
             Text(
               widget.productName,
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 12,
               ),
             ),
             const SizedBox(width: 10),
