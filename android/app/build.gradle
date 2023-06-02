@@ -56,10 +56,10 @@ android {
 
         signingConfigs {
         release {
-            keyAlias 'edgarKey'
+            keyAlias 'edgarReleaseKey'
             keyPassword project.KEY_PASSWORD
-            storeFile file('keystore.jks')
-            storePassword project.STORE_PASSWORD
+            storeFile file('app/keystore.jks')
+            storePassword project.KEYSTORE_PASSWORD
         }
     }
 
