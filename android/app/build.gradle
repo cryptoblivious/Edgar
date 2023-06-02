@@ -67,7 +67,6 @@ android {
         release {
             // TODO: Add your own signing config for the release build.
             signingConfig signingConfigs.release
-            debugSymbolLevel = DebugSymbolLevel.SYMBOL_TABLE
             // Signing with the debug keys for now, so `flutter run --release` works.
             // signingConfig signingConfigs.debug
         }
