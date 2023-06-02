@@ -1,4 +1,4 @@
-package com.example.edgar
+package com.cryptoblivious.edgar
 
 import io.flutter.embedding.android.FlutterActivity
 
