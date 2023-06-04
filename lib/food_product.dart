@@ -4,25 +4,17 @@ import 'food_category.dart';
 
 class FoodProduct {
   String name;
-  Icon icon;
+  IconData iconData;
   List<FoodCategory> foodCategories;
   List<Diet> diets;
-  late List<double> prices;
+  List<double> prices = [];
   double? lowestPrice;
   double? averagePrice;
 
   FoodProduct({
     required this.name,
-    required this.icon,
-    this.foodCategories = const [],
-    this.diets = const [],
-  }) {
-    prices.isNotEmpty ? updatePrices(prices) : prices = const [];
-  }
-
-  void updatePrices(List<double> newPrices) {
-    prices = newPrices;
-    lowestPrice = prices.reduce((curr, next) => curr < next ? curr : next);
-    averagePrice = prices.reduce((curr, next) => curr + next) / prices.length;
-  }
+    required this.iconData,
+    required this.foodCategories,
+    required this.diets,
+  });
 }

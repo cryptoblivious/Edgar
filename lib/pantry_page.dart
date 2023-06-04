@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'pantry_item_card.dart';
+import 'db_sim.dart';
+import 'user.dart';
 
 class PantryPage extends StatefulWidget {
   const PantryPage({super.key});
@@ -10,6 +13,7 @@ class PantryPage extends StatefulWidget {
 
 class _PantryPageState extends State<PantryPage> {
   int _selectedMenuIndex = 0;
+  User user = DBSim().user!;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -84,71 +88,13 @@ class _PantryPageState extends State<PantryPage> {
               ),
               Expanded(
                 child: ListView(
-                  children: const [
-                    PantryItemCard(
-                      productName: 'Potato',
-                      productType: Icons.lunch_dining,
-                    ),
-                    PantryItemCard(
-                      productName: 'Tomato',
-                      productType: Icons.dinner_dining,
-                    ),
-                    PantryItemCard(
-                      productName: 'Mango',
-                      productType: Icons.brunch_dining,
-                    ),
-                    PantryItemCard(
-                      productName: 'Banana',
-                      productType: Icons.breakfast_dining,
-                    ),
-                    PantryItemCard(
-                      productName: 'Apple',
-                      productType: Icons.food_bank,
-                    ),
-                    PantryItemCard(
-                      productName: 'Orange',
-                      productType: Icons.food_bank_outlined,
-                    ),
-                    PantryItemCard(
-                      productName: 'Pineapple',
-                      productType: Icons.food_bank_rounded,
-                    ),
-                    PantryItemCard(
-                      productName: 'Grapes',
-                      productType: Icons.food_bank_sharp,
-                    ),
-                    PantryItemCard(
-                      productName: 'Potato',
-                      productType: Icons.lunch_dining,
-                    ),
-                    PantryItemCard(
-                      productName: 'Tomato',
-                      productType: Icons.dinner_dining,
-                    ),
-                    PantryItemCard(
-                      productName: 'Mango',
-                      productType: Icons.brunch_dining,
-                    ),
-                    PantryItemCard(
-                      productName: 'Banana',
-                      productType: Icons.breakfast_dining,
-                    ),
-                    PantryItemCard(
-                      productName: 'Apple',
-                      productType: Icons.food_bank,
-                    ),
-                    PantryItemCard(
-                      productName: 'Orange',
-                      productType: Icons.food_bank_outlined,
-                    ),
-                    PantryItemCard(
-                      productName: 'Pineapple',
-                      productType: Icons.food_bank_rounded,
-                    ),
-                    PantryItemCard(
-                      productName: 'Grapes',
-                      productType: Icons.food_bank_sharp,
-                    ),
+                  children: [
+                    ...user.pantry.map((pantryItem) {
+                      return PantryItemCard(
+                        productName: pantryItem.foodProduct.name,
+                        productType: pantryItem.foodProduct.iconData,
+                      );
+                    }).toList(),
                   ],
                 ),
               ),
