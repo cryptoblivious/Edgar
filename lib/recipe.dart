@@ -5,6 +5,7 @@ class Recipe {
   String name;
   String cuisine;
   bool isSpicy;
+  bool isFavorite;
   String description;
   int servings;
   int prepTime;
@@ -19,6 +20,7 @@ class Recipe {
       {required this.name,
       required this.cuisine,
       required this.isSpicy,
+      required this.isFavorite,
       required this.description,
       required this.servings,
       required this.prepTime,

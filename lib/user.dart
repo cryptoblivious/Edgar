@@ -11,6 +11,8 @@ class User {
   List<FoodProduct> specificAllergens;
   List<String> broadAllergens;
   String? email;
+  List<User>? friends;
+
   User(
       {this.pantryItems = const [],
       this.recipeBook = const [],
@@ -19,5 +21,6 @@ class User {
       this.diets = const [],
       this.specificAllergens = const [],
       this.broadAllergens = const [],
-      this.email});
+      this.email,
+      this.friends});
 }
