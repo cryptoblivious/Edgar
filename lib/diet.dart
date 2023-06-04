@@ -5,6 +5,7 @@ enum Diet {
   carnivore,
   dash,
   halal,
+  glutenFree,
   keto,
   lactoVegetarian,
   lowFodmap,

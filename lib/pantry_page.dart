@@ -28,15 +28,21 @@ class _PantryPageState extends State<PantryPage> {
               Row(
                 children: [
                   Container(
-                      padding: const EdgeInsets.all(10),
                       margin: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                      decoration: BoxDecoration(
-                          color: Colors.grey[700],
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Icon(
-                        Icons.view_list_outlined,
-                        color: Colors.white,
-                      )),
+                      child: IconButton(
+                          icon: const Icon(Icons.view_list_outlined),
+                          color: Colors.white,
+                          onPressed: () {},
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.all(10)),
+                              backgroundColor: MaterialStateColor.resolveWith(
+                                  (states) => Colors.grey[700]!),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ))))),
                   Expanded(
                     child: Container(
                       margin: const EdgeInsets.all(10),
@@ -50,24 +56,30 @@ class _PantryPageState extends State<PantryPage> {
                             child: Icon(Icons.search),
                           ),
                           Text(
-                            'Search bar goes here',
+                            'Search',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 24, color: Colors.black),
+                            style: TextStyle(fontSize: 30, color: Colors.black),
                           ),
                         ],
                       ),
                     ),
                   ),
                   Container(
-                      padding: const EdgeInsets.all(10),
                       margin: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-                      decoration: BoxDecoration(
-                          color: Colors.grey[700],
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Icon(
-                        Icons.filter_list,
-                        color: Colors.white,
-                      )),
+                      child: IconButton(
+                          icon: const Icon(Icons.filter_list),
+                          color: Colors.white,
+                          onPressed: () {},
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.all(10)),
+                              backgroundColor: MaterialStateColor.resolveWith(
+                                  (states) => Colors.grey[700]!),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ))))),
                 ],
               ),
               Expanded(
@@ -145,8 +157,8 @@ class _PantryPageState extends State<PantryPage> {
         )),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
-          backgroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.add),
+          backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+          child: const Icon(Icons.add, color: Colors.white),
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedMenuIndex,
