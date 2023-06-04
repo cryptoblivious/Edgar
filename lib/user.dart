@@ -3,7 +3,7 @@ import 'pantry_item.dart';
 import 'recipe.dart';
 
 class User {
-  List<PantryItem> pantryItems;
+  List<PantryItem> pantry;
   List<Recipe> recipeBook;
   List<FoodProduct> watchList;
   List<FoodProduct> shoppingList;
@@ -14,7 +14,7 @@ class User {
   List<User>? friends;
 
   User(
-      {this.pantryItems = const [],
+      {this.pantry = const [],
       this.recipeBook = const [],
       this.watchList = const [],
       this.shoppingList = const [],
