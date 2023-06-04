@@ -1,33 +1,52 @@
 import 'package:flutter/material.dart';
 
-class PantryItemCard extends StatefulWidget {
-  const PantryItemCard(
-      {super.key, required this.productName, required this.productType});
+import 'pantry_item.dart';
+import 'stock_level.dart';
 
-  final String productName;
-  final IconData productType;
+class PantryItemCard extends StatefulWidget {
+  const PantryItemCard({super.key, required this.pantryItem, required this.onItemChanged});
+
+  final PantryItem pantryItem;
+  final Function(PantryItem) onItemChanged;
 
   @override
   State<PantryItemCard> createState() => _PantryItemCardState();
 }
 
 class _PantryItemCardState extends State<PantryItemCard> {
-  List<IconData> stockLevelIcons = [
-    Icons.hourglass_full,
-    Icons.hourglass_bottom,
-    Icons.hourglass_empty,
-  ];
+  PantryItem get pantryItem => widget.pantryItem;
+  Function(PantryItem) get onItemChanged => widget.onItemChanged;
+
+  Map<StockLevel, IconData> stockLevelIcons = {
+    StockLevel.inStock: Icons.hourglass_full,
+    StockLevel.runningLow: Icons.hourglass_bottom,
+    StockLevel.outOfStock: Icons.hourglass_empty
+  };
 
   List<IconData> isStapleIcons = [
     Icons.favorite_border,
     Icons.favorite,
   ];
 
-  void _rotateIconList(List<IconData> iconList) {
+  void _handleItemChanged(String variable) {
     setState(() {
-      //make it so the second icon is the first icon, and the first icon is the last icon
-      iconList.add(iconList.removeAt(0));
+      if (variable == 'isStaple') {
+        pantryItem.isStaple = !pantryItem.isStaple;
+      } else if (variable == 'stockLevel') {
+        switch (pantryItem.stockLevel) {
+          case StockLevel.inStock:
+            pantryItem.stockLevel = StockLevel.runningLow;
+            break;
+          case StockLevel.runningLow:
+            pantryItem.stockLevel = StockLevel.outOfStock;
+            break;
+          case StockLevel.outOfStock:
+            pantryItem.stockLevel = StockLevel.inStock;
+            break;
+        }
+      }
     });
+    onItemChanged(pantryItem);
   }
 
   @override
@@ -48,33 +67,37 @@ class _PantryItemCardState extends State<PantryItemCard> {
         vertical: 10,
       ),
       child: TextButton(
-        onPressed: () => _rotateIconList(stockLevelIcons),
+        onPressed: () => _handleItemChanged('stockLevel'),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              icon: Icon(isStapleIcons[0]),
-              onPressed: () => _rotateIconList(isStapleIcons),
+              icon: Icon(isStapleIcons[pantryItem.isStaple ? 1 : 0]),
+              onPressed: () => _handleItemChanged('isStaple'),
               color: Theme.of(context).colorScheme.onPrimary,
               iconSize: 36,
             ),
-            Row(
-              children: [
-                Icon(widget.productType,
-                    color: Theme.of(context).colorScheme.onPrimary, size: 36),
-                const SizedBox(width: 10),
-                Text(
-                  widget.productName,
-                  style: TextStyle(
-                    fontSize: 36,
-                    color: Theme.of(context).colorScheme.onPrimary,
+            const SizedBox(
+              width: 18,
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  Icon(pantryItem.foodProduct.iconData, color: Theme.of(context).colorScheme.onPrimary, size: 36),
+                  const SizedBox(width: 10),
+                  Text(
+                    pantryItem.foodProduct.name,
+                    style: TextStyle(
+                      fontSize: 36,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             IconButton(
-              icon: Icon(stockLevelIcons[0]),
-              onPressed: () => _rotateIconList(stockLevelIcons),
+              icon: Icon(stockLevelIcons[pantryItem.stockLevel]),
+              onPressed: () => _handleItemChanged('stockLevel'),
               color: Theme.of(context).colorScheme.onPrimary,
               iconSize: 36,
             ),

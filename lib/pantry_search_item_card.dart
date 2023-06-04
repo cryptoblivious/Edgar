@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PantryItemCard extends StatefulWidget {
-  const PantryItemCard(
-      {super.key, required this.productName, required this.productIcon});
+  const PantryItemCard({super.key, required this.productName, required this.productIcon});
 
   final String productName;
   final IconData productIcon;
@@ -20,7 +19,6 @@ class _PantryItemCardState extends State<PantryItemCard> {
 
   void _rotateIcon() {
     setState(() {
-      //make it so the second icon is the first icon, and the first icon is the last icon
       icons.add(icons.removeAt(0));
     });
   }
@@ -71,17 +69,10 @@ class _PantryItemCardState extends State<PantryItemCard> {
           overlayColor: MaterialStateProperty.resolveWith<Color?>(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.hovered)) {
-                return Theme.of(context)
-                    .colorScheme
-                    .onSecondary
-                    .withOpacity(0.04);
+                return Theme.of(context).colorScheme.onSecondary.withOpacity(0.04);
               }
-              if (states.contains(MaterialState.focused) ||
-                  states.contains(MaterialState.pressed)) {
-                return Theme.of(context)
-                    .colorScheme
-                    .onSecondary
-                    .withOpacity(0.12);
+              if (states.contains(MaterialState.focused) || states.contains(MaterialState.pressed)) {
+                return Theme.of(context).colorScheme.onSecondary.withOpacity(0.12);
               }
               return null; // Defer to the widget's default.
             },

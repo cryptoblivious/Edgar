@@ -1,9 +1,9 @@
 import 'food_product.dart';
-import 'pantry_item.dart';
+import 'pantry.dart';
 import 'recipe.dart';
 
 class User {
-  List<PantryItem> pantry = [];
+  Pantry pantry = Pantry();
   List<Recipe> recipeBook = [];
   List<FoodProduct> watchList = [];
   List<FoodProduct> shoppingList = [];

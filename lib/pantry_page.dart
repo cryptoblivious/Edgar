@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pantry_item_card.dart';
+import 'pantry_item.dart';
 import 'db_sim.dart';
 import 'user.dart';
 
@@ -21,6 +22,12 @@ class _PantryPageState extends State<PantryPage> {
     });
   }
 
+  void _handlePantryItemChanged(PantryItem pantryItem) {
+    setState(() {
+      user.pantry.handleItemChanged(pantryItem);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,21 +45,15 @@ class _PantryPageState extends State<PantryPage> {
                           color: Colors.white,
                           onPressed: () {},
                           style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.all(10)),
-                              backgroundColor: MaterialStateColor.resolveWith(
-                                  (states) => Colors.grey[700]!),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
+                              padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
+                              backgroundColor: MaterialStateColor.resolveWith((states) => Colors.grey[700]!),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ))))),
                   Expanded(
                     child: Container(
                       margin: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                       child: const Row(
                         children: [
                           Padding(
@@ -75,13 +76,9 @@ class _PantryPageState extends State<PantryPage> {
                           color: Colors.white,
                           onPressed: () {},
                           style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.all(10)),
-                              backgroundColor: MaterialStateColor.resolveWith(
-                                  (states) => Colors.grey[700]!),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
+                              padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
+                              backgroundColor: MaterialStateColor.resolveWith((states) => Colors.grey[700]!),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ))))),
                 ],
@@ -89,10 +86,10 @@ class _PantryPageState extends State<PantryPage> {
               Expanded(
                 child: ListView(
                   children: [
-                    ...user.pantry.map((pantryItem) {
+                    ...user.pantry.items.map((pantryItem) {
                       return PantryItemCard(
-                        productName: pantryItem.foodProduct.name,
-                        productType: pantryItem.foodProduct.iconData,
+                        pantryItem: pantryItem,
+                        onItemChanged: _handlePantryItemChanged,
                       );
                     }).toList(),
                   ],
@@ -116,26 +113,11 @@ class _PantryPageState extends State<PantryPage> {
           selectedFontSize: 24,
           landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.inventory_2_outlined),
-                label: 'Pantry',
-                backgroundColor: Colors.black),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.dining_outlined),
-                label: 'Recipes',
-                backgroundColor: Colors.black),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_basket_outlined),
-                label: 'Groceries',
-                backgroundColor: Colors.black),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                label: 'Profile',
-                backgroundColor: Colors.black),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings_outlined),
-                label: 'Settings',
-                backgroundColor: Colors.black),
+            BottomNavigationBarItem(icon: Icon(Icons.inventory_2_outlined), label: 'Pantry', backgroundColor: Colors.black),
+            BottomNavigationBarItem(icon: Icon(Icons.dining_outlined), label: 'Recipes', backgroundColor: Colors.black),
+            BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_outlined), label: 'Groceries', backgroundColor: Colors.black),
+            BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile', backgroundColor: Colors.black),
+            BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: 'Settings', backgroundColor: Colors.black),
           ],
         ));
   }

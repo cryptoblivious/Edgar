@@ -16,11 +16,7 @@ enum Diet {
   ovoVegetarian,
   paleo,
   pescatarian,
-  primal,
   raw,
-  southBeach,
   vegan,
   vegetarian,
-  whole30,
-  zone,
 }

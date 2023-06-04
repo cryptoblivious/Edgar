@@ -14,39 +14,51 @@ class DBSim {
 
     FoodProduct tomato = FoodProduct(
       name: 'Tomato',
-      iconData: Icons.food_bank_outlined,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.fruitNvegetable],
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct milk = FoodProduct(
       name: 'Milk',
-      iconData: Icons.food_bank_outlined,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.dairy],
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct bread = FoodProduct(
       name: 'Bread',
-      iconData: Icons.food_bank_outlined,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.grain],
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct egg = FoodProduct(
       name: 'Egg',
-      iconData: Icons.food_bank_outlined,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.egg],
       diets: [Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct cheese = FoodProduct(
       name: 'Cheese',
-      iconData: Icons.food_bank_outlined,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.dairy],
       diets: [Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
+    FoodProduct chicken = FoodProduct(
+      name: 'Chicken',
+      iconData: Icons.egg,
+      foodCategories: [FoodCategory.meatNPoultry],
+      diets: [Diet.omnivore, Diet.carnivore],
+    );
+    FoodProduct beef = FoodProduct(
+      name: 'Beef',
+      iconData: Icons.egg,
+      foodCategories: [FoodCategory.meatNPoultry],
+      diets: [Diet.omnivore, Diet.carnivore],
+    );
 
-    user!.pantry.add(PantryItem(foodProduct: milk, isStaple: true));
-    user!.pantry.add(PantryItem(foodProduct: bread, isStaple: true));
-    user!.pantry.add(PantryItem(foodProduct: egg, isStaple: true));
-    user!.pantry.add(PantryItem(foodProduct: cheese, isStaple: true));
-    user!.pantry.add(PantryItem(foodProduct: tomato, isStaple: false));
+    user!.pantry.items.add(PantryItem(foodProduct: milk, isStaple: true));
+    user!.pantry.items.add(PantryItem(foodProduct: bread, isStaple: true));
+    user!.pantry.items.add(PantryItem(foodProduct: egg, isStaple: true));
+    user!.pantry.items.add(PantryItem(foodProduct: cheese, isStaple: true));
+    user!.pantry.items.add(PantryItem(foodProduct: tomato, isStaple: true));
   }
 }
