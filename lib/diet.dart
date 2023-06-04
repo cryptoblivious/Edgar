@@ -4,6 +4,7 @@ enum Diet {
   atkins,
   carnivore,
   dash,
+  halal,
   keto,
   lactoVegetarian,
   lowFodmap,

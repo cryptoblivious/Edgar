@@ -1,8 +1,10 @@
 import 'food_product.dart';
 import 'pantry_item.dart';
+import 'recipe.dart';
 
 class User {
   List<PantryItem> pantryItems;
+  List<Recipe> recipeBook;
   List<FoodProduct> watchList;
   List<FoodProduct> shoppingList;
   List<String> diets;
@@ -11,6 +13,7 @@ class User {
   String? email;
   User(
       {this.pantryItems = const [],
+      this.recipeBook = const [],
       this.watchList = const [],
       this.shoppingList = const [],
       this.diets = const [],

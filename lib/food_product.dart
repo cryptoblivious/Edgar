@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'diet.dart';
+import 'food_category.dart';
 
 class FoodProduct {
   String name;
   Icon icon;
-  List<String> foodCategories;
+  List<FoodCategory> foodCategories;
   List<Diet> diets;
   late List<double> prices;
   double? lowestPrice;

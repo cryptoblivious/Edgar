@@ -1,9 +1,10 @@
 import 'ingredient.dart';
-
 import 'diet.dart';
 
 class Recipe {
   String name;
+  String cuisine;
+  bool isSpicy;
   String description;
   int servings;
   int prepTime;
@@ -16,6 +17,8 @@ class Recipe {
 
   Recipe(
       {required this.name,
+      required this.cuisine,
+      required this.isSpicy,
       required this.description,
       required this.servings,
       required this.prepTime,
