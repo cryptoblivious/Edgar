@@ -4,8 +4,12 @@ enum StockLevel { inStock, runningLow, outOfStock }
 
 class PantryItem {
   FoodProduct foodProduct;
-  bool isStaple;
-  StockLevel stockLevel = StockLevel.inStock;
+  bool
+      isStaple; // Staple items are not removed from the pantry when they are used up
+  StockLevel stockLevel;
 
-  PantryItem({required this.foodProduct, required this.isStaple, stockLevel});
+  PantryItem(
+      {required this.foodProduct,
+      required this.isStaple,
+      this.stockLevel = StockLevel.inStock});
 }
