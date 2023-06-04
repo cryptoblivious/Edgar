@@ -16,19 +16,19 @@ class App extends StatelessWidget {
           fontFamily: 'Montez',
           useMaterial3: true,
           splashColor: Colors.amber[800]!.withAlpha(50)),
-      home: const Home(),
+      home: const PantryPage(),
     );
   }
 }
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class PantryPage extends StatefulWidget {
+  const PantryPage({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<PantryPage> createState() => _PantryPageState();
 }
 
-class _HomeState extends State<Home> {
+class _PantryPageState extends State<PantryPage> {
   int _selectedMenuIndex = 0;
 
   void _onItemTapped(int index) {
@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
     Widget body;
     switch (_selectedMenuIndex) {
       case 0:
-        body = const PantryPage();
+        body = const PantryBody();
         break;
       case 1:
         body = Container(
@@ -75,36 +75,28 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           elevation: 0,
-          leading: Image.asset('assets/icons/edgar.png'),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text('Edgar, your personal Chef',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    letterSpacing: 2.0,
-                  )),
-              const SizedBox(width: 10),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    width: 2,
+          title: Center(
+            child: Row(
+              children: [
+                const Icon(Icons.search, size: 35, color: Colors.white),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.all(10),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: const Text(
+                      'Search bar goes here',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 12, color: Colors.black),
+                    ),
                   ),
-                  shape: BoxShape.circle,
                 ),
-                child: CircleAvatar(
-                  backgroundColor: Colors.black,
-                  radius: 22,
-                  child: Icon(Icons.person,
-                      color: Theme.of(context).colorScheme.onPrimary, size: 35),
-                ),
-              )
-            ],
+              ],
+            ),
           ),
-          centerTitle: true,
         ),
         body: body,
         bottomNavigationBar: BottomNavigationBar(
@@ -301,14 +293,14 @@ class _PantrySearchContentState extends State<PantrySearchContent> {
   }
 }
 
-class PantryPage extends StatefulWidget {
-  const PantryPage({super.key});
+class PantryBody extends StatefulWidget {
+  const PantryBody({super.key});
 
   @override
-  State<PantryPage> createState() => _PantryPageState();
+  State<PantryBody> createState() => _PantryBodyState();
 }
 
-class _PantryPageState extends State<PantryPage> {
+class _PantryBodyState extends State<PantryBody> {
   int _selectedSubmenuIndex = 0;
 
   @override
