@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'diet.dart';
 
 class FoodProduct {
   String name;
   Icon icon;
   List<String> foodCategories;
-  List<String> diets;
-  List<double> prices;
+  List<Diet> diets;
+  late List<double> prices;
   double? lowestPrice;
   double? averagePrice;
 
@@ -14,11 +15,13 @@ class FoodProduct {
     required this.icon,
     this.foodCategories = const [],
     this.diets = const [],
-    this.prices = const [],
   }) {
-    if (prices.isNotEmpty) {
-      lowestPrice = prices.reduce((a, b) => a < b ? a : b);
-      averagePrice = prices.reduce((a, b) => a + b) / prices.length;
-    }
+    prices.isNotEmpty ? updatePrices(prices) : prices = const [];
+  }
+
+  void updatePrices(List<double> newPrices) {
+    prices = newPrices;
+    lowestPrice = prices.reduce((curr, next) => curr < next ? curr : next);
+    averagePrice = prices.reduce((curr, next) => curr + next) / prices.length;
   }
 }
