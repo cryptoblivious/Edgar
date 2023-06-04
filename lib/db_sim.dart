@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'user.dart';
 import 'pantry_item.dart';
@@ -15,79 +14,79 @@ class DBSim {
 
     FoodProduct tomato = FoodProduct(
       name: 'Tomato',
-      iconData: FontAwesomeIcons.breadSlice,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.fruitNvegetable],
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct milk = FoodProduct(
       name: 'Milk',
-      iconData: FontAwesomeIcons.cheese,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.dairy],
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct bread = FoodProduct(
       name: 'Bread',
-      iconData: FontAwesomeIcons.breadSlice,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.grain],
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct egg = FoodProduct(
       name: 'Egg',
-      iconData: FontAwesomeIcons.egg,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.egg],
       diets: [Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct cheese = FoodProduct(
       name: 'Cheese',
-      iconData: FontAwesomeIcons.breadSlice,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.dairy],
       diets: [Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct chicken = FoodProduct(
       name: 'Chicken',
-      iconData: FontAwesomeIcons.breadSlice,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.meatNPoultry],
       diets: [Diet.omnivore, Diet.carnivore],
     );
     FoodProduct beef = FoodProduct(
       name: 'Beef',
-      iconData: FontAwesomeIcons.breadSlice,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.meatNPoultry],
       diets: [Diet.omnivore, Diet.carnivore],
     );
     FoodProduct pork = FoodProduct(
       name: 'Pork',
-      iconData: FontAwesomeIcons.breadSlice,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.meatNPoultry],
       diets: [Diet.omnivore, Diet.carnivore],
     );
     FoodProduct fish = FoodProduct(
       name: 'Fish',
-      iconData: FontAwesomeIcons.breadSlice,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.meatNPoultry],
       diets: [Diet.omnivore, Diet.carnivore],
     );
     FoodProduct rice = FoodProduct(
       name: 'Rice',
-      iconData: FontAwesomeIcons.breadSlice,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.grain],
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct pasta = FoodProduct(
       name: 'Pasta',
-      iconData: FontAwesomeIcons.breadSlice,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.grain],
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct potato = FoodProduct(
       name: 'Potato',
-      iconData: FontAwesomeIcons.breadSlice,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.grain],
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct onion = FoodProduct(
       name: 'Onion',
-      iconData: FontAwesomeIcons.breadSlice,
+      iconData: Icons.egg,
       foodCategories: [FoodCategory.grain],
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
