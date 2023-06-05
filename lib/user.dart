@@ -21,40 +21,43 @@ class User {
   });
 
   factory User.fromFirestore(DocumentSnapshot snapshot) {
-    Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
-    User user = User(email: data?['email'] as String?);
+    try {
+      Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+      User user = User(email: data?['email'] as String?);
 
-    // Check if the 'pantry' field exists and is a subcollection
-    if (snapshot.reference.collection('pantry') != null) {
-      CollectionReference pantryCollectionRef = snapshot.reference.collection('pantry');
+      // Retrieve the user's pantries in a method
+      user._setPantries(snapshot);
 
-      // Query the subcollection to retrieve documents
-      pantryCollectionRef.get().then((pantryQuerySnapshot) {
-        print('Pantry subcollection snapshot: $pantryQuerySnapshot');
-        // Iterate through the documents in the subcollection
-        for (DocumentSnapshot pantrySnapshot in pantryQuerySnapshot.docs) {
+      // Continue processing other user data fields if needed
+
+      print('user: $user');
+      return user;
+    } catch (error) {
+      print('Error retrieving user: $error');
+      return User();
+    }
+  }
+
+  Future<void> _setPantries(DocumentSnapshot snapshot) async {
+    CollectionReference pantriesCollectionRef = snapshot.reference.collection('pantries');
+    print('Pantry subcollection reference: $pantriesCollectionRef');
+    print('Pantry subcollection path: ${pantriesCollectionRef.path}');
+
+    pantriesCollectionRef.get().then(
+      (querySnapshot) {
+        print("Successfully completed");
+        print('Pantry subcollection snapshot: $querySnapshot');
+        for (final DocumentSnapshot pantrySnapshot in querySnapshot.docs) {
           if (pantrySnapshot.exists) {
             print('Pantry document snapshot exists');
-            // Process each pantry document here
-            // Example: user.pantryList.add(Pantry.fromFirestore(pantrySnapshot));
+            pantries?.add(Pantry.fromFirestore(pantrySnapshot));
           } else {
             print('Pantry document snapshot does not exist');
             // Handle the case where a pantry document doesn't exist
           }
         }
-        print('Pantry: ${user.pantries?[0]}');
-      }).catchError((error) {
-        print('Error retrieving pantry subcollection: $error');
-
-        // Handle any error that occurred while retrieving the pantry subcollection
-      });
-    } else {
-      // Handle the case where the 'pantry' subcollection is missing
-    }
-
-    // Continue processing other user data fields if needed
-
-    print('user : $user');
-    return user;
+      },
+      onError: (e) => print("Error completing: $e"),
+    );
   }
 }
