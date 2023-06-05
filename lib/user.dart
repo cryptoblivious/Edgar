@@ -43,6 +43,7 @@ class User {
     print('Pantry subcollection reference: $pantriesCollectionRef');
     print('Pantry subcollection path: ${pantriesCollectionRef.path}');
 
+// TODO : Find out why this doesn't work
     pantriesCollectionRef.get().then(
       (querySnapshot) {
         print("Successfully completed");
