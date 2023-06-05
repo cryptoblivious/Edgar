@@ -91,18 +91,18 @@ class DBSim {
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
 
-    user!.pantry.items.add(PantryItem(foodProduct: milk, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: bread, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: egg, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: cheese, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: tomato, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: chicken, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: beef, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: pork, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: fish, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: rice, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: pasta, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: potato, isStaple: true));
-    user!.pantry.items.add(PantryItem(foodProduct: onion, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: milk, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: bread, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: egg, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: cheese, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: tomato, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: chicken, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: beef, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: pork, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: fish, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: rice, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: pasta, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: potato, isStaple: true));
+    user!.pantries?[0].items.add(PantryItem(foodProduct: onion, isStaple: true));
   }
 }

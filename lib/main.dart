@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+
 import 'pantry_page.dart';
 import 'pantry_item_card.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const App());
 }
 
@@ -15,8 +19,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     // Set the status bar color
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor:
-          Colors.deepPurple[900]!, // Set your desired status bar color here
+      statusBarColor: Colors.deepPurple[900]!, // Set your desired status bar color here
     ));
 
     return MaterialApp(
