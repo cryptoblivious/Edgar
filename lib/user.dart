@@ -43,10 +43,9 @@ class User {
     print('Pantry subcollection reference: $pantriesCollectionRef');
     print('Pantry subcollection path: ${pantriesCollectionRef.path}');
 
-// TODO : Find out why this doesn't work
-    pantriesCollectionRef.get().then(
+// TODO : Find out why this
+    await pantriesCollectionRef.get().then(
       (querySnapshot) {
-        print("Successfully completed");
         print('Pantry subcollection snapshot: $querySnapshot');
         for (final DocumentSnapshot pantrySnapshot in querySnapshot.docs) {
           if (pantrySnapshot.exists) {
