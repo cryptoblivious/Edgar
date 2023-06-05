@@ -42,8 +42,13 @@ class User {
     CollectionReference pantriesCollectionRef = snapshot.reference.collection('pantries');
     print('Pantry subcollection reference: $pantriesCollectionRef');
     print('Pantry subcollection path: ${pantriesCollectionRef.path}');
-
-// TODO : Find out why this
+    DocumentReference pantryDocumentRef = pantriesCollectionRef.doc('kwLJoVwZkG4VMWEMZl1M');
+    DocumentSnapshot pantryDocumentSnapshot = await pantryDocumentRef.get().then((DocumentSnapshot snapshot) {
+      print('Pantry document snapshot: $snapshot');
+      return snapshot;
+    });
+    print(pantryDocumentSnapshot);
+// TODO : Find out why this isn't working
     await pantriesCollectionRef.get().then(
       (querySnapshot) {
         print('Pantry subcollection snapshot: $querySnapshot');
