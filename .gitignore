@@ -45,3 +45,6 @@ app.*.map.json
 
 # Exclude gradle.properties in subfolders
 **/gradle.properties
+
+# Exclude google-services.json from all submodules
+**/google-services.json
