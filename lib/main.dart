@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'sign_in_page.dart';
 import 'pantry_page.dart';
@@ -11,7 +11,7 @@ import 'pantry_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const App());
+  runApp(const ProviderScope(child: App()));
 }
 
 class App extends StatelessWidget {
@@ -52,6 +52,17 @@ class App extends StatelessWidget {
     );
   }
 }
+
+// Provider to listen to the user document changes
+final userDocumentProvider = StreamProvider.autoDispose<DocumentSnapshot?>((ref) {
+  final User? user = FirebaseAuth.instance.currentUser;
+  if (user != null) {
+    final userDocRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
+    return userDocRef.snapshots().map((snapshot) => snapshot.exists ? snapshot : null);
+  } else {
+    return Stream.value(null);
+  }
+});
 
 // Function to create or update the user document in Firestore
 Future<void> linkUserWithDocument() async {
