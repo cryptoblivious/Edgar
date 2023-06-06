@@ -15,35 +15,59 @@ class PantryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Consumer(
       builder: (context, watch, child) {
-        final userDocumentSnapshot = ref.watch(userDocumentProvider);
-        print('User document snapshot: $userDocumentSnapshot');
-        if (userDocumentSnapshot.isLoading) {
+        final asyncUserDocumentSnapshot = ref.watch(userSnapshotProvider);
+
+        if (asyncUserDocumentSnapshot.isLoading) {
           // User document is not available yet
-          return Scaffold(
-            appBar: AppBar(
-                // App bar content
-                ),
-            body: const Center(
+          return const Scaffold(
+            body: Center(
               child: CircularProgressIndicator(),
             ),
           );
-        } else if (userDocumentSnapshot.error != null) {
+        } else if (asyncUserDocumentSnapshot.error != null) {
           // Error occurred while fetching the user document
           return Scaffold(
-            appBar: AppBar(
-                // App bar content
-                ),
             body: Center(
-              child: Text('Error occurred: ${userDocumentSnapshot.error}'),
+              child: Text('Error occurred: ${asyncUserDocumentSnapshot.error}'),
             ),
           );
         } else {
           // User document is available
-          final userDocumentData = userDocumentSnapshot.value;
-          print('User document data: $userDocumentData');
-          final user = User.fromFirestore(userDocumentData!);
-          //return PantryPageContent(user: user);
-          return PantryPageContent(user: User());
+          final userSnapshot = asyncUserDocumentSnapshot.value;
+          print('User snapshot: $userSnapshot');
+
+          return FutureBuilder<User>(
+            future: User.createAsync(userSnapshot!),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                // User is still being created
+                return const Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                // Error occurred while creating the user
+                return Scaffold(
+                  body: Center(
+                    child: Text('Error occurred: ${snapshot.error}'),
+                  ),
+                );
+              } else if (snapshot.hasData) {
+                // User is created successfully
+                final user = snapshot.data!;
+                return PantryPageContent(user: user);
+              } else {
+                // Future has completed, but no data was returned
+                // You can handle this case accordingly
+                return const Scaffold(
+                  body: Center(
+                    child: Text('No user data available'),
+                  ),
+                );
+              }
+            },
+          );
         }
       },
     );
