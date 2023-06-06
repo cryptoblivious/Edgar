@@ -8,17 +8,17 @@ import 'pantry_item.dart';
 import 'db_sim.dart';
 import 'user.dart';
 
-class PantryPage extends StatelessWidget {
+class PantryPage extends ConsumerWidget {
   const PantryPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Consumer(
       builder: (context, watch, child) {
-        final userDocumentSnapshot = watch(userDocumentProvider);
-
-        if (userDocumentSnapshot.data == null) {
-          // User document is not available yet or does not exist
+        final userDocumentSnapshot = ref.watch(userDocumentProvider);
+        print('User document snapshot: $userDocumentSnapshot');
+        if (userDocumentSnapshot.isLoading) {
+          // User document is not available yet
           return Scaffold(
             appBar: AppBar(
                 // App bar content
@@ -27,7 +27,7 @@ class PantryPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             ),
           );
-        } else if (userDocumentSnapshot.hasError) {
+        } else if (userDocumentSnapshot.error != null) {
           // Error occurred while fetching the user document
           return Scaffold(
             appBar: AppBar(
@@ -39,10 +39,11 @@ class PantryPage extends StatelessWidget {
           );
         } else {
           // User document is available
-          final userDocumentData = userDocumentSnapshot.data!.data();
-          final user = User.fromFirestore(userDocumentData); // Parse user data from the document
-
-          return PantryPageContent(user: user);
+          final userDocumentData = userDocumentSnapshot.value;
+          print('User document data: $userDocumentData');
+          final user = User.fromFirestore(userDocumentData!);
+          //return PantryPageContent(user: user);
+          return PantryPageContent(user: User());
         }
       },
     );
@@ -70,7 +71,7 @@ class _PantryPageContentState extends State<PantryPageContent> {
   void _handlePantryItemChanged(PantryItem pantryItem) {
     setState(() {
       int activePantry = widget.user.activePantry;
-      widget.user.pantries[activePantry].handleItemChanged(pantryItem);
+      widget.user.pantries![activePantry].handleItemChanged(pantryItem);
     });
   }
 
