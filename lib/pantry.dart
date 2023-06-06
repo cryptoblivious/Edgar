@@ -4,9 +4,10 @@ import 'pantry_item.dart';
 import 'stock_level.dart';
 
 class Pantry {
+  String name;
   List<PantryItem> items = [];
 
-  Pantry();
+  Pantry({this.name = 'Home'});
 
   void handleItemChanged(PantryItem item) {
     int index = items.indexOf(item);

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'pantry_item_card.dart';
 import 'pantry_item.dart';
-// import 'db_sim.dart';
+import 'db_sim.dart';
 import 'user.dart';
 
 class PantryPage extends StatefulWidget {
@@ -15,7 +15,8 @@ class PantryPage extends StatefulWidget {
 
 class _PantryPageState extends State<PantryPage> {
   int _selectedMenuIndex = 0;
-  User user = User(); // Initialize with an empty user or default value
+  //User user = User(); // Initialize with an empty user or default value
+  User user = DBSim().user!;
   void _onItemTapped(int index) {
     setState(() {
       _selectedMenuIndex = index;
@@ -38,19 +39,19 @@ class _PantryPageState extends State<PantryPage> {
             return Text('Error: ${snapshot.error}');
           }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          }
+          // if (snapshot.connectionState == ConnectionState.waiting) {
+          //   return const CircularProgressIndicator();
+          // }
 
           if (!snapshot.hasData || !snapshot.data!.exists) {
             return const Text('User data not found');
           }
 
           // Parse the data from the snapshot and update the user variable
-          user = User.fromFirestore(snapshot.data!);
+          //user = User.fromFirestore(snapshot.data!);
 
           // make the app wait for the user data to be fetched before building the UI
-          if (user.pantries!.isEmpty) {
+          if (user.pantries == null) {
             return const CircularProgressIndicator();
           }
 

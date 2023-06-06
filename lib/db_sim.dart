@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'user.dart';
+import 'pantry.dart';
 import 'pantry_item.dart';
 import 'food_product.dart';
 import 'food_category.dart';
@@ -91,6 +92,7 @@ class DBSim {
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
 
+    user!.pantries?.add(Pantry());
     user!.pantries?[0].items.add(PantryItem(foodProduct: milk, isStaple: true));
     user!.pantries?[0].items.add(PantryItem(foodProduct: bread, isStaple: true));
     user!.pantries?[0].items.add(PantryItem(foodProduct: egg, isStaple: true));
@@ -104,5 +106,9 @@ class DBSim {
     user!.pantries?[0].items.add(PantryItem(foodProduct: pasta, isStaple: true));
     user!.pantries?[0].items.add(PantryItem(foodProduct: potato, isStaple: true));
     user!.pantries?[0].items.add(PantryItem(foodProduct: onion, isStaple: true));
+  }
+
+  User getUser() {
+    return user!;
   }
 }
