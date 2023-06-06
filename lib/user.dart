@@ -4,7 +4,8 @@ import 'pantry.dart';
 import 'recipe.dart';
 
 class User {
-  int? activePantry = 0;
+  Pantry pantry = Pantry();
+  int activePantry = 0;
   List<Pantry>? pantries = [];
   List<Recipe>? recipeBook = [];
   List<FoodProduct>? watchList = [];
@@ -17,52 +18,44 @@ class User {
 
   User({
     this.email,
-    this.friends,
   });
 
   factory User.fromFirestore(DocumentSnapshot snapshot) {
-    try {
-      Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
-      User user = User(email: data?['email'] as String?);
+    Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+    User user = User(email: data?['email'] as String?);
 
-      // Retrieve the user's pantries in a method
-      user._setPantries(snapshot);
+    if (data?.containsKey('pantries') == true && data?['pantries'] is List) {
+      List<dynamic> pantriesData = (data?['pantries'] ?? []) as List<dynamic>;
+      List<DocumentReference> pantryReferences = pantriesData.cast<DocumentReference>();
 
-      // Continue processing other user data fields if needed
-
-      print('user: $user');
-      return user;
-    } catch (error) {
-      print('Error retrieving user: $error');
-      return User();
-    }
-  }
-
-  Future<void> _setPantries(DocumentSnapshot snapshot) async {
-    CollectionReference pantriesCollectionRef = snapshot.reference.collection('pantries');
-    print('Pantry subcollection reference: $pantriesCollectionRef');
-    print('Pantry subcollection path: ${pantriesCollectionRef.path}');
-    DocumentReference pantryDocumentRef = pantriesCollectionRef.doc('kwLJoVwZkG4VMWEMZl1M');
-    DocumentSnapshot pantryDocumentSnapshot = await pantryDocumentRef.get().then((DocumentSnapshot snapshot) {
-      print('Pantry document snapshot: $snapshot');
-      return snapshot;
-    });
-    print(pantryDocumentSnapshot);
-// TODO : Find out why this isn't working
-    await pantriesCollectionRef.get().then(
-      (querySnapshot) {
-        print('Pantry subcollection snapshot: $querySnapshot');
-        for (final DocumentSnapshot pantrySnapshot in querySnapshot.docs) {
+      // Add a method to asynchronously fetch and process pantry documents
+      Future<void> fetchPantries() async {
+        for (final DocumentReference pantryRef in pantryReferences) {
+          DocumentSnapshot pantrySnapshot = await pantryRef.get();
           if (pantrySnapshot.exists) {
-            print('Pantry document snapshot exists');
-            pantries?.add(Pantry.fromFirestore(pantrySnapshot));
+            print('Pantry document data: ${pantrySnapshot.data()}');
+            // Process each pantry document here
+            // TODO : Add correct code in the Pantry firestore database
+            Pantry pantry = Pantry.fromFirestore(pantrySnapshot);
+            user.pantries!.add(pantry);
           } else {
-            print('Pantry document snapshot does not exist');
-            // Handle the case where a pantry document doesn't exist
+            // Handle the case where the document was not found
+            print('Pantry document not found');
           }
         }
-      },
-      onError: (e) => print("Error completing: $e"),
-    );
+      }
+
+      // Call the asynchronous method to fetch and process pantry documents
+      fetchPantries().catchError((error) {
+        // Handle any error that occurred while fetching pantry documents
+        print('Error fetching pantry documents: $error');
+      });
+    } else {
+      // Handle the case where the 'pantries' field is missing or not an array
+    }
+
+    // Continue processing other user data fields if needed
+
+    return user;
   }
 }

@@ -24,7 +24,7 @@ class _PantryPageState extends State<PantryPage> {
 
   void _handlePantryItemChanged(PantryItem pantryItem) {
     setState(() {
-      int activePantry = user.activePantry!; // Assuming activePantry is guaranteed to have a value
+      int activePantry = user.activePantry; // Assuming activePantry is guaranteed to have a value
       user.pantries?[activePantry].handleItemChanged(pantryItem);
     });
   }
@@ -48,6 +48,11 @@ class _PantryPageState extends State<PantryPage> {
 
           // Parse the data from the snapshot and update the user variable
           user = User.fromFirestore(snapshot.data!);
+
+          // make the app wait for the user data to be fetched before building the UI
+          if (user.pantries!.isEmpty) {
+            return const CircularProgressIndicator();
+          }
 
           // Continue building your UI using the updated user data
           return Scaffold(
@@ -106,7 +111,7 @@ class _PantryPageState extends State<PantryPage> {
                     Expanded(
                       child: ListView(
                         children: [
-                          ...user.pantries![user.activePantry!].items.map((pantryItem) {
+                          ...user.pantries![user.activePantry].items.map((pantryItem) {
                             return PantryItemCard(
                               pantryItem: pantryItem,
                               onItemChanged: _handlePantryItemChanged,

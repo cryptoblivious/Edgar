@@ -31,8 +31,8 @@ class FoodProduct {
         .toList();
 
     // Convert the list of diets from Firestore data to Diet enum values
-    List<dynamic> dietData = (data?['diets'] ?? []) as List<dynamic>;
-    List<String> dietStrings = List<String>.from(dietData);
+    List<dynamic> dietsData = (data?['diets'] ?? []) as List<dynamic>;
+    List<String> dietStrings = List<String>.from(dietsData);
     List<Diet> diets = dietStrings.map((dietString) => Diet.values.firstWhere((diet) => diet.toString() == 'Diet.$dietString')).toList();
 
     FoodProduct foodProduct = FoodProduct(
