@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'sign_in_page.dart';
 import 'pantry_page.dart';
@@ -39,6 +40,8 @@ class App extends StatelessWidget {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
             // User is signed in, navigate to the authenticated page
+            linkUserWithDocument(); // Call the function to link the user with the document
+
             return const PantryPage();
           } else {
             // User is not signed in, show the FirebaseUI authentication page
@@ -47,5 +50,21 @@ class App extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+// Function to create or update the user document in Firestore
+Future<void> linkUserWithDocument() async {
+  final User? user = FirebaseAuth.instance.currentUser;
+  if (user != null) {
+    final userDocRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
+    final userDocSnapshot = await userDocRef.get();
+    if (!userDocSnapshot.exists) {
+      // Create the user document if it doesn't exist
+      await userDocRef.set({
+        'uid': user.uid,
+        // Add more fields as needed for user profile
+      });
+    }
   }
 }
