@@ -43,7 +43,7 @@ class _PantryPageState extends State<PantryPage> {
           //   return const CircularProgressIndicator();
           // }
 
-          if (!snapshot.hasData || !snapshot.data!.exists) {
+          if (snapshot.connectionState != ConnectionState.waiting && (!snapshot.hasData || !snapshot.data!.exists)) {
             return const Text('User data not found');
           }
 
