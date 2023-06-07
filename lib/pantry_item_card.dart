@@ -93,11 +93,17 @@ class _PantryItemCardState extends State<PantryItemCard> {
                   color: Theme.of(context).colorScheme.onPrimary,
                   iconSize: 32,
                 ),
-                IconButton(
-                  icon: Icon(isOnWatchlistIcons[isOnWatchlist ? 1 : 0]),
-                  onPressed: () => _handleItemChanged('isOnWatchlist'),
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  iconSize: 32,
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey[300],
+                  ),
+                  child: IconButton(
+                    icon: Icon(isOnWatchlistIcons[isOnWatchlist ? 1 : 0]),
+                    onPressed: () => _handleItemChanged('isOnWatchlist'),
+                    color: Colors.grey[700],
+                    iconSize: 32,
+                  ),
                 ),
                 IconButton(
                   icon: Icon(stockLevelIcons[pantryItem.stock]),

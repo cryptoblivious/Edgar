@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'pantry_item.dart';
-import 'stock.dart';
 
 class Pantry {
   String? name;
@@ -29,7 +28,7 @@ class Pantry {
     if (data?.containsKey('items') == true && data?['items'] is List) {
       print(data?['items']);
       List<dynamic> itemsData = (data?['items'] ?? []) as List<dynamic>;
-      for (dynamic itemData in itemsData) {
+      for (final dynamic itemData in itemsData) {
         PantryItem pantryItem = await PantryItem.createAsync(itemData);
         items.add(pantryItem);
       }

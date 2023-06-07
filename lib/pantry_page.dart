@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'providers.dart';
 import 'pantry_item_card.dart';
 import 'pantry_item.dart';
-import 'db_sim.dart';
 import 'user.dart';
+
+void showAddingItemsSnackbar(BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      width: 250,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      content: Text(
+        'Opening adding items menu...',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 20),
+      ),
+      duration: Duration(seconds: 2),
+      behavior: SnackBarBehavior.floating,
+      dismissDirection: DismissDirection.none,
+    ),
+  );
+}
 
 class PantryPage extends ConsumerWidget {
   const PantryPage({Key? key}) : super(key: key);
@@ -190,12 +207,14 @@ class _PantryPageContentState extends State<PantryPageContent> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO : Add view compontnt for adding items
+          // TODO : Add view component for adding items
           HapticFeedback.selectionClick();
+          showAddingItemsSnackbar(context);
         },
-        backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+        backgroundColor: Colors.deepPurple[400]!,
         child: const Icon(Icons.add, color: Colors.white),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedMenuIndex,
         onTap: _onItemTapped,
