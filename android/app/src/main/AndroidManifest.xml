@@ -2,7 +2,7 @@
     <application
         android:label="Edgar"
         android:name="${applicationName}"
-        android:icon="@mipmap/edgar">
+        android:icon="@mipmap/edgar_noborder">
         <activity
             android:name=".MainActivity"
             android:exported="true"
