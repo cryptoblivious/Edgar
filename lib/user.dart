@@ -49,7 +49,7 @@ class User {
         pantryReferences.map((pantryRef) async {
           DocumentSnapshot pantrySnapshot = await pantryRef.get();
           print('Pantry document data: ${pantrySnapshot.data()}');
-          Pantry pantry = Pantry.fromFirestore(pantrySnapshot);
+          Pantry pantry = await Pantry.createAsync(pantrySnapshot);
           pantries!.add(pantry);
         }),
       );

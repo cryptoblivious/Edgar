@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pantry_item.dart';
-import 'stock_level.dart';
+import 'stock.dart';
 
 class PantryItemCard extends StatefulWidget {
   const PantryItemCard({super.key, required this.pantryItem, required this.onItemChanged});
@@ -17,10 +17,10 @@ class _PantryItemCardState extends State<PantryItemCard> {
   PantryItem get pantryItem => widget.pantryItem;
   Function(PantryItem) get onItemChanged => widget.onItemChanged;
 
-  Map<StockLevel, IconData> stockLevelIcons = {
-    StockLevel.inStock: Icons.hourglass_full,
-    StockLevel.runningLow: Icons.hourglass_bottom,
-    StockLevel.outOfStock: Icons.hourglass_empty
+  Map<Stock, IconData> stockLevelIcons = {
+    Stock.inStock: Icons.hourglass_full,
+    Stock.runningLow: Icons.hourglass_bottom,
+    Stock.outOfStock: Icons.hourglass_empty
   };
 
   List<IconData> isStapleIcons = [
@@ -31,17 +31,20 @@ class _PantryItemCardState extends State<PantryItemCard> {
   void _handleItemChanged(String variable) {
     setState(() {
       if (variable == 'isStaple') {
-        pantryItem.isStaple = !pantryItem.isStaple;
+        pantryItem.isStaple = !pantryItem.isStaple!;
       } else if (variable == 'stockLevel') {
-        switch (pantryItem.stockLevel) {
-          case StockLevel.inStock:
-            pantryItem.stockLevel = StockLevel.runningLow;
+        switch (pantryItem.stock) {
+          case Stock.inStock:
+            pantryItem.stock = Stock.runningLow;
             break;
-          case StockLevel.runningLow:
-            pantryItem.stockLevel = StockLevel.outOfStock;
+          case Stock.runningLow:
+            pantryItem.stock = Stock.outOfStock;
             break;
-          case StockLevel.outOfStock:
-            pantryItem.stockLevel = StockLevel.inStock;
+          case Stock.outOfStock:
+            pantryItem.stock = Stock.inStock;
+            break;
+          default:
+            // Raise an exception
             break;
         }
       }
@@ -72,7 +75,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              icon: Icon(isStapleIcons[pantryItem.isStaple ? 1 : 0]),
+              icon: Icon(isStapleIcons[pantryItem.isStaple! ? 1 : 0]),
               onPressed: () => _handleItemChanged('isStaple'),
               color: Theme.of(context).colorScheme.onPrimary,
               iconSize: 36,
@@ -83,10 +86,10 @@ class _PantryItemCardState extends State<PantryItemCard> {
             Expanded(
               child: Row(
                 children: [
-                  Icon(pantryItem.foodProduct.iconData, color: Theme.of(context).colorScheme.onPrimary, size: 36),
+                  Icon(pantryItem.foodProduct!.iconData, color: Theme.of(context).colorScheme.onPrimary, size: 36),
                   const SizedBox(width: 10),
                   Text(
-                    pantryItem.foodProduct.name,
+                    pantryItem.foodProduct!.name,
                     style: TextStyle(
                       fontSize: 36,
                       color: Theme.of(context).colorScheme.onPrimary,
@@ -96,7 +99,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
               ),
             ),
             IconButton(
-              icon: Icon(stockLevelIcons[pantryItem.stockLevel]),
+              icon: Icon(stockLevelIcons[pantryItem.stock]),
               onPressed: () => _handleItemChanged('stockLevel'),
               color: Theme.of(context).colorScheme.onPrimary,
               iconSize: 36,
