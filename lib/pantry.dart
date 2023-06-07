@@ -37,27 +37,8 @@ class Pantry {
       List<dynamic> itemsData = (data?['items'] ?? []) as List<dynamic>;
       for (dynamic itemData in itemsData) {
         PantryItem pantryItem = await PantryItem.createAsync(itemData);
-        print('Item data: $itemData');
-        print('Item data type: ${itemData['foodProducts']}');
-        //PantryItem item = PantryItem.fromFirestore(itemData);
-        //items.add(item);
+        items.add(pantryItem);
       }
-      // List<Map<String, dynamic>> itemsData = (data?['items'] ?? []) as List<Map<String, dynamic>>;
-      // for (Map<String, dynamic> itemData in itemsData) {
-      //   List<dynamic> foodProductsData = (itemData['foodProducts'] ?? []) as List<dynamic>;
-      //   print('Food products data: $foodProductsData');
-      //PantryItem item = PantryItem.fromFirestore(food);
-      //items.add(item);
     }
-    // List<DocumentReference> foodProductReferences = List<DocumentReference>.from(foodProductsData);
-
-    // await Future.wait(
-    //   foodProductReferences.map((itemRef) async {
-    //     DocumentSnapshot itemSnapshot = await itemRef.get();
-    //     print('Pantry item document data: ${itemSnapshot.data()}');
-    //     PantryItem item = PantryItem.fromFirestore(itemSnapshot);
-    //     items.add(item);
-    //   }),
-    // );
   }
 }
