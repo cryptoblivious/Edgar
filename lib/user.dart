@@ -20,7 +20,8 @@ class User {
     this.email,
   });
 
-  User._create(DocumentSnapshot snapshot) {
+  User._create(dynamic data) {
+    activePantry = (data['activePantry'] ?? 0) as int;
     pantries = [];
     recipes = [];
     watchList = [];
@@ -33,14 +34,13 @@ class User {
   }
 
   static Future<User> createAsync(DocumentSnapshot snapshot) async {
-    User user = User._create(snapshot);
-    await user._loadFromFirestore(snapshot);
+    Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+    User user = User._create(data);
+    await user._loadFromFirestore(data);
     return user;
   }
 
-  Future<void> _loadFromFirestore(DocumentSnapshot snapshot) async {
-    Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
-
+  Future<void> _loadFromFirestore(dynamic data) async {
     if (data?.containsKey('pantries') == true && data?['pantries'] is List) {
       List<dynamic> pantriesData = (data?['pantries'] ?? []) as List<dynamic>;
       List<DocumentReference> pantryReferences = List<DocumentReference>.from(pantriesData);
@@ -50,9 +50,11 @@ class User {
           DocumentSnapshot pantrySnapshot = await pantryRef.get();
           print('Pantry document data: ${pantrySnapshot.data()}');
           Pantry pantry = await Pantry.createAsync(pantrySnapshot);
-          pantries!.add(pantry);
+          return pantry; // Return the pantry object
         }),
-      );
+      ).then((pantriesList) {
+        pantries = pantriesList.toList(); // Collect the results into the pantries list
+      });
     }
   }
 }

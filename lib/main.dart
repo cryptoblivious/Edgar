@@ -30,7 +30,7 @@ class App extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
           fontFamily: 'Montez',
           useMaterial3: true,
-          splashColor: Colors.amber[800]!.withAlpha(50),
+          splashColor: Colors.deepPurple[300]!.withAlpha(50),
         ),
         home: StreamBuilder<User?>(
           // Listen to the user authentication state changes

@@ -27,14 +27,26 @@ class PantryItem {
       DocumentSnapshot foodProductSnapshot = await foodProductReference.get();
       foodProduct = FoodProduct.fromFirestore(foodProductSnapshot);
     }
-    // factory PantryItem.fromFirestore(DocumentSnapshot snapshot) {
-    //   Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
-    //   PantryItem pantryItem = PantryItem(
-    //     foodProduct: FoodProduct.fromFirestore(data?['foodProduct'] as DocumentSnapshot<Object?>),
-    //     isStaple: data?['isStaple'] as bool? ?? false,
-    //     stockLevel: StockLevel.values.firstWhere((element) => element.toString() == data?['stockLevel']),
-    //   );
-    //   return pantryItem;
-    // }
+  }
+
+  void handleItemChanged(String variable) {
+    if (variable == 'isStaple') {
+      isStaple = !isStaple!;
+    } else if (variable == 'stock') {
+      if (stock == Stock.ok) {
+        stock = Stock.low;
+      } else if (stock == Stock.low) {
+        stock = Stock.out;
+      } else if (stock == Stock.out) {
+        stock = Stock.ok;
+      }
+    }
+    if (isStaple! && (stock == Stock.low || stock == Stock.out)) {
+      // TODO : Add logic to add to shopping list
+      print('Sending ${foodProduct?.name} to shopping list');
+    } else if (stock == Stock.ok) {
+      // TODO : Add logic to remove from shopping list
+      print('Removing ${foodProduct?.name} from shopping list');
+    }
   }
 }

@@ -9,14 +9,8 @@ class Pantry {
 
   Pantry({this.name = 'Home'});
 
-  void handleItemChanged(PantryItem item) {
-    int index = items.indexOf(item);
-    if (index != -1) {
-      if (!item.isStaple! && item.stock == Stock.out) {
-        print('Removing item from pantry');
-        items.remove(item);
-      }
-    }
+  void handleItemChanged(PantryItem item, String variable) {
+    item.handleItemChanged(variable);
   }
 
   Pantry._create(dynamic item) {

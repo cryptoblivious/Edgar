@@ -35,7 +35,6 @@ class PantryPage extends ConsumerWidget {
         } else {
           // User document is available
           final userSnapshot = asyncUserDocumentSnapshot.value;
-          print('User snapshot: $userSnapshot');
 
           return FutureBuilder<User>(
             future: User.createAsync(userSnapshot!),
@@ -94,10 +93,9 @@ class _PantryPageContentState extends State<PantryPageContent> {
     });
   }
 
-  void _handlePantryItemChanged(PantryItem pantryItem) {
+  void handleItemChanged(PantryItem pantryItem, String variable) {
     setState(() {
-      int activePantry = widget.user.activePantry;
-      widget.user.pantries![activePantry].handleItemChanged(pantryItem);
+      widget.user.pantries![widget.user.activePantry].handleItemChanged(pantryItem, variable);
     });
   }
 
@@ -117,13 +115,14 @@ class _PantryPageContentState extends State<PantryPageContent> {
                     margin: const EdgeInsets.fromLTRB(10, 10, 0, 10),
                     child: IconButton(
                       icon: const Icon(Icons.view_list_outlined),
-                      color: Colors.white,
                       onPressed: () {
-                        HapticFeedback.selectionClick();
+                        // TODO : Implement view options
+                        null;
                       },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
-                        backgroundColor: MaterialStateColor.resolveWith((states) => Colors.grey[700]!),
+                        backgroundColor: MaterialStateColor.resolveWith((states) => Colors.grey[300]!),
+                        foregroundColor: MaterialStateColor.resolveWith((states) => Colors.grey[800]!),
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -155,13 +154,14 @@ class _PantryPageContentState extends State<PantryPageContent> {
                     margin: const EdgeInsets.fromLTRB(0, 10, 10, 10),
                     child: IconButton(
                       icon: const Icon(Icons.filter_list),
-                      color: Colors.white,
                       onPressed: () {
-                        HapticFeedback.selectionClick();
+                        // TODO : Implement filter options
+                        null;
                       },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
-                        backgroundColor: MaterialStateColor.resolveWith((states) => Colors.grey[700]!),
+                        backgroundColor: MaterialStateColor.resolveWith((states) => Colors.grey[300]!),
+                        foregroundColor: MaterialStateColor.resolveWith((states) => Colors.grey[800]!),
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -178,7 +178,7 @@ class _PantryPageContentState extends State<PantryPageContent> {
                     ...user.pantries![user.activePantry].items.map((pantryItem) {
                       return PantryItemCard(
                         pantryItem: pantryItem,
-                        onItemChanged: _handlePantryItemChanged,
+                        onItemChanged: handleItemChanged,
                       );
                     }).toList(),
                   ],
@@ -190,6 +190,7 @@ class _PantryPageContentState extends State<PantryPageContent> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          // TODO : Add view compontnt for adding items
           HapticFeedback.selectionClick();
         },
         backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -200,7 +201,7 @@ class _PantryPageContentState extends State<PantryPageContent> {
         onTap: _onItemTapped,
         iconSize: 24,
         unselectedItemColor: Theme.of(context).colorScheme.onPrimary,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.deepPurple[300],
         unselectedFontSize: 18,
         selectedFontSize: 24,
         landscapeLayout: BottomNavigationBarLandscapeLayout.centered,

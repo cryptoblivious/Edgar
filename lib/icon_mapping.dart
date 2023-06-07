@@ -5,4 +5,5 @@ Map<String, IconData> iconMap = {
   'egg': FontAwesomeIcons.egg,
   'dairy': FontAwesomeIcons.cheese,
   'fruit': FontAwesomeIcons.appleWhole,
+  'sauce': FontAwesomeIcons.wineBottle,
 };
