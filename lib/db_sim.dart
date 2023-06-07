@@ -16,7 +16,7 @@ class DBSim {
     FoodProduct tomato = FoodProduct(
       name: 'Tomato',
       iconData: Icons.egg,
-      foodCategories: [FoodCategory.fruitNvegetable],
+      foodCategories: [FoodCategory.fruitNVegetable],
       diets: [Diet.vegan, Diet.vegetarian, Diet.glutenFree, Diet.omnivore, Diet.lactoVegetarian],
     );
     FoodProduct milk = FoodProduct(

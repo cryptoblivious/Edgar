@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'diet.dart';
 import 'food_category.dart';
+import 'icon_mapping.dart';
 import 'pricing.dart';
 
 class FoodProduct {
@@ -37,7 +38,7 @@ class FoodProduct {
 
     FoodProduct foodProduct = FoodProduct(
       name: data?['name'] as String? ?? '',
-      iconData: IconData(data?['iconData'] as int? ?? 0, fontFamily: 'MaterialIcons'),
+      iconData: iconMap[data?['iconData']] ?? FontAwesomeIcons.egg,
       foodCategories: foodCategories,
       diets: diets,
       //pricing: Pricing.fromFirestore(data?['pricing']),

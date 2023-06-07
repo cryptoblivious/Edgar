@@ -8,7 +8,7 @@ enum FoodCategory {
   dressing,
   dairy,
   fish,
-  fruitNvegetable,
+  fruitNVegetable,
   grain,
   herb,
   hot,
