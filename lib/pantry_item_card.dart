@@ -89,8 +89,8 @@ class _PantryItemCardState extends State<PantryItemCard> {
             Row(
               children: [
                 Tooltip(
+                  textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onPrimary),
                   message: pantryItem.isStaple! ? 'Remove staple' : 'Add staple',
-                  preferBelow: false,
                   child: IconButton(
                     icon: Icon(isStapleIcons[pantryItem.isStaple! ? 1 : 0]),
                     onPressed: () => _handleItemChanged('isStaple'),
@@ -104,8 +104,8 @@ class _PantryItemCardState extends State<PantryItemCard> {
                     color: Colors.grey[300],
                   ),
                   child: Tooltip(
+                    textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onPrimary),
                     message: isOnWatchlist ? 'Remove from watchlist' : 'Add to watchlist',
-                    preferBelow: false,
                     child: IconButton(
                       icon: Icon(isOnWatchlistIcons[isOnWatchlist ? 1 : 0]),
                       onPressed: () => _handleItemChanged('isOnWatchlist'),
@@ -115,12 +115,12 @@ class _PantryItemCardState extends State<PantryItemCard> {
                   ),
                 ),
                 Tooltip(
+                  textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onPrimary),
                   message: pantryItem.stock == Stock.ok
                       ? 'In stock'
                       : pantryItem.stock == Stock.low
                           ? 'Low stock'
                           : 'Out of stock',
-                  preferBelow: false,
                   child: IconButton(
                     icon: Icon(stockLevelIcons[pantryItem.stock]),
                     onPressed: () => _handleItemChanged('stock'),

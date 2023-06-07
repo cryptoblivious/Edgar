@@ -198,6 +198,30 @@ class _PantryPageContentState extends State<PantryPageContent> {
                         onItemChanged: handleItemChanged,
                       );
                     }).toList(),
+                    TextButton(
+                      onPressed: () {
+                        // TODO : Add view component for adding items
+                        HapticFeedback.selectionClick();
+                        showAddingItemsSnackbar(context);
+                      },
+                      child: Container(
+                          height: 100,
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: Colors.grey[300]!,
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(
+                                color: Colors.deepPurple[900]!,
+                              )),
+                          child: Center(
+                            child: Text(
+                              'Add more items to your pantry!',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 24, color: Colors.deepPurple[900]),
+                            ),
+                          )),
+                    ),
+                    const SizedBox(height: 50),
                   ],
                 ),
               ),
@@ -214,7 +238,6 @@ class _PantryPageContentState extends State<PantryPageContent> {
         backgroundColor: Colors.deepPurple[400]!,
         child: const Icon(Icons.add, color: Colors.white),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedMenuIndex,
         onTap: _onItemTapped,

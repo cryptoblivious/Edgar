@@ -6,4 +6,5 @@ Map<String, IconData> iconMap = {
   'dairy': FontAwesomeIcons.cheese,
   'fruit': FontAwesomeIcons.appleWhole,
   'sauce': FontAwesomeIcons.wineBottle,
+  'steak': FontAwesomeIcons.drumstickBite,
 };
