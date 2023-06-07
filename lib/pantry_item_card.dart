@@ -30,7 +30,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
         pantryItem.isStaple = !pantryItem.isStaple!;
       } else if (variable == 'stockLevel') {
         switch (pantryItem.stock) {
-          case Stock.in:
+          case Stock.ok:
             pantryItem.stock = Stock.low;
             break;
           case Stock.low:

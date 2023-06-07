@@ -8,11 +8,11 @@ class PantryItem {
   bool? isStaple;
   Stock? stock;
 
-  PantryItem({required this.foodProduct, required this.isStaple, this.stock = Stock.inStock});
+  PantryItem({required this.foodProduct, required this.isStaple, this.stock = Stock.ok});
 
   PantryItem._create(dynamic item) {
     isStaple = (item['isStaple'] ?? false) as bool;
-    stock = (Stock.values.firstWhere((category) => category.toString() == 'Stock.${item['stock']}') ?? Stock.inStock);
+    stock = (Stock.values.firstWhere((category) => category.toString() == 'Stock.${item['stock']}') ?? Stock.ok);
   }
 
   static Future<PantryItem> createAsync(dynamic item) async {

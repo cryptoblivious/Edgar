@@ -12,7 +12,7 @@ class Pantry {
   void handleItemChanged(PantryItem item) {
     int index = items.indexOf(item);
     if (index != -1) {
-      if (!item.isStaple! && item.stock == Stock.outOfStock) {
+      if (!item.isStaple! && item.stock == Stock.out) {
         print('Removing item from pantry');
         items.remove(item);
       }
