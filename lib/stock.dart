@@ -1,1 +1,1 @@
-enum Stock { inStock, runningLow, outOfStock }
+enum Stock { ok, low, out }

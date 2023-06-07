@@ -17,11 +17,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
   PantryItem get pantryItem => widget.pantryItem;
   Function(PantryItem) get onItemChanged => widget.onItemChanged;
 
-  Map<Stock, IconData> stockLevelIcons = {
-    Stock.inStock: Icons.hourglass_full,
-    Stock.runningLow: Icons.hourglass_bottom,
-    Stock.outOfStock: Icons.hourglass_empty
-  };
+  Map<Stock, IconData> stockLevelIcons = {Stock.ok: Icons.hourglass_full, Stock.low: Icons.hourglass_bottom, Stock.out: Icons.hourglass_empty};
 
   List<IconData> isStapleIcons = [
     Icons.favorite_border,
@@ -34,14 +30,14 @@ class _PantryItemCardState extends State<PantryItemCard> {
         pantryItem.isStaple = !pantryItem.isStaple!;
       } else if (variable == 'stockLevel') {
         switch (pantryItem.stock) {
-          case Stock.inStock:
-            pantryItem.stock = Stock.runningLow;
+          case Stock.in:
+            pantryItem.stock = Stock.low;
             break;
-          case Stock.runningLow:
-            pantryItem.stock = Stock.outOfStock;
+          case Stock.low:
+            pantryItem.stock = Stock.out;
             break;
-          case Stock.outOfStock:
-            pantryItem.stock = Stock.inStock;
+          case Stock.out:
+            pantryItem.stock = Stock.ok;
             break;
           default:
             // Raise an exception
