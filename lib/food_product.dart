@@ -25,7 +25,7 @@ class FoodProduct {
     Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
 
     // Convert the list of food categories from Firestore data to FoodCategory enum values
-    List<dynamic> foodCategoryData = (data?['foodCategories'] ?? []) as List<dynamic>;
+    List<dynamic> foodCategoryData = (data?['categories'] ?? []) as List<dynamic>;
     List<String> foodCategoryStrings = List<String>.from(foodCategoryData);
     List<FoodCategory> foodCategories = foodCategoryStrings
         .map((categoryString) => FoodCategory.values.firstWhere((category) => category.toString() == 'FoodCategory.$categoryString'))

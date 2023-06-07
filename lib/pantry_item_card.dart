@@ -26,8 +26,8 @@ class _PantryItemCardState extends State<PantryItemCard> {
   };
 
   List<IconData> isStapleIcons = [
-    FontAwesomeIcons.heart,
-    FontAwesomeIcons.solidHeart,
+    FontAwesomeIcons.triangleExclamation,
+    FontAwesomeIcons.arrowsRotate,
   ];
 
   List<IconData> isOnWatchlistIcons = [
@@ -50,6 +50,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
     return TextButton(
       onPressed: () => HapticFeedback.selectionClick(),
       child: Container(
+        height: 100,
         decoration: BoxDecoration(
             border: Border.all(
               color: Colors.grey,
@@ -87,29 +88,45 @@ class _PantryItemCardState extends State<PantryItemCard> {
             ),
             Row(
               children: [
-                IconButton(
-                  icon: Icon(isStapleIcons[pantryItem.isStaple! ? 1 : 0]),
-                  onPressed: () => _handleItemChanged('isStaple'),
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  iconSize: 32,
+                Tooltip(
+                  message: pantryItem.isStaple! ? 'Remove staple' : 'Add staple',
+                  preferBelow: false,
+                  child: IconButton(
+                    icon: Icon(isStapleIcons[pantryItem.isStaple! ? 1 : 0]),
+                    onPressed: () => _handleItemChanged('isStaple'),
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    iconSize: 32,
+                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.grey[300],
                   ),
-                  child: IconButton(
-                    icon: Icon(isOnWatchlistIcons[isOnWatchlist ? 1 : 0]),
-                    onPressed: () => _handleItemChanged('isOnWatchlist'),
-                    color: Colors.grey[700],
-                    iconSize: 32,
+                  child: Tooltip(
+                    message: isOnWatchlist ? 'Remove from watchlist' : 'Add to watchlist',
+                    preferBelow: false,
+                    child: IconButton(
+                      icon: Icon(isOnWatchlistIcons[isOnWatchlist ? 1 : 0]),
+                      onPressed: () => _handleItemChanged('isOnWatchlist'),
+                      color: Colors.grey[700],
+                      iconSize: 32,
+                    ),
                   ),
                 ),
-                IconButton(
-                  icon: Icon(stockLevelIcons[pantryItem.stock]),
-                  onPressed: () => _handleItemChanged('stock'),
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  iconSize: 32,
+                Tooltip(
+                  message: pantryItem.stock == Stock.ok
+                      ? 'In stock'
+                      : pantryItem.stock == Stock.low
+                          ? 'Low stock'
+                          : 'Out of stock',
+                  preferBelow: false,
+                  child: IconButton(
+                    icon: Icon(stockLevelIcons[pantryItem.stock]),
+                    onPressed: () => _handleItemChanged('stock'),
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    iconSize: 32,
+                  ),
                 ),
               ],
             ),
