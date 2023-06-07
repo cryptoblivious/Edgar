@@ -38,7 +38,7 @@ class FoodProduct {
 
     FoodProduct foodProduct = FoodProduct(
       name: data?['name'] as String? ?? '',
-      iconData: iconMap[data?['iconData']] ?? FontAwesomeIcons.egg,
+      iconData: iconMap[data?['icon']] ?? FontAwesomeIcons.egg,
       foodCategories: foodCategories,
       diets: diets,
       //pricing: Pricing.fromFirestore(data?['pricing']),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'pantry_item.dart';
 import 'stock.dart';
@@ -26,6 +27,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
 
   void _handleItemChanged(String variable) {
     setState(() {
+      HapticFeedback.selectionClick();
       if (variable == 'isStaple') {
         pantryItem.isStaple = !pantryItem.isStaple!;
       } else if (variable == 'stockLevel') {

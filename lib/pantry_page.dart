@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -87,6 +88,7 @@ class _PantryPageContentState extends State<PantryPageContent> {
   int _selectedMenuIndex = 0;
 
   void _onItemTapped(int index) {
+    HapticFeedback.selectionClick();
     setState(() {
       _selectedMenuIndex = index;
     });
@@ -104,9 +106,6 @@ class _PantryPageContentState extends State<PantryPageContent> {
     final user = widget.user; // Access the user object from the widget
 
     return Scaffold(
-      appBar: AppBar(
-          // App bar content
-          ),
       body: SafeArea(
         child: Container(
           color: Colors.grey[800],
@@ -119,7 +118,9 @@ class _PantryPageContentState extends State<PantryPageContent> {
                     child: IconButton(
                       icon: const Icon(Icons.view_list_outlined),
                       color: Colors.white,
-                      onPressed: () {},
+                      onPressed: () {
+                        HapticFeedback.selectionClick();
+                      },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
                         backgroundColor: MaterialStateColor.resolveWith((states) => Colors.grey[700]!),
@@ -155,7 +156,9 @@ class _PantryPageContentState extends State<PantryPageContent> {
                     child: IconButton(
                       icon: const Icon(Icons.filter_list),
                       color: Colors.white,
-                      onPressed: () {},
+                      onPressed: () {
+                        HapticFeedback.selectionClick();
+                      },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
                         backgroundColor: MaterialStateColor.resolveWith((states) => Colors.grey[700]!),
@@ -186,7 +189,9 @@ class _PantryPageContentState extends State<PantryPageContent> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          HapticFeedback.selectionClick();
+        },
         backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
         child: const Icon(Icons.add, color: Colors.white),
       ),
