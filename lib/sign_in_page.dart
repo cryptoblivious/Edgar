@@ -22,7 +22,7 @@ class _SignInPageState extends State<SignInPage> {
             appBar: AppBar(
               backgroundColor: Colors.black,
               elevation: 0,
-              leading: Image.asset('assets/icons/edgar.png'),
+              leading: Image.asset('assets/icons/edgar_gp_noborder.png'),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
