@@ -97,11 +97,6 @@ class _SignInPageState extends State<SignInPage> {
                 ],
               ),
             )),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {},
-              backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-              child: const Icon(Icons.add, color: Colors.white),
-            ),
           );
         });
   }
