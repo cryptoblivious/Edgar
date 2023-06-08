@@ -4,6 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'dart:async';
 
 import 'sign_in_page.dart';
 import 'pantry_page.dart';
@@ -11,7 +14,14 @@ import 'pantry_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const ProviderScope(child: App()));
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  analytics.logAppOpen();
+
+  runZonedGuarded(() {
+    runApp(const ProviderScope(child: App()));
+  }, (error, stackTrace) {
+    FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
+  });
 }
 
 class App extends StatelessWidget {

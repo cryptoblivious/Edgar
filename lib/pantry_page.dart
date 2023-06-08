@@ -37,9 +37,12 @@ class PantryPage extends ConsumerWidget {
 
         if (asyncUserDocumentSnapshot.isLoading) {
           // User document is not available yet
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
+          return Scaffold(
+            body: Container(
+              color: Colors.black,
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
           );
         } else if (asyncUserDocumentSnapshot.error != null) {
@@ -58,9 +61,12 @@ class PantryPage extends ConsumerWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 // User is still being created
-                return const Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
+                return Scaffold(
+                  body: Container(
+                    color: Colors.black,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
                 );
               } else if (snapshot.hasError) {
