@@ -16,10 +16,6 @@ class User {
   String? email;
   List<User>? friends;
 
-  User({
-    this.email,
-  });
-
   User._create(dynamic data) {
     activePantry = (data['activePantry'] ?? 0) as int;
     pantries = [];
@@ -48,7 +44,6 @@ class User {
       await Future.wait(
         pantryReferences.map((pantryRef) async {
           DocumentSnapshot pantrySnapshot = await pantryRef.get();
-          print('Pantry document data: ${pantrySnapshot.data()}');
           Pantry pantry = await Pantry.createAsync(pantrySnapshot);
           return pantry; // Return the pantry object
         }),
