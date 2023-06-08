@@ -26,7 +26,6 @@ class Pantry {
 
   Future<void> _loadFromFirestore(Map<String, dynamic>? data) async {
     if (data?.containsKey('items') == true && data?['items'] is List) {
-      print(data?['items']);
       List<dynamic> itemsData = (data?['items'] ?? []) as List<dynamic>;
       for (final dynamic itemData in itemsData) {
         PantryItem pantryItem = await PantryItem.createAsync(itemData);
