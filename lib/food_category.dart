@@ -4,6 +4,7 @@ enum FoodCategory {
   broth,
   egg,
   canned,
+  cereal,
   condiment,
   dressing,
   dairy,
