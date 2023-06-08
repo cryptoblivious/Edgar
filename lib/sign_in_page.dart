@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -22,43 +24,24 @@ class _SignInPageState extends State<SignInPage> {
               backgroundColor: Colors.black,
               elevation: 0,
               leading: Image.asset('assets/icons/edgar_gp_noborder.png'),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('Edgar, your personal Chef',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        letterSpacing: 2.0,
-                      )),
-                  const SizedBox(width: 10),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        width: 2,
-                      ),
-                      shape: BoxShape.circle,
-                    ),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.black,
-                      radius: 22,
-                      child: Icon(Icons.person, color: Theme.of(context).colorScheme.onPrimary, size: 35),
-                    ),
-                  )
-                ],
-              ),
+              title: Text('Edgar, your personal Chef',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                    letterSpacing: 2.0,
+                  )),
               centerTitle: true,
             ),
             body: SafeArea(
                 child: Container(
+              padding: const EdgeInsets.all(20),
               width: double.infinity,
               color: Colors.grey[800],
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  TextButton.icon(
+                  OutlinedButton.icon(
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                           const EdgeInsets.symmetric(
@@ -89,10 +72,10 @@ class _SignInPageState extends State<SignInPage> {
                           },
                         ),
                       ),
-                      icon: const Icon(Icons.login),
-                      label: const Text('Sign in with Google'),
+                      icon: const Icon(FontAwesomeIcons.google, size: 36),
+                      label: const Text('Sign in with Google', style: TextStyle(fontSize: 36)),
                       onPressed: () async {
-                        await signInWithGoogle();
+                        await signInWithGoogle(context);
                       }),
                 ],
               ),
@@ -102,19 +85,48 @@ class _SignInPageState extends State<SignInPage> {
   }
 }
 
-Future<UserCredential> signInWithGoogle() async {
-  // Trigger the authentication flow
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+Future<UserCredential> signInWithGoogle(BuildContext context) async {
+  try {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-  // Obtain the auth details from the request
-  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
-  // Create a new credential
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
-  );
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
 
-  // Once signed in, return the UserCredential
-  return await FirebaseAuth.instance.signInWithCredential(credential);
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  } catch (e, stackTrace) {
+    // Handle the error and report to Crashlytics
+    FirebaseCrashlytics.instance.recordError(e, stackTrace);
+
+    // Handle the error within the app's UI
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          titleTextStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          contentTextStyle: const TextStyle(fontSize: 20),
+          title: const Text('Sign-In Error'),
+          content: const Text('Failed to sign in with Google. Please try again.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Dismiss the dialog
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+
+    // Rethrow the error to propagate it further if needed
+    rethrow;
+  }
 }
