@@ -29,36 +29,30 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-        statusBarColor: Colors.deepPurple[900]!,
-        systemNavigationBarColor: Colors.deepPurple[900]!,
+    return MaterialApp(
+      title: 'Edgar : Your Personal Chef',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+        fontFamily: 'Montez',
+        useMaterial3: true,
+        splashColor: Colors.deepPurple[300]!.withAlpha(50),
       ),
-      child: MaterialApp(
-        title: 'Edgar : Your Personal Chef',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-          fontFamily: 'Montez',
-          useMaterial3: true,
-          splashColor: Colors.deepPurple[300]!.withAlpha(50),
-        ),
-        home: StreamBuilder<User?>(
-          // Listen to the user authentication state changes
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            } else if (snapshot.hasData) {
-              // User is signed in, navigate to the authenticated page
-              linkUserWithDocument(); // Call the function to link the user with the document
+      home: StreamBuilder<User?>(
+        // Listen to the user authentication state changes
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasData) {
+            // User is signed in, navigate to the authenticated page
+            linkUserWithDocument(); // Call the function to link the user with the document
 
-              return const PantryPage();
-            } else {
-              // User is not signed in, show the FirebaseUI authentication page
-              return const SignInPage();
-            }
-          },
-        ),
+            return const PantryPage();
+          } else {
+            // User is not signed in, show the FirebaseUI authentication page
+            return const SignInPage();
+          }
+        },
       ),
     );
   }
