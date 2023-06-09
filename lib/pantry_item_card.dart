@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'pantry_item.dart';
-import 'stock_level.dart';
+import 'stock.dart';
 
 class PantryItemCard extends StatefulWidget {
   const PantryItemCard({super.key, required this.pantryItem, required this.onItemChanged});
 
   final PantryItem pantryItem;
-  final Function(PantryItem) onItemChanged;
+  final Function(PantryItem, String) onItemChanged;
 
   @override
   State<PantryItemCard> createState() => _PantryItemCardState();
@@ -15,91 +17,118 @@ class PantryItemCard extends StatefulWidget {
 
 class _PantryItemCardState extends State<PantryItemCard> {
   PantryItem get pantryItem => widget.pantryItem;
-  Function(PantryItem) get onItemChanged => widget.onItemChanged;
-
-  Map<StockLevel, IconData> stockLevelIcons = {
-    StockLevel.inStock: Icons.hourglass_full,
-    StockLevel.runningLow: Icons.hourglass_bottom,
-    StockLevel.outOfStock: Icons.hourglass_empty
+  Function(PantryItem, String) get onItemChanged => widget.onItemChanged;
+  bool isOnWatchlist = false;
+  Map<Stock, IconData> stockLevelIcons = {
+    Stock.ok: FontAwesomeIcons.hourglassStart,
+    Stock.low: FontAwesomeIcons.hourglassHalf,
+    Stock.out: FontAwesomeIcons.hourglassEnd
   };
 
   List<IconData> isStapleIcons = [
-    Icons.favorite_border,
-    Icons.favorite,
+    FontAwesomeIcons.triangleExclamation,
+    FontAwesomeIcons.arrowsRotate,
+  ];
+
+  List<IconData> isOnWatchlistIcons = [
+    FontAwesomeIcons.magnifyingGlass,
+    FontAwesomeIcons.magnifyingGlassDollar,
   ];
 
   void _handleItemChanged(String variable) {
     setState(() {
-      if (variable == 'isStaple') {
-        pantryItem.isStaple = !pantryItem.isStaple;
-      } else if (variable == 'stockLevel') {
-        switch (pantryItem.stockLevel) {
-          case StockLevel.inStock:
-            pantryItem.stockLevel = StockLevel.runningLow;
-            break;
-          case StockLevel.runningLow:
-            pantryItem.stockLevel = StockLevel.outOfStock;
-            break;
-          case StockLevel.outOfStock:
-            pantryItem.stockLevel = StockLevel.inStock;
-            break;
-        }
+      HapticFeedback.selectionClick();
+      if (variable == 'isOnWatchlist') {
+        isOnWatchlist = !isOnWatchlist;
       }
     });
-    onItemChanged(pantryItem);
+    onItemChanged(pantryItem, variable);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.grey,
-          ),
-          color: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.circular(10)),
-      margin: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 5,
-      ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 10,
-      ),
-      child: TextButton(
-        onPressed: () => _handleItemChanged('stockLevel'),
+    return TextButton(
+      onPressed: () => HapticFeedback.selectionClick(),
+      child: Container(
+        height: 100,
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.grey,
+            ),
+            color: Colors.deepPurple[900],
+            borderRadius: BorderRadius.circular(10)),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 25,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            IconButton(
-              icon: Icon(isStapleIcons[pantryItem.isStaple ? 1 : 0]),
-              onPressed: () => _handleItemChanged('isStaple'),
-              color: Theme.of(context).colorScheme.onPrimary,
-              iconSize: 36,
-            ),
-            const SizedBox(
-              width: 18,
-            ),
             Expanded(
               child: Row(
                 children: [
-                  Icon(pantryItem.foodProduct.iconData, color: Theme.of(context).colorScheme.onPrimary, size: 36),
+                  Icon(pantryItem.foodProduct!.iconData, color: Theme.of(context).colorScheme.onPrimary, size: 36),
                   const SizedBox(width: 10),
-                  Text(
-                    pantryItem.foodProduct.name,
-                    style: TextStyle(
-                      fontSize: 36,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                  Expanded(
+                    child: AutoSizeText(
+                      pantryItem.foodProduct!.name,
+                      style: TextStyle(
+                        fontSize: 36,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                      maxLines: 2, // Restrict the text to a single line
+                      overflow: TextOverflow.ellipsis, // Handle text overflow with ellipsis
+                      minFontSize: 16, // Minimum font size
+                      stepGranularity: 1, // Granularity for resizing the font size
+                      wrapWords: false,
                     ),
                   ),
                 ],
               ),
             ),
-            IconButton(
-              icon: Icon(stockLevelIcons[pantryItem.stockLevel]),
-              onPressed: () => _handleItemChanged('stockLevel'),
-              color: Theme.of(context).colorScheme.onPrimary,
-              iconSize: 36,
+            Row(
+              children: [
+                Tooltip(
+                  textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onPrimary),
+                  message: pantryItem.isStaple! ? 'Remove staple' : 'Add staple',
+                  child: IconButton(
+                    icon: Icon(isStapleIcons[pantryItem.isStaple! ? 1 : 0]),
+                    onPressed: () => _handleItemChanged('isStaple'),
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    iconSize: 32,
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey[300],
+                  ),
+                  child: Tooltip(
+                    textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onPrimary),
+                    message: isOnWatchlist ? 'Remove from watchlist' : 'Add to watchlist',
+                    child: IconButton(
+                      icon: Icon(isOnWatchlistIcons[isOnWatchlist ? 1 : 0]),
+                      onPressed: () => _handleItemChanged('isOnWatchlist'),
+                      color: Colors.grey[700],
+                      iconSize: 32,
+                    ),
+                  ),
+                ),
+                Tooltip(
+                  textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onPrimary),
+                  message: pantryItem.stock == Stock.ok
+                      ? 'In stock'
+                      : pantryItem.stock == Stock.low
+                          ? 'Low stock'
+                          : 'Out of stock',
+                  child: IconButton(
+                    icon: Icon(stockLevelIcons[pantryItem.stock]),
+                    onPressed: () => _handleItemChanged('stock'),
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    iconSize: 32,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

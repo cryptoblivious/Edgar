@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'diet.dart';
 import 'food_category.dart';
+import 'icon_mapping.dart';
 import 'pricing.dart';
 
 class FoodProduct {
@@ -24,7 +25,7 @@ class FoodProduct {
     Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
 
     // Convert the list of food categories from Firestore data to FoodCategory enum values
-    List<dynamic> foodCategoryData = (data?['foodCategories'] ?? []) as List<dynamic>;
+    List<dynamic> foodCategoryData = (data?['categories'] ?? []) as List<dynamic>;
     List<String> foodCategoryStrings = List<String>.from(foodCategoryData);
     List<FoodCategory> foodCategories = foodCategoryStrings
         .map((categoryString) => FoodCategory.values.firstWhere((category) => category.toString() == 'FoodCategory.$categoryString'))
@@ -37,7 +38,7 @@ class FoodProduct {
 
     FoodProduct foodProduct = FoodProduct(
       name: data?['name'] as String? ?? '',
-      iconData: IconData(data?['iconData'] as int? ?? 0, fontFamily: 'MaterialIcons'),
+      iconData: iconMap[data?['icon']] ?? FontAwesomeIcons.egg,
       foodCategories: foodCategories,
       diets: diets,
       //pricing: Pricing.fromFirestore(data?['pricing']),

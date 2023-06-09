@@ -1,35 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'pantry_item.dart';
-import 'stock_level.dart';
 
 class Pantry {
+  String? name;
   List<PantryItem> items = [];
 
-  Pantry();
+  Pantry({this.name = 'Home'});
 
-  void handleItemChanged(PantryItem item) {
-    int index = items.indexOf(item);
-    if (index != -1) {
-      if (!item.isStaple && item.stockLevel == StockLevel.outOfStock) {
-        print('Removing item from pantry');
-        items.remove(item);
-      }
-    }
+  void handleItemChanged(PantryItem item, String variable) {
+    item.handleItemChanged(variable);
   }
 
-  factory Pantry.fromFirestore(DocumentSnapshot snapshot) {
-    Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
-    Pantry pantry = Pantry();
-    print('Pantry items: ${data?['items']}');
-    // print each field in each item
-    data?['items'].forEach((itemData) {
-      itemData?.forEach((key, value) {
-        print('$key: $value');
-      });
-    });
+  Pantry._create(dynamic item) {
+    name = (item['name'] ?? 'Home') as String;
+    items = [];
+  }
 
-    //pantry.items = data?['items']?.map((itemData) => PantryItem.fromFirestore(itemData as DocumentSnapshot<Object?>)) as List<PantryItem>? ?? [];
+  static Future<Pantry> createAsync(DocumentSnapshot snapshot) async {
+    Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+    Pantry pantry = Pantry._create(data);
+    await pantry._loadFromFirestore(data);
     return pantry;
+  }
+
+  Future<void> _loadFromFirestore(Map<String, dynamic>? data) async {
+    if (data?.containsKey('items') == true && data?['items'] is List) {
+      List<dynamic> itemsData = (data?['items'] ?? []) as List<dynamic>;
+      for (final dynamic itemData in itemsData) {
+        PantryItem pantryItem = await PantryItem.createAsync(itemData);
+        items.add(pantryItem);
+      }
+    }
   }
 }
