@@ -16,6 +16,8 @@ class User {
   String? email;
   List<User>? friends;
 
+  User();
+
   User._create(dynamic data) {
     activePantry = (data['activePantry'] ?? 0) as int;
     pantries = [];
