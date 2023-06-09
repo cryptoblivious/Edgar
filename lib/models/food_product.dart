@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'diet.dart';
 import 'food_category.dart';
-import 'icon_mapping.dart';
+import '../services/icon_mapping.dart';
 import 'pricing.dart';
 
 class FoodProduct {

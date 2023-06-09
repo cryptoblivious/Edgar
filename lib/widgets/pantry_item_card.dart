@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'pantry_item.dart';
-import 'stock.dart';
+import '../models/pantry_item.dart';
+import '../models/stock.dart';
 
 class PantryItemCard extends StatefulWidget {
   const PantryItemCard({super.key, required this.pantryItem, required this.onItemChanged});

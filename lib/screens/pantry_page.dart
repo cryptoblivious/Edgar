@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'providers.dart';
-import 'pantry_item_card.dart';
-import 'pantry_item.dart';
-import 'user.dart';
+import '../services/providers.dart';
+import '../widgets/pantry_item_card.dart';
+import '../models/pantry_item.dart';
+import '../models/user.dart';
 
 void showAddingItemsSnackbar(BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(
