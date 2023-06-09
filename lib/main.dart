@@ -15,6 +15,11 @@ import 'pantry_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  const settings = Settings(persistenceEnabled: true);
+  firestore.settings = settings;
+
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   analytics.logAppOpen();
 
