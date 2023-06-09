@@ -1,4 +1,4 @@
-import 'error_handler.dart';
+import '../errors/error_handler.dart';
 
 abstract class DataRepository {
   Future<void> fetchData() async {
