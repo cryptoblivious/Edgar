@@ -6,14 +6,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class SignInPage extends StatelessWidget {
+  const SignInPage({super.key, required this.appTitle});
 
-  @override
-  State<SignInPage> createState() => _SignInPageState();
-}
+  final String appTitle;
 
-class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot>(
@@ -24,11 +21,11 @@ class _SignInPageState extends State<SignInPage> {
               backgroundColor: Colors.black,
               elevation: 0,
               leading: Image.asset('assets/icons/edgar_gp_noborder.png'),
-              title: Text('Edgar, your personal Chef',
+              title: Text(appTitle,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimary,
                     fontWeight: FontWeight.bold,
-                    fontSize: 24,
+                    fontSize: 18,
                     letterSpacing: 2.0,
                   )),
               centerTitle: true,
@@ -53,7 +50,7 @@ class _SignInPageState extends State<SignInPage> {
                           Theme.of(context).colorScheme.onPrimary,
                         ),
                         backgroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).colorScheme.primary,
+                          Colors.deepPurple[800]!,
                         ),
                         shape: MaterialStateProperty.all<OutlinedBorder>(
                           RoundedRectangleBorder(

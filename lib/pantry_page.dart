@@ -62,10 +62,24 @@ class PantryPage extends ConsumerWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 // User is still being created
                 return Scaffold(
-                  body: Container(
-                    color: Colors.black,
-                    child: const Center(
-                      child: CircularProgressIndicator(),
+                  body: SafeArea(
+                    child: Container(
+                      width: double.infinity,
+                      color: Colors.black,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text('Exploring new ingredients...', style: TextStyle(color: Colors.white, fontSize: 32)),
+                          const SizedBox(height: 32),
+                          SizedBox(
+                            width: 250,
+                            child: LinearProgressIndicator(
+                              backgroundColor: Colors.deepPurple[100]!,
+                              color: Colors.deepPurple[800]!,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
