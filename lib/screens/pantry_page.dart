@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../services/providers.dart';
+import '../services/providers/providers.dart';
 import '../widgets/pantry_item_card.dart';
 import '../models/pantry_item.dart';
 import '../models/user.dart';
