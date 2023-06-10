@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'diet.dart';
 import 'food_category.dart';
-import '../services/database/icon_mapper.dart';
+import '../services/mappers/icon_mapper.dart';
 import 'pricing.dart';
 
 class FoodProduct {
   String name;
+  String description;
+  String icon;
   IconData iconData;
   List<FoodCategory> foodCategories;
   List<Diet> diets;
@@ -15,6 +17,8 @@ class FoodProduct {
 
   FoodProduct({
     required this.name,
+    required this.description,
+    required this.icon,
     required this.iconData,
     required this.foodCategories,
     required this.diets,
@@ -38,6 +42,8 @@ class FoodProduct {
 
     FoodProduct foodProduct = FoodProduct(
       name: data?['name'] as String? ?? '',
+      description: data?['description'] as String? ?? '',
+      icon: data?['icon'] as String? ?? '',
       iconData: iconMapper[data?['icon']] ?? FontAwesomeIcons.egg,
       foodCategories: foodCategories,
       diets: diets,

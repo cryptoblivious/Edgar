@@ -25,16 +25,17 @@ class _EdgarBottomNavigationBarState extends State<EdgarBottomNavigationBar> {
       onTap: _onItemTapped,
       iconSize: 24,
       unselectedItemColor: Theme.of(context).colorScheme.onPrimary,
-      selectedItemColor: Colors.deepPurple[300],
+      selectedItemColor: Theme.of(context).colorScheme.inversePrimary,
       unselectedFontSize: 18,
       selectedFontSize: 24,
       landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.inventory_2_outlined), label: 'Pantry', backgroundColor: Colors.black),
-        BottomNavigationBarItem(icon: Icon(Icons.dining_outlined), label: 'Recipes', backgroundColor: Colors.black),
-        BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_outlined), label: 'Groceries', backgroundColor: Colors.black),
-        BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile', backgroundColor: Colors.black),
-        BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: 'Settings', backgroundColor: Colors.black),
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(icon: const Icon(Icons.inventory_2_outlined), label: 'Pantry', backgroundColor: Theme.of(context).colorScheme.inverseSurface),
+        BottomNavigationBarItem(icon: const Icon(Icons.dining_outlined), label: 'Recipes', backgroundColor: Theme.of(context).colorScheme.inverseSurface),
+        BottomNavigationBarItem(
+            icon: const Icon(Icons.shopping_basket_outlined), label: 'Groceries', backgroundColor: Theme.of(context).colorScheme.inverseSurface),
+        BottomNavigationBarItem(icon: const Icon(Icons.person_outline), label: 'Profile', backgroundColor: Theme.of(context).colorScheme.inverseSurface),
+        BottomNavigationBarItem(icon: const Icon(Icons.settings_outlined), label: 'Settings', backgroundColor: Theme.of(context).colorScheme.inverseSurface),
       ],
     );
   }

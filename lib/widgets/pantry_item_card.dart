@@ -45,29 +45,67 @@ class _PantryItemCardState extends State<PantryItemCard> {
     onItemChanged(pantryItem, variable);
   }
 
+  void _showPantryItemDialog(BuildContext context) {
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            pantryItem.foodProduct!.name,
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondaryContainer),
+            textAlign: TextAlign.center,
+          ),
+          content: SingleChildScrollView(
+              child: Text(
+            pantryItem.foodProduct!.description,
+            style: const TextStyle(fontSize: 28),
+            textAlign: TextAlign.justify,
+          )),
+          actions: [
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  // Perform an action when the button is pressed
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Good to know!', style: TextStyle(fontSize: 32)),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => HapticFeedback.selectionClick(),
+      onPressed: () {
+        HapticFeedback.selectionClick();
+        _showPantryItemDialog(context);
+      },
       child: Container(
         height: 100,
         decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.grey,
+              color: Theme.of(context).colorScheme.outlineVariant,
             ),
-            color: Colors.deepPurple[900],
+            color: Theme.of(context).colorScheme.primary,
             borderRadius: BorderRadius.circular(10)),
         padding: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 25,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: Row(
                 children: [
-                  Icon(pantryItem.foodProduct!.iconData, color: Theme.of(context).colorScheme.onPrimary, size: 36),
+                  Tooltip(
+                      textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onPrimary),
+                      message: pantryItem.foodProduct!.icon,
+                      child: Icon(pantryItem.foodProduct!.iconData, color: Theme.of(context).colorScheme.onPrimary, size: 36)),
                   const SizedBox(width: 10),
                   Expanded(
                     child: AutoSizeText(
@@ -86,6 +124,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
                 ],
               ),
             ),
+            const SizedBox(width: 16),
             Row(
               children: [
                 Tooltip(
@@ -101,7 +140,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey[300],
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                   ),
                   child: Tooltip(
                     textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onPrimary),
@@ -109,7 +148,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
                     child: IconButton(
                       icon: Icon(isOnWatchlistIcons[isOnWatchlist ? 1 : 0]),
                       onPressed: () => _handleItemChanged('isOnWatchlist'),
-                      color: Colors.grey[700],
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
                       iconSize: 32,
                     ),
                   ),

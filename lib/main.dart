@@ -1,3 +1,4 @@
+import 'package:edgar/screens/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,8 +10,8 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'dart:async';
 
-import 'screens/sign_in_page.dart';
-import 'screens/pantry_page.dart';
+import 'screens/sign_in_screen.dart';
+import 'screens/pantry_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,14 +23,6 @@ void main() async {
 
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   analytics.logAppOpen();
-
-  // Set the status bar and bottom navigation bar color to black
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.deepPurple[800],
-      systemNavigationBarColor: Colors.deepPurple[800],
-    ),
-  );
 
   runZonedGuarded(() {
     runApp(const ProviderScope(child: App()));
@@ -45,63 +38,50 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: appTitle,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-        fontFamily: 'Montez',
-        useMaterial3: true,
-        splashColor: Colors.deepPurple[300]!.withAlpha(50),
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.deepPurple[900]!,
+        systemNavigationBarColor: Colors.deepPurple[900]!,
       ),
-      home: StreamBuilder<User?>(
-        // Listen to the user authentication state changes
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasData) {
-            print('User is signed in! Data : ${snapshot.data}');
-            // User is signed in, navigate to the authenticated page
-            return FutureBuilder<void>(
-              future: linkUserWithDocument(),
-              builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Scaffold(
-                    body: SafeArea(
-                      child: Container(
-                        width: double.infinity,
-                        color: Colors.black,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Cleaning the pots and pans...', style: TextStyle(color: Colors.white, fontSize: 32)),
-                            const SizedBox(height: 32),
-                            SizedBox(
-                              width: 250,
-                              child: LinearProgressIndicator(
-                                backgroundColor: Colors.deepPurple[100]!,
-                                color: Colors.deepPurple[800]!,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                } else if (snapshot.hasError) {
-                  // Handle error scenario if necessary
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  // User document is created or updated, navigate to PantryPage
-                  return const PantryPage();
-                }
-              },
-            );
-          } else {
-            // User is not signed in, show the FirebaseUI authentication page
-            return SignInPage(appTitle: appTitle);
-          }
-        },
+      child: MaterialApp(
+        title: appTitle,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple[900]!),
+          fontFamily: 'Montez',
+          useMaterial3: true,
+          splashColor: Colors.deepPurple[200]!.withOpacity(0.1),
+        ),
+        home: StreamBuilder<User?>(
+          // Listen to the user authentication state changes
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            // Show loading screen while the user authentication state is loading
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const LoadingScreen(message: 'Warming up the oven...');
+            } else if (snapshot.hasData) {
+              print('User is signed in! Data : ${snapshot.data}');
+              // User is signed in, navigate to the authenticated page
+              return FutureBuilder<void>(
+                future: linkUserWithDocument(),
+                builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+                  // Show loading screen while the user document is created or updated
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const LoadingScreen(message: 'Cleaning the pots and pans...');
+                  } else if (snapshot.hasError) {
+                    // Handle error scenario if necessary
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    // User document is created or updated, navigate to PantryPage
+                    return const PantryScreen();
+                  }
+                },
+              );
+            } else {
+              // User is not signed in, show the FirebaseUI authentication page
+              return SignInScreen(appTitle: appTitle);
+            }
+          },
+        ),
       ),
     );
   }

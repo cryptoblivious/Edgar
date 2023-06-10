@@ -6,8 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({super.key, required this.appTitle});
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key, required this.appTitle});
 
   final String appTitle;
 
@@ -18,7 +18,7 @@ class SignInPage extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.black,
+              backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
               elevation: 0,
               leading: Image.asset('assets/icons/edgar_gp_noborder.png'),
               title: Text(appTitle,
@@ -34,7 +34,7 @@ class SignInPage extends StatelessWidget {
                 child: Container(
               padding: const EdgeInsets.all(20),
               width: double.infinity,
-              color: Colors.grey[800],
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -50,7 +50,7 @@ class SignInPage extends StatelessWidget {
                           Theme.of(context).colorScheme.onPrimary,
                         ),
                         backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.deepPurple[800]!,
+                          Theme.of(context).colorScheme.primary,
                         ),
                         shape: MaterialStateProperty.all<OutlinedBorder>(
                           RoundedRectangleBorder(
