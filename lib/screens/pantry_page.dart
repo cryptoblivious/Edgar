@@ -1,30 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../services/providers/providers.dart';
 import '../widgets/pantry_item_card.dart';
 import '../models/pantry_item.dart';
 import '../models/user.dart';
 
-void showAddingItemsSnackbar(BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(
-      width: 250,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      content: Text(
-        'Opening adding items menu...',
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 20),
-      ),
-      duration: Duration(seconds: 2),
-      behavior: SnackBarBehavior.floating,
-      dismissDirection: DismissDirection.none,
-    ),
-  );
-}
+import '../widgets/edgar_bottom_navigation_bar.dart';
 
 class PantryPage extends ConsumerWidget {
   const PantryPage({Key? key}) : super(key: key);
@@ -75,7 +59,7 @@ class PantryPage extends ConsumerWidget {
                             width: 250,
                             child: LinearProgressIndicator(
                               backgroundColor: Colors.deepPurple[100]!,
-                              color: Colors.deepPurple[800]!,
+                              color: Colors.deepPurple[900]!,
                             ),
                           ),
                         ],
@@ -121,12 +105,37 @@ class PantryPageContent extends StatefulWidget {
 }
 
 class _PantryPageContentState extends State<PantryPageContent> {
-  int _selectedMenuIndex = 0;
+  bool _isAddingItemsMenuOpen = false;
 
-  void _onItemTapped(int index) {
-    HapticFeedback.selectionClick();
+  void _toggleAddingItemsMenu() {
+    if (_isAddingItemsMenuOpen) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          'Menu already open',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+        duration: Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+        dismissDirection: DismissDirection.none,
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Menu opening',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
+          ),
+          duration: Duration(seconds: 2),
+          behavior: SnackBarBehavior.floating,
+          dismissDirection: DismissDirection.none,
+        ),
+      );
+    }
+
     setState(() {
-      _selectedMenuIndex = index;
+      _isAddingItemsMenuOpen = !_isAddingItemsMenuOpen;
     });
   }
 
@@ -222,13 +231,13 @@ class _PantryPageContentState extends State<PantryPageContent> {
                       onPressed: () {
                         // TODO : Add view component for adding items
                         HapticFeedback.selectionClick();
-                        showAddingItemsSnackbar(context);
+                        _toggleAddingItemsMenu();
                       },
                       child: Container(
                           height: 100,
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                              color: Colors.grey[300]!,
+                              color: Colors.deepPurple[100]!,
                               borderRadius: const BorderRadius.all(Radius.circular(10)),
                               border: Border.all(
                                 color: Colors.deepPurple[900]!,
@@ -253,28 +262,13 @@ class _PantryPageContentState extends State<PantryPageContent> {
         onPressed: () {
           // TODO : Add view component for adding items
           HapticFeedback.selectionClick();
-          showAddingItemsSnackbar(context);
+          _toggleAddingItemsMenu();
         },
-        backgroundColor: Colors.deepPurple[400]!,
-        child: const Icon(Icons.add, color: Colors.white),
+        backgroundColor: Colors.deepPurple[100]!,
+        child: Icon(_isAddingItemsMenuOpen ? FontAwesomeIcons.chevronDown : FontAwesomeIcons.plus,
+            color: Colors.deepPurple[900]), // TODO : Change icon based on menu state
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedMenuIndex,
-        onTap: _onItemTapped,
-        iconSize: 24,
-        unselectedItemColor: Theme.of(context).colorScheme.onPrimary,
-        selectedItemColor: Colors.deepPurple[300],
-        unselectedFontSize: 18,
-        selectedFontSize: 24,
-        landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.inventory_2_outlined), label: 'Pantry', backgroundColor: Colors.black),
-          BottomNavigationBarItem(icon: Icon(Icons.dining_outlined), label: 'Recipes', backgroundColor: Colors.black),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_outlined), label: 'Groceries', backgroundColor: Colors.black),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile', backgroundColor: Colors.black),
-          BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: 'Settings', backgroundColor: Colors.black),
-        ],
-      ),
+      bottomNavigationBar: const EdgarBottomNavigationBar(),
     );
   }
 }
