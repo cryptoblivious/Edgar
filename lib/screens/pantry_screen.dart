@@ -178,6 +178,7 @@ class _PantryScreenContentState extends State<PantryScreenContent> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // TODO : Add view component for adding items
+          // Probably the best way will be to turn the current content widget into a content switcher and add a new content widget for adding items
           HapticFeedback.selectionClick();
           _toggleAddingItemsMenu();
         },
