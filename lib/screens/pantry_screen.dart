@@ -84,32 +84,6 @@ class _PantryScreenContentState extends State<PantryScreenContent> {
   bool _isAddItemsMenuOpen = false;
 
   void _toggleAddingItems() {
-    if (_isAddItemsMenuOpen) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        width: 200,
-        content: Text(
-          'Menu already open',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20),
-        ),
-        behavior: SnackBarBehavior.floating,
-        dismissDirection: DismissDirection.none,
-      ));
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          width: 200,
-          content: Text(
-            'Menu opening',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
-          ),
-          behavior: SnackBarBehavior.floating,
-          dismissDirection: DismissDirection.none,
-        ),
-      );
-    }
-
     setState(() {
       _isAddItemsMenuOpen = !_isAddItemsMenuOpen;
     });
