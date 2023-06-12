@@ -29,7 +29,7 @@ class PantryItem {
     }
   }
 
-  void handleItemChanged(String variable) {
+  void change(String variable) {
     if (variable == 'isStaple') {
       isStaple = !isStaple!;
     } else if (variable == 'stock') {

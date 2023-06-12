@@ -10,8 +10,8 @@ import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/models/user.dart';
 
 import 'package:edgar/screens/loading_screen.dart';
-import 'package:edgar/screens/owned_items_subscreen.dart';
-import 'package:edgar/widgets/list_views/owned_item_cards.dart';
+import 'package:edgar/screens/subscreens/owned_item_cards_subscreen.dart';
+import 'package:edgar/screens/subscreens/add_items_to_pantry_subscreen.dart';
 
 class PantryScreen extends ConsumerWidget {
   const PantryScreen({Key? key}) : super(key: key);
@@ -21,20 +21,22 @@ class PantryScreen extends ConsumerWidget {
     return Consumer(
       builder: (context, watch, child) {
         final asyncUserDocumentSnapshot = ref.watch(userProvider);
+        final asyncFoodProductsCollectionSnapshot = ref.watch(foodProductsCollectionProvider);
 
-        if (asyncUserDocumentSnapshot.isLoading) {
-          // User document is not available yet
+        if (asyncUserDocumentSnapshot.isLoading || asyncFoodProductsCollectionSnapshot.isLoading) {
+          // Snapshot is not available yet
           return LoadingScreen();
-        } else if (asyncUserDocumentSnapshot.error != null) {
-          // Error occurred while fetching the user document
+        } else if (asyncUserDocumentSnapshot.error != null || asyncFoodProductsCollectionSnapshot.error != null) {
+          // Error occurred while fetching a snapshot
           return Scaffold(
             body: Center(
               child: Text('Error occurred: ${asyncUserDocumentSnapshot.error}'),
             ),
           );
         } else {
-          // User document is available
+          // Snaphots are available
           final userSnapshot = asyncUserDocumentSnapshot.value;
+          final foodProductsCollectionSnapshot = asyncFoodProductsCollectionSnapshot.value;
 
           return FutureBuilder<User>(
             future: User.createAsync(userSnapshot!),
@@ -115,7 +117,13 @@ class _PantryScreenContentState extends State<PantryScreenContent> {
 
   void handleItemUpdated(PantryItem pantryItem, String variable) {
     setState(() {
-      widget.user.pantries![widget.user.activePantry].handleItemChanged(pantryItem, variable);
+      widget.user.pantries![widget.user.activePantry].changeItem(pantryItem, variable);
+    });
+  }
+
+  void handleItemAdded(PantryItem pantryItem) {
+    setState(() {
+      widget.user.pantries![widget.user.activePantry].addItem(pantryItem);
     });
   }
 
@@ -130,9 +138,9 @@ class _PantryScreenContentState extends State<PantryScreenContent> {
           child: Column(
             children: [
               const PantryScreenSearchBar(),
-              OwnedItemCards(user: user, onItemUpdated: handleItemUpdated),
-              //OwnedItemsSubscreen(user: user, onItemUpdated: handleItemUpdated, onPressed: _toggleAddingItems),
-              const SizedBox(height: 50),
+              _isAddItemsMenuOpen
+                  ? AddItemsToPantrySubscreen(user: user, onItemAdded: handleItemAdded)
+                  : OwnedItemCardsSubscreen(user: user, onItemUpdated: handleItemUpdated, onPressed: _toggleAddingItems),
             ],
           ),
         ),

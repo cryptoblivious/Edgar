@@ -8,8 +8,12 @@ class Pantry {
 
   Pantry({this.name = 'Home'});
 
-  void handleItemChanged(PantryItem item, String variable) {
-    item.handleItemChanged(variable);
+  void changeItem(PantryItem item, String variable) {
+    item.change(variable);
+  }
+
+  void addItem(PantryItem item) {
+    items.add(item);
   }
 
   Pantry._create(dynamic item) {
