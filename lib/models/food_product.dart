@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'diet.dart';
-import 'food_category.dart';
-import '../services/mappers/icon_mapper.dart';
-import 'pricing.dart';
+import 'package:edgar/models/diet.dart';
+import 'package:edgar/models/food_category.dart';
+import 'package:edgar/services/mappers/icon_mapper.dart';
+import 'package:edgar/models/pricing.dart';
 
 class FoodProduct {
   String name;

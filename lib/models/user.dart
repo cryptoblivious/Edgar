@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'food_product.dart';
-import 'pantry.dart';
-import 'recipe.dart';
+import 'package:edgar/models/food_product.dart';
+import 'package:edgar/models/pantry.dart';
+import 'package:edgar/models/recipe.dart';
 
 class User {
   Pantry pantry = Pantry();

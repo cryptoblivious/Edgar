@@ -3,18 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../services/providers/user.dart';
+import 'package:edgar/services/providers/user.dart';
 
-import '../models/pantry_item.dart';
-import '../models/user.dart';
+import 'package:edgar/models/pantry_item.dart';
+import 'package:edgar/models/user.dart';
 
-import '../screens/loading_screen.dart';
+import 'package:edgar/screens/loading_screen.dart';
 
-import '../widgets/edgar_bottom_navigation_bar.dart';
-import '../widgets/pantry_item_card.dart';
-import '../widgets/add_items_to_pantry_card.dart';
-import '../widgets/filter_button.dart';
-import '../widgets/view_options_button.dart';
+import 'package:edgar/widgets/bars/edgar_bottom_navigation_bar.dart';
+import 'package:edgar/widgets/cards/pantry_item_card.dart';
+import 'package:edgar/widgets/cards/add_items_to_pantry_card.dart';
+import 'package:edgar/widgets/buttons/filter_button.dart';
+import 'package:edgar/widgets/buttons/view_options_button.dart';
 
 class PantryScreen extends ConsumerWidget {
   const PantryScreen({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class PantryScreen extends ConsumerWidget {
 
         if (asyncUserDocumentSnapshot.isLoading) {
           // User document is not available yet
-          return const LoadingScreen(message: 'Bringing out the cookbooks...');
+          return LoadingScreen();
         } else if (asyncUserDocumentSnapshot.error != null) {
           // Error occurred while fetching the user document
           return Scaffold(
@@ -44,7 +44,7 @@ class PantryScreen extends ConsumerWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 // User is still being created
-                return const LoadingScreen(message: 'Cleaning the pots and pans...');
+                return LoadingScreen();
               } else if (snapshot.hasError) {
                 // Error occurred while creating the user
                 return Scaffold(

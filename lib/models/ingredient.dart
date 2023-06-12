@@ -1,4 +1,4 @@
-import 'food_product.dart';
+import 'package:edgar/models/food_product.dart';
 
 class Ingredient {
   FoodProduct foodProduct;

@@ -1,3 +1,4 @@
+import 'package:edgar/services/mappers/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,9 +14,12 @@ class _EdgarBottomNavigationBarState extends State<EdgarBottomNavigationBar> {
 
   void _onItemTapped(int index) {
     HapticFeedback.selectionClick();
-    setState(() {
-      _selectedMenuIndex = index;
-    });
+    if (index != _selectedMenuIndex) {
+      Navigator.pushNamed(context, routes.keys.toList()[index + 1]);
+      setState(() {
+        _selectedMenuIndex = index;
+      });
+    }
   }
 
   @override
@@ -31,9 +35,9 @@ class _EdgarBottomNavigationBarState extends State<EdgarBottomNavigationBar> {
       landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: const Icon(Icons.inventory_2_outlined), label: 'Pantry', backgroundColor: Theme.of(context).colorScheme.inverseSurface),
-        BottomNavigationBarItem(icon: const Icon(Icons.dining_outlined), label: 'Recipes', backgroundColor: Theme.of(context).colorScheme.inverseSurface),
         BottomNavigationBarItem(
             icon: const Icon(Icons.shopping_basket_outlined), label: 'Groceries', backgroundColor: Theme.of(context).colorScheme.inverseSurface),
+        BottomNavigationBarItem(icon: const Icon(Icons.dining_outlined), label: 'Recipes', backgroundColor: Theme.of(context).colorScheme.inverseSurface),
         BottomNavigationBarItem(icon: const Icon(Icons.person_outline), label: 'Profile', backgroundColor: Theme.of(context).colorScheme.inverseSurface),
         BottomNavigationBarItem(icon: const Icon(Icons.settings_outlined), label: 'Settings', backgroundColor: Theme.of(context).colorScheme.inverseSurface),
       ],

@@ -1,5 +1,5 @@
-import 'ingredient.dart';
-import 'diet.dart';
+import 'package:edgar/models/ingredient.dart';
+import 'package:edgar/models/diet.dart';
 
 class Recipe {
   String name;

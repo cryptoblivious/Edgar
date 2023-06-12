@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../models/user.dart';
-import '../../models/pantry.dart';
-import '../../models/pantry_item.dart';
-import '../../models/food_product.dart';
-import '../../models/food_category.dart';
-import '../../models/diet.dart';
+import 'package:edgar/models/user.dart';
+import 'package:edgar/models/pantry.dart';
+import 'package:edgar/models/pantry_item.dart';
+import 'package:edgar/models/food_product.dart';
+import 'package:edgar/models/food_category.dart';
+import 'package:edgar/models/diet.dart';
 
 class DBSim {
   User? user;

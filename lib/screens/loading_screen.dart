@@ -1,9 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class LoadingScreen extends StatelessWidget {
-  const LoadingScreen({super.key, required this.message});
+  LoadingScreen({super.key});
 
-  final String message;
+  static final List<String> loadingScreenMessages = ['Bringing out the cookbooks...', 'Cleaning the pots and pans...', 'Warming up the oven...'];
+
+  static String _randomizeMessage() {
+    return loadingScreenMessages[Random().nextInt(loadingScreenMessages.length)];
+  }
+
+  final String currentMessage = _randomizeMessage();
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +23,7 @@ class LoadingScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(message, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 32)),
+              Text(currentMessage, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 32)),
               const SizedBox(height: 32),
               SizedBox(
                 width: 250,

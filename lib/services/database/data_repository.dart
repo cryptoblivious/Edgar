@@ -1,4 +1,4 @@
-import '../errors/error_handler.dart';
+import 'package:edgar/services/errors/error_handler.dart';
 
 abstract class DataRepository {
   Future<void> fetchData() async {

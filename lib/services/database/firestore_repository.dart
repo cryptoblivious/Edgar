@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'data_repository.dart';
+import 'package:edgar/services/database/data_repository.dart';
 
 class FirestoreRepository extends DataRepository {
   final FirebaseFirestore _firestore;

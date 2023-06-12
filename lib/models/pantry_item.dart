@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'food_product.dart';
-import 'stock.dart';
+import 'package:edgar/models/food_product.dart';
+import 'package:edgar/models/stock.dart';
 
 class PantryItem {
   FoodProduct? foodProduct;
