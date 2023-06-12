@@ -11,9 +11,3 @@ final userProvider = StreamProvider.autoDispose<DocumentSnapshot?>((ref) {
     return Stream.value(null);
   }
 });
-
-final foodProductsCollectionProvider = StreamProvider.autoDispose<QuerySnapshot?>((ref) {
-  final CollectionReference foodProductsCollectionRef = FirebaseFirestore.instance.collection('foodProducts');
-
-  return foodProductsCollectionRef.snapshots().map((snapshot) => snapshot);
-});

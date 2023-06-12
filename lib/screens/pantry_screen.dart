@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:edgar/services/providers/user.dart';
+import 'package:edgar/services/providers/food_products.dart';
 
 import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/models/user.dart';
@@ -21,12 +22,11 @@ class PantryScreen extends ConsumerWidget {
     return Consumer(
       builder: (context, watch, child) {
         final asyncUserDocumentSnapshot = ref.watch(userProvider);
-        final asyncFoodProductsCollectionSnapshot = ref.watch(foodProductsCollectionProvider);
 
-        if (asyncUserDocumentSnapshot.isLoading || asyncFoodProductsCollectionSnapshot.isLoading) {
+        if (asyncUserDocumentSnapshot.isLoading) {
           // Snapshot is not available yet
           return LoadingScreen();
-        } else if (asyncUserDocumentSnapshot.error != null || asyncFoodProductsCollectionSnapshot.error != null) {
+        } else if (asyncUserDocumentSnapshot.error != null) {
           // Error occurred while fetching a snapshot
           return Scaffold(
             body: Center(
@@ -36,7 +36,6 @@ class PantryScreen extends ConsumerWidget {
         } else {
           // Snaphots are available
           final userSnapshot = asyncUserDocumentSnapshot.value;
-          final foodProductsCollectionSnapshot = asyncFoodProductsCollectionSnapshot.value;
 
           return FutureBuilder<User>(
             future: User.createAsync(userSnapshot!),
@@ -73,6 +72,8 @@ class PantryScreen extends ConsumerWidget {
 
 class PantryScreenContent extends StatefulWidget {
   final User user;
+  // TODO : Add an async function to get the food products from the database
+  //final List<FoodProduct> foodProducts;
 
   const PantryScreenContent({Key? key, required this.user}) : super(key: key);
 
