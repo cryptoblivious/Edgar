@@ -1,3 +1,4 @@
+import 'package:edgar/widgets/bars/edgar_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class GroceriesScreen extends StatefulWidget {
@@ -10,6 +11,6 @@ class GroceriesScreen extends StatefulWidget {
 class _GroceriesScreenState extends State<GroceriesScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: SafeArea(child: Text('Grocery Screen')));
+    return const SafeArea(child: Text('Grocery Screen'));
   }
 }

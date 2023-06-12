@@ -1,9 +1,11 @@
-import 'package:edgar/services/mappers/routes.dart';
+import 'package:edgar/services/mappers/subroutes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class EdgarBottomNavigationBar extends StatefulWidget {
-  const EdgarBottomNavigationBar({super.key});
+  const EdgarBottomNavigationBar({super.key, required this.onItemTapped});
+
+  final Function(int) onItemTapped;
 
   @override
   State<EdgarBottomNavigationBar> createState() => _EdgarBottomNavigationBarState();
@@ -15,10 +17,10 @@ class _EdgarBottomNavigationBarState extends State<EdgarBottomNavigationBar> {
   void _onItemTapped(int index) {
     HapticFeedback.selectionClick();
     if (index != _selectedMenuIndex) {
-      Navigator.pushNamed(context, routes.keys.toList()[index + 1]);
       setState(() {
         _selectedMenuIndex = index;
       });
+      widget.onItemTapped(index);
     }
   }
 

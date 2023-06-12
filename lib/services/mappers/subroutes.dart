@@ -7,11 +7,11 @@ import 'package:edgar/screens/recipes_screen.dart';
 import 'package:edgar/screens/profile_screen.dart';
 import 'package:edgar/screens/settings_screen.dart';
 
-Map<String, Widget Function(BuildContext)> routes = {
-  '/': (context) => const OpeningPageCommutator(),
-  '/pantry': (context) => const PantryScreen(),
-  '/groceries': (context) => const GroceriesScreen(),
-  '/recipes': (context) => const RecipesScreen(),
-  '/profile': (context) => const ProfileScreen(),
-  '/settings': (context) => const SettingsScreen(),
+Map<String, Widget> subroutes = {
+  '/pantry': const PantryScreen(),
+  '/groceries': const GroceriesScreen(),
+  '/recipes': const RecipesScreen(),
+  '/profile': const ProfileScreen(),
+  '/settings': const SettingsScreen(),
+  '/': const OpeningPageCommutator(),
 };

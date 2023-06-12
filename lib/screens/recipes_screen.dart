@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:edgar/widgets/bars/edgar_bottom_navigation_bar.dart';
 
 class RecipesScreen extends StatefulWidget {
   const RecipesScreen({super.key});
@@ -10,6 +11,6 @@ class RecipesScreen extends StatefulWidget {
 class _RecipesScreenState extends State<RecipesScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: SafeArea(child: Text('Recipes Screen')));
+    return const SafeArea(child: Text('Recipes Screen'));
   }
 }

@@ -10,7 +10,6 @@ import 'package:edgar/models/user.dart';
 
 import 'package:edgar/screens/loading_screen.dart';
 
-import 'package:edgar/widgets/bars/edgar_bottom_navigation_bar.dart';
 import 'package:edgar/widgets/cards/pantry_item_card.dart';
 import 'package:edgar/widgets/cards/add_items_to_pantry_card.dart';
 import 'package:edgar/widgets/buttons/filter_button.dart';
@@ -186,7 +185,6 @@ class _PantryScreenContentState extends State<PantryScreenContent> {
         child: Icon(_isAddItemsMenuOpen ? FontAwesomeIcons.chevronDown : FontAwesomeIcons.plus,
             color: Theme.of(context).colorScheme.onSecondaryContainer), // TODO : Change icon based on menu state
       ),
-      bottomNavigationBar: const EdgarBottomNavigationBar(),
     );
   }
 }

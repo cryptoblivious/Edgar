@@ -9,7 +9,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'dart:async';
 
-import 'services/mappers/routes.dart';
+import 'package:edgar/services/commutators/opening_page_commutator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,8 +42,7 @@ class App extends StatelessWidget {
         systemNavigationBarColor: Colors.deepPurple[900]!,
       ),
       child: MaterialApp(
-        initialRoute: '/',
-        routes: routes,
+        home: OpeningPageCommutator(appTitle: appTitle),
         title: appTitle,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple[900]!),
