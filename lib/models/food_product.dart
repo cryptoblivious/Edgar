@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:edgar/models/diet.dart';
 import 'package:edgar/models/food_category.dart';
-import 'package:edgar/services/mappers/icon_mapper.dart';
+import 'package:edgar/services/database/icon_strings_to_icons.dart';
 import 'package:edgar/models/pricing.dart';
 
 class FoodProduct {
@@ -44,7 +44,7 @@ class FoodProduct {
       name: data?['name'] as String? ?? '',
       description: data?['description'] as String? ?? '',
       icon: data?['icon'] as String? ?? '',
-      iconData: iconMapper[data?['icon']] ?? FontAwesomeIcons.egg,
+      iconData: iconStringsToIcons[data?['icon']] ?? FontAwesomeIcons.egg,
       foodCategories: foodCategories,
       diets: diets,
       //pricing: Pricing.fromFirestore(data?['pricing']),

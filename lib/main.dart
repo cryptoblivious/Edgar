@@ -9,7 +9,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'dart:async';
 
-import 'package:edgar/services/commutators/opening_page_commutator.dart';
+import 'package:edgar/services/routing/opening_page_commutator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

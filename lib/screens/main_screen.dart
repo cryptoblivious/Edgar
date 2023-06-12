@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:edgar/widgets/bars/edgar_bottom_navigation_bar.dart';
-import 'package:edgar/services/mappers/subroutes.dart';
+import 'package:edgar/services/routing/subroutes.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
