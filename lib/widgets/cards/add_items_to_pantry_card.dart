@@ -10,7 +10,6 @@ class AddItemsToPantryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        // TODO : Add view component for adding items
         HapticFeedback.selectionClick();
         onPressed();
       },
