@@ -11,7 +11,7 @@ import 'package:edgar/widgets/placeholders/screen_ph.dart';
 
 Map<String, Widget> subroutes = {
   '/pantry': const PantryScreen(),
-  '/groceries': const ScreenPlaceholder(name: 'Potatoes Screen'),
+  '/groceries': const ScreenPlaceholder(name: 'Groceries Screen'),
   '/recipes': const ScreenPlaceholder(name: 'Recipes Screen'),
   '/profile': const ScreenPlaceholder(name: 'Profile Screen'),
   '/settings': const ScreenPlaceholder(name: 'Settings Screen'),

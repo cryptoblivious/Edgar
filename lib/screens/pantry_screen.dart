@@ -1,3 +1,4 @@
+import 'package:edgar/widgets/bars/pantry_screen_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,11 +10,8 @@ import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/models/user.dart';
 
 import 'package:edgar/screens/loading_screen.dart';
-
-import 'package:edgar/widgets/cards/pantry_item_card.dart';
-import 'package:edgar/widgets/cards/add_items_to_pantry_card.dart';
-import 'package:edgar/widgets/buttons/filter_button.dart';
-import 'package:edgar/widgets/buttons/view_options_button.dart';
+import 'package:edgar/screens/owned_items_subscreen.dart';
+import 'package:edgar/widgets/list_views/owned_item_cards.dart';
 
 class PantryScreen extends ConsumerWidget {
   const PantryScreen({Key? key}) : super(key: key);
@@ -83,7 +81,7 @@ class PantryScreenContent extends StatefulWidget {
 class _PantryScreenContentState extends State<PantryScreenContent> {
   bool _isAddItemsMenuOpen = false;
 
-  void _toggleAddingItemsMenu() {
+  void _toggleAddingItems() {
     if (_isAddItemsMenuOpen) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         width: 200,
@@ -115,7 +113,7 @@ class _PantryScreenContentState extends State<PantryScreenContent> {
     });
   }
 
-  void handleItemChanged(PantryItem pantryItem, String variable) {
+  void handleItemUpdated(PantryItem pantryItem, String variable) {
     setState(() {
       widget.user.pantries![widget.user.activePantry].handleItemChanged(pantryItem, variable);
     });
@@ -130,46 +128,11 @@ class _PantryScreenContentState extends State<PantryScreenContent> {
         child: Container(
           color: Theme.of(context).colorScheme.onSecondaryContainer,
           child: Column(
-            children: <Widget>[
-              Row(
-                children: [
-                  const ViewOptionsButton(),
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(color: Theme.of(context).colorScheme.onPrimary, borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Icon(Icons.search),
-                          ),
-                          Text(
-                            'Search',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 30, color: Theme.of(context).colorScheme.onSecondaryContainer),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const FilterButton(),
-                ],
-              ),
-              Expanded(
-                child: ListView(
-                  children: [
-                    ...user.pantries![user.activePantry].items
-                        .map((pantryItem) => PantryItemCard(
-                              pantryItem: pantryItem,
-                              onItemChanged: handleItemChanged,
-                            ))
-                        .toList(),
-                    AddItemsToPantryCard(onPressed: _toggleAddingItemsMenu),
-                    const SizedBox(height: 50),
-                  ],
-                ),
-              ),
+            children: [
+              const PantryScreenSearchBar(),
+              OwnedItemCards(user: user, onItemUpdated: handleItemUpdated),
+              //OwnedItemsSubscreen(user: user, onItemUpdated: handleItemUpdated, onPressed: _toggleAddingItems),
+              const SizedBox(height: 50),
             ],
           ),
         ),
@@ -179,7 +142,7 @@ class _PantryScreenContentState extends State<PantryScreenContent> {
           // TODO : Add view component for adding items
           // Probably the best way will be to turn the current content widget into a content switcher and add a new content widget for adding items
           HapticFeedback.selectionClick();
-          _toggleAddingItemsMenu();
+          _toggleAddingItems();
         },
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         child: Icon(_isAddItemsMenuOpen ? FontAwesomeIcons.chevronDown : FontAwesomeIcons.plus,

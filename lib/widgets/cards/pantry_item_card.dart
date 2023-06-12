@@ -6,10 +6,10 @@ import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/models/stock.dart';
 
 class PantryItemCard extends StatefulWidget {
-  const PantryItemCard({super.key, required this.pantryItem, required this.onItemChanged});
+  const PantryItemCard({super.key, required this.pantryItem, required this.onItemUpdated});
 
   final PantryItem pantryItem;
-  final Function(PantryItem, String) onItemChanged;
+  final Function(PantryItem, String) onItemUpdated;
 
   @override
   State<PantryItemCard> createState() => _PantryItemCardState();
@@ -17,7 +17,7 @@ class PantryItemCard extends StatefulWidget {
 
 class _PantryItemCardState extends State<PantryItemCard> {
   PantryItem get pantryItem => widget.pantryItem;
-  Function(PantryItem, String) get onItemChanged => widget.onItemChanged;
+  Function(PantryItem, String) get onItemUpdated => widget.onItemUpdated;
   bool isOnWatchlist = false;
   Map<Stock, IconData> stockLevelIcons = {
     Stock.ok: FontAwesomeIcons.hourglassStart,
@@ -42,7 +42,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
         isOnWatchlist = !isOnWatchlist;
       }
     });
-    onItemChanged(pantryItem, variable);
+    onItemUpdated(pantryItem, variable);
   }
 
   void _showPantryItemDialog(BuildContext context) {
