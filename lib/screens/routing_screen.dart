@@ -23,7 +23,7 @@ class RoutingScreen extends ConsumerStatefulWidget {
 class RoutingScreenState extends ConsumerState<RoutingScreen> {
   String currentScreen = '/pantry';
   DocumentSnapshot? initialUserSnapshot;
-  User? user;
+  User? initialUser;
   List<FoodProduct>? initialFoodProducts;
 
   void _onBottomNavigationItemTapped(int index) {
@@ -58,7 +58,7 @@ class RoutingScreenState extends ConsumerState<RoutingScreen> {
             initialFoodProducts = foodProducts;
           }
 
-          if (user == null || initialUserSnapshot != userSnapshot) {
+          if (initialUser == null || initialUserSnapshot != userSnapshot) {
             initialUserSnapshot = userSnapshot;
             return FutureBuilder<User>(
               future: User.createAsync(userSnapshot!),
@@ -82,9 +82,9 @@ class RoutingScreenState extends ConsumerState<RoutingScreen> {
                   );
                 } else {
                   // User is created successfully
-                  user = snapshot.data!;
+                  initialUser = snapshot.data!;
                   return Scaffold(
-                    body: (subroutes[currentScreen] as Widget Function(User, List<FoodProduct>)).call(user!, initialFoodProducts!),
+                    body: (subroutes[currentScreen] as Widget Function(User, List<FoodProduct>)).call(initialUser!, initialFoodProducts!),
                     bottomNavigationBar: EdgarBottomNavigationBar(onItemTapped: _onBottomNavigationItemTapped),
                   );
                 }
@@ -92,7 +92,7 @@ class RoutingScreenState extends ConsumerState<RoutingScreen> {
             );
           } else {
             return Scaffold(
-              body: (subroutes[currentScreen] as Widget Function(User, List<FoodProduct>)).call(user!, initialFoodProducts!),
+              body: (subroutes[currentScreen] as Widget Function(User, List<FoodProduct>)).call(initialUser!, initialFoodProducts!),
               bottomNavigationBar: EdgarBottomNavigationBar(onItemTapped: _onBottomNavigationItemTapped),
             );
           }
