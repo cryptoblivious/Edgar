@@ -9,18 +9,18 @@ import 'package:edgar/models/pricing.dart';
 class FoodProduct {
   String name;
   String description;
-  String icon;
+  String mainCategory;
   IconData iconData;
-  List<FoodCategory> foodCategories;
+  List<FoodCategory> categories;
   List<Diet> diets;
   Pricing? pricing;
 
   FoodProduct({
     required this.name,
     required this.description,
-    required this.icon,
+    required this.mainCategory,
     required this.iconData,
-    required this.foodCategories,
+    required this.categories,
     required this.diets,
     this.pricing,
   });
@@ -43,9 +43,9 @@ class FoodProduct {
     FoodProduct foodProduct = FoodProduct(
       name: data?['name'] as String? ?? '',
       description: data?['description'] as String? ?? '',
-      icon: data?['icon'] as String? ?? '',
-      iconData: iconStringsToIcons[data?['icon']] ?? FontAwesomeIcons.egg,
-      foodCategories: foodCategories,
+      mainCategory: data?['mainCategory'] as String? ?? '',
+      iconData: iconStringsToIcons[data?['mainCategory']] ?? FontAwesomeIcons.x,
+      categories: foodCategories,
       diets: diets,
       //pricing: Pricing.fromFirestore(data?['pricing']),
     );

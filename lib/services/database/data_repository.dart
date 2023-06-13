@@ -1,10 +1,10 @@
 import 'package:edgar/services/errors/error_handler.dart';
 
 abstract class DataRepository {
-  Future<void> fetchData() async {
+  Future<void> getData() async {
     try {
       // Call the specific implementation method
-      await fetchDataImpl();
+      await getDataImpl();
     } catch (error) {
       // Use the ErrorHandling class to handle the error
       ErrorHandler.handleDataRetrievalError(error);
@@ -24,7 +24,7 @@ abstract class DataRepository {
   }
 
   // Define the specific implementation methods in the subclasses
-  Future<void> fetchDataImpl();
+  Future<void> getDataImpl();
   Future<void> updateDataImpl();
   // Add other methods as needed
 }

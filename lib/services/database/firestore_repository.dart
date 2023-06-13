@@ -8,7 +8,7 @@ class FirestoreRepository extends DataRepository {
   FirestoreRepository() : _firestore = FirebaseFirestore.instance;
 
   @override
-  Future<void> fetchDataImpl() async {
+  Future<void> getDataImpl() async {
     // Implementation specific to Firestore data retrieval
     // ...
   }

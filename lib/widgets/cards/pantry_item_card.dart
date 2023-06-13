@@ -104,7 +104,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
                 children: [
                   Tooltip(
                       textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onPrimary),
-                      message: pantryItem.foodProduct!.icon,
+                      message: pantryItem.foodProduct!.mainCategory,
                       child: Icon(pantryItem.foodProduct!.iconData, color: Theme.of(context).colorScheme.onPrimary, size: 36)),
                   const SizedBox(width: 10),
                   Expanded(
