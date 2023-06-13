@@ -64,10 +64,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
             ),
             color: Theme.of(context).colorScheme.primary,
             borderRadius: BorderRadius.circular(10)),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 25,
-        ),
+        padding: const EdgeInsets.fromLTRB(15, 5, 5, 10),
         child: Row(
           children: [
             Expanded(
@@ -82,10 +79,10 @@ class _PantryItemCardState extends State<PantryItemCard> {
                     child: AutoSizeText(
                       capitalize(pantryItem.foodProduct!.name),
                       style: TextStyle(
-                        fontSize: 36,
+                        fontSize: 32,
                         color: Theme.of(context).colorScheme.onPrimary,
                       ),
-                      maxLines: 2, // Restrict the text to a single line
+                      maxLines: 3, // Restrict the text to a single line
                       overflow: TextOverflow.ellipsis, // Handle text overflow with ellipsis
                       minFontSize: 16, // Minimum font size
                       stepGranularity: 1, // Granularity for resizing the font size
@@ -105,7 +102,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
                     icon: Icon(isStapleIcons[pantryItem.isStaple! ? 1 : 0]),
                     onPressed: () => _handleItemChanged('isStaple'),
                     color: Theme.of(context).colorScheme.onPrimary,
-                    iconSize: 32,
+                    iconSize: 24,
                   ),
                 ),
                 Container(
@@ -120,7 +117,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
                       icon: Icon(isOnWatchlistIcons[isOnWatchlist ? 1 : 0]),
                       onPressed: () => _handleItemChanged('isOnWatchlist'),
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
-                      iconSize: 32,
+                      iconSize: 24,
                     ),
                   ),
                 ),
@@ -135,7 +132,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
                     icon: Icon(stockLevelIcons[pantryItem.stock]),
                     onPressed: () => _handleItemChanged('stock'),
                     color: Theme.of(context).colorScheme.onPrimary,
-                    iconSize: 32,
+                    iconSize: 24,
                   ),
                 ),
               ],

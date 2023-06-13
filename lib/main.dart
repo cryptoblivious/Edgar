@@ -36,28 +36,20 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
-        statusBarColor: Colors.deepPurple[900]!,
-        systemNavigationBarColor: Colors.black,
-      ),
-      child: MaterialApp(
-        home: OpeningPageCommutator(appTitle: appTitle),
-        title: appTitle,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple[900]!),
-          fontFamily: 'Montez',
-          useMaterial3: true,
-          splashColor: Colors.deepPurple[200]!.withOpacity(0.1),
-        ),
-        //home: OpeningPageCommutator(appTitle: appTitle),
+    return MaterialApp(
+      home: OpeningPageCommutator(appTitle: appTitle),
+      title: appTitle,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple[900]!),
+        fontFamily: 'Montez',
+        useMaterial3: true,
+        splashColor: Colors.deepPurple[200]!.withOpacity(0.1),
       ),
     );
   }
 }
 
 // Function to create or update the user document in Firestore
-
 Future<void> linkUserWithDocument() async {
   final User? user = FirebaseAuth.instance.currentUser;
   if (user != null) {
@@ -97,8 +89,6 @@ Future<void> linkUserWithDocument() async {
         },
         'uid': user.uid,
         'watchList': [],
-
-        // Add more fields as needed for user profile
       });
     }
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:edgar/models/user.dart';
 import 'package:edgar/models/pantry_item.dart';
@@ -14,6 +15,10 @@ class OwnedItemCardsSubscreen extends StatelessWidget {
   final User user;
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Theme.of(context).colorScheme.primary,
+    ));
+
     final sortedList = user.pantries![user.activePantry].items.map((pantryItem) => pantryItem).toList()
       ..sort((a, b) => a.foodProduct!.name.compareTo(b.foodProduct!.name));
 

@@ -26,7 +26,7 @@ class AddToPantryPromptCard extends StatelessWidget {
             child: Text(
               'Add more items to your pantry!',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 32, color: Theme.of(context).colorScheme.onSecondaryContainer),
+              style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onSecondaryContainer),
             ),
           )),
     );

@@ -22,7 +22,6 @@ class RoutingScreen extends ConsumerStatefulWidget {
 
 class RoutingScreenState extends ConsumerState<RoutingScreen> {
   String currentScreen = '/pantry';
-  DocumentSnapshot? initialUserSnapshot;
   User? initialUser;
   List<FoodProduct>? initialFoodProducts;
 
@@ -51,51 +50,20 @@ class RoutingScreenState extends ConsumerState<RoutingScreen> {
           );
         } else {
           // Snapshots are available
-          final userSnapshot = asyncUserDocumentSnapshot.value;
+          final user = asyncUserDocumentSnapshot.value;
           final foodProducts = asyncFoodProductsSnapshot.value;
 
           if (initialFoodProducts == null || initialFoodProducts != foodProducts) {
             initialFoodProducts = foodProducts;
           }
 
-          if (initialUser == null || initialUserSnapshot != userSnapshot) {
-            initialUserSnapshot = userSnapshot;
-            return FutureBuilder<User>(
-              future: User.createAsync(userSnapshot!),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  // User is still being created
-                  return LoadingScreen();
-                } else if (snapshot.hasError) {
-                  // Error occurred while creating the user
-                  return Scaffold(
-                    body: Center(
-                      child: Text('Error occurred: ${snapshot.error}'),
-                    ),
-                  );
-                } else if (!snapshot.hasData) {
-                  // Future has completed, but no data was returned
-                  return const Scaffold(
-                    body: Center(
-                      child: Text('No user data available'),
-                    ),
-                  );
-                } else {
-                  // User is created successfully
-                  initialUser = snapshot.data!;
-                  return Scaffold(
-                    body: (subroutes[currentScreen] as Widget Function(User, List<FoodProduct>)).call(initialUser!, initialFoodProducts!),
-                    bottomNavigationBar: EdgarBottomNavigationBar(onItemTapped: _onBottomNavigationItemTapped),
-                  );
-                }
-              },
-            );
-          } else {
-            return Scaffold(
-              body: (subroutes[currentScreen] as Widget Function(User, List<FoodProduct>)).call(initialUser!, initialFoodProducts!),
-              bottomNavigationBar: EdgarBottomNavigationBar(onItemTapped: _onBottomNavigationItemTapped),
-            );
+          if (initialUser == null || initialUser != user) {
+            initialUser = user;
           }
+          return Scaffold(
+            body: (subroutes[currentScreen] as Widget Function(User, List<FoodProduct>)).call(initialUser!, initialFoodProducts!),
+            bottomNavigationBar: EdgarBottomNavigationBar(onItemTapped: _onBottomNavigationItemTapped),
+          );
         }
       },
     );

@@ -1,6 +1,7 @@
 import 'package:edgar/models/food_product.dart';
 import 'package:edgar/widgets/cards/add_to_pantry_prompt_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:edgar/models/user.dart';
@@ -25,6 +26,9 @@ class AddItemsToPantrySubscreenState extends ConsumerState<AddItemsToPantrySubsc
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Theme.of(context).colorScheme.tertiary,
+    ));
     sortedList = widget.foodProducts.map((pantryItem) => pantryItem).toList()..sort((a, b) => a.name.compareTo(b.name));
     return Expanded(
       child: ListView(
