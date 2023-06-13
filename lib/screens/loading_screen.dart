@@ -3,7 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class LoadingScreen extends StatelessWidget {
-  LoadingScreen({super.key});
+  final String? message;
+  late final String currentMessage;
+
+  LoadingScreen({super.key, this.message}) {
+    currentMessage = message ?? _randomizeMessage();
+  }
 
   static final List<String> loadingScreenMessages = [
     'Bringing out the cookbooks...',
@@ -39,8 +44,6 @@ class LoadingScreen extends StatelessWidget {
   static String _randomizeMessage() {
     return loadingScreenMessages[Random().nextInt(loadingScreenMessages.length)];
   }
-
-  final String currentMessage = _randomizeMessage();
 
   @override
   Widget build(BuildContext context) {

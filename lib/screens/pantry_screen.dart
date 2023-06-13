@@ -1,87 +1,26 @@
 import 'package:edgar/widgets/bars/pantry_screen_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'package:edgar/services/providers/user.dart';
-import 'package:edgar/services/providers/food_products.dart';
 
 import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/models/user.dart';
 
-import 'package:edgar/screens/loading_screen.dart';
 import 'package:edgar/screens/subscreens/owned_item_cards_subscreen.dart';
 import 'package:edgar/screens/subscreens/add_items_to_pantry_subscreen.dart';
 
-class PantryScreen extends ConsumerWidget {
-  const PantryScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Consumer(
-      builder: (context, watch, child) {
-        final asyncUserDocumentSnapshot = ref.watch(userProvider);
-
-        if (asyncUserDocumentSnapshot.isLoading) {
-          // Snapshot is not available yet
-          return LoadingScreen();
-        } else if (asyncUserDocumentSnapshot.error != null) {
-          // Error occurred while fetching a snapshot
-          return Scaffold(
-            body: Center(
-              child: Text('Error occurred: ${asyncUserDocumentSnapshot.error}'),
-            ),
-          );
-        } else {
-          // Snaphots are available
-          final userSnapshot = asyncUserDocumentSnapshot.value;
-
-          return FutureBuilder<User>(
-            future: User.createAsync(userSnapshot!),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                // User is still being created
-                return LoadingScreen();
-              } else if (snapshot.hasError) {
-                // Error occurred while creating the user
-                return Scaffold(
-                  body: Center(
-                    child: Text('Error occurred: ${snapshot.error}'),
-                  ),
-                );
-              } else if (snapshot.hasData) {
-                // User is created successfully
-                final user = snapshot.data!;
-                return PantryScreenContent(user: user);
-              } else {
-                // Future has completed, but no data was returned
-                return const Scaffold(
-                  body: Center(
-                    child: Text('No user data available'),
-                  ),
-                );
-              }
-            },
-          );
-        }
-      },
-    );
-  }
-}
-
-class PantryScreenContent extends StatefulWidget {
+class PantryScreen extends StatefulWidget {
   final User user;
   // TODO : Add an async function to get the food products from the database
   //final List<FoodProduct> foodProducts;
 
-  const PantryScreenContent({Key? key, required this.user}) : super(key: key);
+  const PantryScreen({Key? key, required this.user}) : super(key: key);
 
   @override
-  State<PantryScreenContent> createState() => _PantryScreenContentState();
+  State<PantryScreen> createState() => _PantryScreenState();
 }
 
-class _PantryScreenContentState extends State<PantryScreenContent> {
+class _PantryScreenState extends State<PantryScreen> {
   bool _isAddItemsMenuOpen = false;
 
   void _toggleAddingItems() {

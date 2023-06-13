@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/models/stock.dart';
+import 'package:edgar/services/utils/string_utils.dart';
 
 class PantryItemCard extends StatefulWidget {
   const PantryItemCard({super.key, required this.pantryItem, required this.onItemUpdated});
@@ -52,7 +53,7 @@ class _PantryItemCardState extends State<PantryItemCard> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            pantryItem.foodProduct!.name,
+            capitalize(pantryItem.foodProduct!.name),
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondaryContainer),
             textAlign: TextAlign.center,
           ),
@@ -104,12 +105,12 @@ class _PantryItemCardState extends State<PantryItemCard> {
                 children: [
                   Tooltip(
                       textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onPrimary),
-                      message: pantryItem.foodProduct!.mainCategory,
+                      message: capitalize(pantryItem.foodProduct!.mainCategory),
                       child: Icon(pantryItem.foodProduct!.iconData, color: Theme.of(context).colorScheme.onPrimary, size: 36)),
                   const SizedBox(width: 10),
                   Expanded(
                     child: AutoSizeText(
-                      pantryItem.foodProduct!.name,
+                      capitalize(pantryItem.foodProduct!.name),
                       style: TextStyle(
                         fontSize: 36,
                         color: Theme.of(context).colorScheme.onPrimary,

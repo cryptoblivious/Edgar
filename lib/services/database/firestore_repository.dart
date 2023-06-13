@@ -10,7 +10,6 @@ class FirestoreRepository extends DataRepository {
   @override
   Future<void> getDataImpl() async {
     // Implementation specific to Firestore data retrieval
-    // ...
   }
 
   @override
