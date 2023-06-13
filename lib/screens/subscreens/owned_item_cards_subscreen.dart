@@ -3,27 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:edgar/models/user.dart';
 import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/widgets/cards/pantry_item_card.dart';
-import 'package:edgar/widgets/cards/add_items_to_pantry_card.dart';
+import 'package:edgar/widgets/cards/add_to_pantry_prompt_card.dart';
 
 class OwnedItemCardsSubscreen extends StatelessWidget {
   const OwnedItemCardsSubscreen({super.key, required this.user, required this.onItemUpdated, required this.onPressed});
 
-  final User user;
   final void Function(PantryItem, String) onItemUpdated;
   final void Function() onPressed;
 
+  final User user;
   @override
   Widget build(BuildContext context) {
+    final sortedList = user.pantries![user.activePantry].items.map((pantryItem) => pantryItem).toList()
+      ..sort((a, b) => a.foodProduct!.name.compareTo(b.foodProduct!.name));
+
     return Expanded(
       child: ListView(
         children: [
-          ...user.pantries![user.activePantry].items
+          ...sortedList
               .map((pantryItem) => PantryItemCard(
                     pantryItem: pantryItem,
                     onItemUpdated: onItemUpdated,
                   ))
               .toList(),
-          AddItemsToPantryCard(onPressed: onPressed),
+          AddToPantryPromptCard(onPressed: onPressed),
           const SizedBox(height: 50),
         ],
       ),

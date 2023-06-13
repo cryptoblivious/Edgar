@@ -39,7 +39,7 @@ class App extends StatelessWidget {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
         statusBarColor: Colors.deepPurple[900]!,
-        systemNavigationBarColor: Colors.deepPurple[900]!,
+        systemNavigationBarColor: Colors.black,
       ),
       child: MaterialApp(
         home: OpeningPageCommutator(appTitle: appTitle),

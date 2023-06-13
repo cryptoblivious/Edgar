@@ -1,3 +1,4 @@
+import 'package:edgar/models/food_product.dart';
 import 'package:edgar/widgets/bars/pantry_screen_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,10 +12,9 @@ import 'package:edgar/screens/subscreens/add_items_to_pantry_subscreen.dart';
 
 class PantryScreen extends StatefulWidget {
   final User user;
-  // TODO : Add an async function to get the food products from the database
-  //final List<FoodProduct> foodProducts;
+  final List<FoodProduct> foodProducts;
 
-  const PantryScreen({Key? key, required this.user}) : super(key: key);
+  const PantryScreen({Key? key, required this.user, required this.foodProducts}) : super(key: key);
 
   @override
   State<PantryScreen> createState() => _PantryScreenState();
@@ -53,7 +53,7 @@ class _PantryScreenState extends State<PantryScreen> {
             children: [
               const PantryScreenSearchBar(),
               _isAddItemsMenuOpen
-                  ? AddItemsToPantrySubscreen(user: user, onItemAdded: handleItemAdded)
+                  ? AddItemsToPantrySubscreen(user: user, foodProducts: widget.foodProducts, onItemAdded: handleItemAdded)
                   : OwnedItemCardsSubscreen(user: user, onItemUpdated: handleItemUpdated, onPressed: _toggleAddingItems),
             ],
           ),

@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:edgar/screens/loading_screen.dart';
 import 'package:edgar/screens/sign_in_screen.dart';
-import 'package:edgar/screens/main_screen.dart';
+import 'package:edgar/screens/routing_screen.dart';
 
 class OpeningPageCommutator extends StatelessWidget {
   const OpeningPageCommutator({super.key, this.appTitle = 'Edgar: Your Culinary Assistant'});
@@ -34,7 +34,7 @@ class OpeningPageCommutator extends StatelessWidget {
                 return Text('Error: ${snapshot.error}');
               } else {
                 // User document is created or updated, navigate to PantryPage
-                return const MainScreen();
+                return const RoutingScreen();
               }
             },
           );

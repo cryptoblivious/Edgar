@@ -3,25 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:edgar/services/providers/user.dart';
+import 'package:edgar/services/providers/food_products.dart';
 
 import 'package:edgar/models/user.dart';
+import 'package:edgar/models/food_product.dart';
 
 import 'package:edgar/screens/loading_screen.dart';
 
 import 'package:edgar/widgets/bars/edgar_bottom_navigation_bar.dart';
 import 'package:edgar/services/routing/subroutes.dart';
 
-class MainScreen extends ConsumerStatefulWidget {
-  const MainScreen({super.key});
+class RoutingScreen extends ConsumerStatefulWidget {
+  const RoutingScreen({super.key});
 
   @override
-  MainScreenState createState() => MainScreenState();
+  RoutingScreenState createState() => RoutingScreenState();
 }
 
-class MainScreenState extends ConsumerState<MainScreen> {
+class RoutingScreenState extends ConsumerState<RoutingScreen> {
   String currentScreen = '/pantry';
   DocumentSnapshot? initialUserSnapshot;
   User? user;
+  List<FoodProduct>? initialFoodProducts;
 
   void _onBottomNavigationItemTapped(int index) {
     setState(() {
@@ -34,11 +37,12 @@ class MainScreenState extends ConsumerState<MainScreen> {
     return Consumer(
       builder: (context, watch, child) {
         final asyncUserDocumentSnapshot = ref.watch(userProvider);
+        final asyncFoodProductsSnapshot = ref.watch(foodProductsProvider);
 
-        if (asyncUserDocumentSnapshot.isLoading) {
+        if (asyncUserDocumentSnapshot.isLoading || asyncFoodProductsSnapshot.isLoading) {
           // Snapshot is not available yet
           return LoadingScreen();
-        } else if (asyncUserDocumentSnapshot.error != null) {
+        } else if (asyncUserDocumentSnapshot.error != null || asyncFoodProductsSnapshot.error != null) {
           // Error occurred while fetching a snapshot
           return Scaffold(
             body: Center(
@@ -48,6 +52,11 @@ class MainScreenState extends ConsumerState<MainScreen> {
         } else {
           // Snapshots are available
           final userSnapshot = asyncUserDocumentSnapshot.value;
+          final foodProducts = asyncFoodProductsSnapshot.value;
+
+          if (initialFoodProducts == null || initialFoodProducts != foodProducts) {
+            initialFoodProducts = foodProducts;
+          }
 
           if (user == null || initialUserSnapshot != userSnapshot) {
             initialUserSnapshot = userSnapshot;
@@ -75,7 +84,7 @@ class MainScreenState extends ConsumerState<MainScreen> {
                   // User is created successfully
                   user = snapshot.data!;
                   return Scaffold(
-                    body: (subroutes[currentScreen] as Widget Function(User)).call(user!),
+                    body: (subroutes[currentScreen] as Widget Function(User, List<FoodProduct>)).call(user!, initialFoodProducts!),
                     bottomNavigationBar: EdgarBottomNavigationBar(onItemTapped: _onBottomNavigationItemTapped),
                   );
                 }
@@ -83,7 +92,7 @@ class MainScreenState extends ConsumerState<MainScreen> {
             );
           } else {
             return Scaffold(
-              body: (subroutes[currentScreen] as Widget Function(User)).call(user!),
+              body: (subroutes[currentScreen] as Widget Function(User, List<FoodProduct>)).call(user!, initialFoodProducts!),
               bottomNavigationBar: EdgarBottomNavigationBar(onItemTapped: _onBottomNavigationItemTapped),
             );
           }

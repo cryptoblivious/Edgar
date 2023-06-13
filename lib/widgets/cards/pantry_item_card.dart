@@ -1,3 +1,4 @@
+import 'package:edgar/models/food_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/models/stock.dart';
 import 'package:edgar/services/utils/string_utils.dart';
+import 'package:edgar/widgets/dialogs/food_product_description_dialog.dart';
 
 class PantryItemCard extends StatefulWidget {
   const PantryItemCard({super.key, required this.pantryItem, required this.onItemUpdated});
@@ -46,45 +48,13 @@ class _PantryItemCardState extends State<PantryItemCard> {
     onItemUpdated(pantryItem, variable);
   }
 
-  void _showPantryItemDialog(BuildContext context) {
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            capitalize(pantryItem.foodProduct!.name),
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondaryContainer),
-            textAlign: TextAlign.center,
-          ),
-          content: SingleChildScrollView(
-              child: Text(
-            pantryItem.foodProduct!.description,
-            style: const TextStyle(fontSize: 28),
-            textAlign: TextAlign.justify,
-          )),
-          actions: [
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  // Perform an action when the button is pressed
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Good to know!', style: TextStyle(fontSize: 32)),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
+      onPressed: () => HapticFeedback.selectionClick(),
+      onLongPress: () {
         HapticFeedback.selectionClick();
-        _showPantryItemDialog(context);
+        showfoodProductDescriptionDialog(context, pantryItem.foodProduct!);
       },
       child: Container(
         height: 100,

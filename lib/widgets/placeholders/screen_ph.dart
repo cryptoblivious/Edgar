@@ -8,21 +8,15 @@ class ScreenPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return Container(
-            width: constraints.maxWidth,
-            color: Theme.of(context).colorScheme.secondaryContainer,
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                name,
-                style: TextStyle(fontSize: 48, color: Theme.of(context).colorScheme.onSecondaryContainer),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          );
-        },
+      child: Container(
+        color: Theme.of(context).colorScheme.secondaryContainer,
+        child: Align(
+          child: Text(
+            name,
+            style: TextStyle(fontSize: 48, color: Theme.of(context).colorScheme.onSecondaryContainer),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }
