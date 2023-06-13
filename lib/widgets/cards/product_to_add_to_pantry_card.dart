@@ -8,9 +8,10 @@ import 'package:edgar/widgets/dialogs/food_product_description_dialog.dart';
 import 'package:edgar/services/utils/string_utils.dart';
 
 class ProductToAddToPantryCard extends StatefulWidget {
-  const ProductToAddToPantryCard({super.key, required this.foodProduct});
+  const ProductToAddToPantryCard({super.key, required this.foodProduct, required this.onItemAdded});
 
   final FoodProduct foodProduct;
+  final Function(FoodProduct) onItemAdded;
 
   @override
   State<ProductToAddToPantryCard> createState() => _ProductToAddToPantryCardState();
@@ -20,18 +21,21 @@ class _ProductToAddToPantryCardState extends State<ProductToAddToPantryCard> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      style: TextButton.styleFrom(
+        padding: const EdgeInsets.all(0),
+      ),
       onPressed: () => HapticFeedback.selectionClick(),
       onLongPress: () {
         HapticFeedback.selectionClick();
         showfoodProductDescriptionDialog(context, widget.foodProduct);
       },
       child: Dismissible(
+        resizeDuration: const Duration(milliseconds: 1),
         key: UniqueKey(),
         background: Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           decoration: BoxDecoration(
             color: Colors.blue[800]!,
-            borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -47,10 +51,9 @@ class _ProductToAddToPantryCardState extends State<ProductToAddToPantryCard> {
           ),
         ),
         secondaryBackground: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          decoration: const BoxDecoration(
             color: Colors.deepOrange,
-            borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -68,24 +71,24 @@ class _ProductToAddToPantryCardState extends State<ProductToAddToPantryCard> {
         onDismissed: (direction) {
           if (direction == DismissDirection.endToStart) {
             // Handle swipe from right to left
-            // Show explanation for deleting
+            // Show explanation for adding as occasional
+            widget.onItemAdded(widget.foodProduct);
           } else if (direction == DismissDirection.startToEnd) {
             // Handle swipe from left to right
-            // Show explanation for checking
+            // Show explanation for adding as staple
+            widget.onItemAdded(widget.foodProduct);
           }
         },
         child: Container(
-          height: 100,
+          height: 75,
           decoration: BoxDecoration(
             border: Border.all(
               color: Theme.of(context).colorScheme.outlineVariant,
             ),
             color: Theme.of(context).colorScheme.tertiary,
-            borderRadius: BorderRadius.circular(10),
           ),
           padding: const EdgeInsets.symmetric(
             horizontal: 15,
-            vertical: 25,
           ),
           child: Row(
             children: [

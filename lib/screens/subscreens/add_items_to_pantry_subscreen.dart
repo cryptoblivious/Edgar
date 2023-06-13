@@ -23,19 +23,31 @@ class AddItemsToPantrySubscreen extends ConsumerStatefulWidget {
 
 class AddItemsToPantrySubscreenState extends ConsumerState<AddItemsToPantrySubscreen> {
   List<FoodProduct>? sortedList;
+  List<FoodProduct>? addedItemsList = [];
+
+  void addItemToPantry(FoodProduct foodProduct) {
+    // TODO : Add logic that adds the item to the pantry
+    setState(() {
+      addedItemsList!.add(foodProduct);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Theme.of(context).colorScheme.tertiary,
     ));
-    sortedList = widget.foodProducts.map((pantryItem) => pantryItem).toList()..sort((a, b) => a.name.compareTo(b.name));
+
+    sortedList = widget.foodProducts.map((pantryItem) => pantryItem).where((a) => !addedItemsList!.contains(a)).toList()
+      ..sort((a, b) => a.name.compareTo(b.name));
+
     return Expanded(
       child: ListView(
         children: [
           ...sortedList!
               .map((foodProduct) => ProductToAddToPantryCard(
                     foodProduct: foodProduct,
+                    onItemAdded: addItemToPantry,
                   ))
               .toList(),
           const SizedBox(height: 50),
