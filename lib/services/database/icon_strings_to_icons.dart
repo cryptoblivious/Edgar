@@ -18,7 +18,7 @@ Map<String, IconData> iconStringsToIcons = {
   'hot': FontAwesomeIcons.pepperHot,
   'legume': FontAwesomeIcons.bowlFood,
   'meat': FontAwesomeIcons.bacon,
-  'mushroom' : FontAwesomeIcons.meatballCloud,
+  'mushroom' : FontAwesomeIcons.cloudMeatball,
   'nut': FontAwesomeIcons.stroopwafel,
   'oil': FontAwesomeIcons.bottleDroplet,
   'poultry': FontAwesomeIcons.drumstickBite,
