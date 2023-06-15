@@ -15,6 +15,7 @@ enum FoodCategory {
   hot,
   legume,
   meat,
+  mushroom,
   nut,
   oil,
   poultry,
