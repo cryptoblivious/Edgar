@@ -9,24 +9,25 @@ class AddToPantryPromptCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      style: TextButton.styleFrom(
+        padding: const EdgeInsets.all(0),
+      ),
       onPressed: () {
         HapticFeedback.selectionClick();
         onPressed();
       },
       child: Container(
-          height: 100,
-          padding: const EdgeInsets.all(20),
+          height: 75,
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondaryContainer,
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              color: Theme.of(context).colorScheme.tertiary,
               border: Border.all(
-                color: Theme.of(context).colorScheme.secondaryContainer,
+                color: Theme.of(context).colorScheme.onTertiary,
               )),
           child: Center(
             child: Text(
               'Add more items to your pantry!',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onSecondaryContainer),
+              style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onTertiary),
             ),
           )),
     );

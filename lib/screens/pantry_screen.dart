@@ -29,18 +29,6 @@ class _PantryScreenState extends State<PantryScreen> {
     });
   }
 
-  void handleItemUpdated(PantryItem pantryItem, String variable) {
-    setState(() {
-      widget.user.pantries![widget.user.activePantry].changeItem(pantryItem, variable);
-    });
-  }
-
-  void handleItemAdded(PantryItem pantryItem) {
-    setState(() {
-      widget.user.pantries![widget.user.activePantry].addItem(pantryItem);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final user = widget.user; // Access the user object from the widget
@@ -53,8 +41,8 @@ class _PantryScreenState extends State<PantryScreen> {
             children: [
               const PantryScreenSearchBar(),
               _isAddItemsMenuOpen
-                  ? AddItemsToPantrySubscreen(user: user, foodProducts: widget.foodProducts, onItemAdded: handleItemAdded)
-                  : OwnedItemCardsSubscreen(user: user, onItemUpdated: handleItemUpdated, onPressed: _toggleAddingItems),
+                  ? AddItemsToPantrySubscreen(user: user, foodProducts: widget.foodProducts)
+                  : OwnedItemCardsSubscreen(user: user, onPressed: _toggleAddingItems),
             ],
           ),
         ),

@@ -1,21 +1,17 @@
 import 'package:edgar/models/food_product.dart';
-import 'package:edgar/widgets/cards/add_to_pantry_prompt_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:edgar/models/user.dart';
 import 'package:edgar/models/pantry_item.dart';
-import 'package:edgar/services/providers/food_products.dart';
-import 'package:edgar/screens/subscreens/loading_subscreen.dart';
 import 'package:edgar/widgets/cards/product_to_add_to_pantry_card.dart';
 
 class AddItemsToPantrySubscreen extends ConsumerStatefulWidget {
-  const AddItemsToPantrySubscreen({super.key, required this.user, required this.foodProducts, required this.onItemAdded});
+  const AddItemsToPantrySubscreen({super.key, required this.user, required this.foodProducts});
 
   final User user;
   final List<FoodProduct> foodProducts;
-  final void Function(PantryItem) onItemAdded;
 
   @override
   AddItemsToPantrySubscreenState createState() => AddItemsToPantrySubscreenState();
@@ -23,12 +19,14 @@ class AddItemsToPantrySubscreen extends ConsumerStatefulWidget {
 
 class AddItemsToPantrySubscreenState extends ConsumerState<AddItemsToPantrySubscreen> {
   List<FoodProduct>? sortedList;
-  List<FoodProduct>? addedItemsList = [];
+  late List<String> userFoodProductNames;
 
-  void addItemToPantry(FoodProduct foodProduct) {
-    // TODO : Add logic that adds the item to the pantry
+  void handleItemAdded(FoodProduct foodProduct, bool isStaple) {
     setState(() {
-      addedItemsList!.add(foodProduct);
+      widget.user.pantries![widget.user.activePantry].addItem(PantryItem(
+        foodProduct: foodProduct,
+        isStaple: isStaple,
+      ));
     });
   }
 
@@ -38,7 +36,8 @@ class AddItemsToPantrySubscreenState extends ConsumerState<AddItemsToPantrySubsc
       statusBarColor: Theme.of(context).colorScheme.tertiary,
     ));
 
-    sortedList = widget.foodProducts.map((pantryItem) => pantryItem).where((a) => !addedItemsList!.contains(a)).toList()
+    userFoodProductNames = widget.user.pantries![widget.user.activePantry].items.map((pantryItem) => pantryItem.foodProduct!.name).toList();
+    sortedList = widget.foodProducts.map((foodProduct) => foodProduct).where((a) => !userFoodProductNames.contains(a.name)).toList()
       ..sort((a, b) => a.name.compareTo(b.name));
 
     return Expanded(
@@ -47,7 +46,7 @@ class AddItemsToPantrySubscreenState extends ConsumerState<AddItemsToPantrySubsc
           ...sortedList!
               .map((foodProduct) => ProductToAddToPantryCard(
                     foodProduct: foodProduct,
-                    onItemAdded: addItemToPantry,
+                    onItemAdded: handleItemAdded,
                   ))
               .toList(),
           const SizedBox(height: 50),

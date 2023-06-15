@@ -16,6 +16,10 @@ class Pantry {
     items.add(item);
   }
 
+  void removeItem(PantryItem item) {
+    items.remove(item);
+  }
+
   Pantry._create(dynamic item) {
     name = (item['name'] ?? 'Home') as String;
     items = [];

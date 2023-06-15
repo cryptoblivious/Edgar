@@ -11,7 +11,7 @@ class ProductToAddToPantryCard extends StatefulWidget {
   const ProductToAddToPantryCard({super.key, required this.foodProduct, required this.onItemAdded});
 
   final FoodProduct foodProduct;
-  final Function(FoodProduct) onItemAdded;
+  final Function(FoodProduct, bool) onItemAdded;
 
   @override
   State<ProductToAddToPantryCard> createState() => _ProductToAddToPantryCardState();
@@ -70,13 +70,9 @@ class _ProductToAddToPantryCardState extends State<ProductToAddToPantryCard> {
         ),
         onDismissed: (direction) {
           if (direction == DismissDirection.endToStart) {
-            // Handle swipe from right to left
-            // Show explanation for adding as occasional
-            widget.onItemAdded(widget.foodProduct);
+            widget.onItemAdded(widget.foodProduct, false);
           } else if (direction == DismissDirection.startToEnd) {
-            // Handle swipe from left to right
-            // Show explanation for adding as staple
-            widget.onItemAdded(widget.foodProduct);
+            widget.onItemAdded(widget.foodProduct, true);
           }
         },
         child: Container(
