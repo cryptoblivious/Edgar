@@ -29,6 +29,14 @@ class PantryItem {
     }
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'foodProduct': FirebaseFirestore.instance.collection('foodProducts').doc(foodProduct?.uid),
+      'isStaple': isStaple,
+      'stock': stock.toString().split('.').last,
+    };
+  }
+
   void change(String variable) {
     if (variable == 'isStaple') {
       isStaple = !isStaple!;

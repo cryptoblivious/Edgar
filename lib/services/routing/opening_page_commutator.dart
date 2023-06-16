@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:edgar/screens/loading_screen.dart';
 import 'package:edgar/screens/sign_in_screen.dart';
-import 'package:edgar/screens/routing_screen.dart';
+import 'package:edgar/services/routing/router.dart' as edgar;
 
 class OpeningPageCommutator extends StatelessWidget {
   const OpeningPageCommutator({super.key, this.appTitle = 'Edgar: Your Culinary Assistant'});
@@ -34,7 +34,7 @@ class OpeningPageCommutator extends StatelessWidget {
                 return Text('Error: ${snapshot.error}');
               } else {
                 // User document is created or updated, navigate to PantryPage
-                return const RoutingScreen();
+                return const edgar.Router();
               }
             },
           );
@@ -55,15 +55,17 @@ Future<void> linkUserWithDocument() async {
     final userDocRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
     final userDocSnapshot = await userDocRef.get();
     if (!userDocSnapshot.exists) {
-      // Generate a new pantry document
-      final newPantryDocRef = await FirebaseFirestore.instance.collection('pantries').add({
-        // Add pantry data here
-        'name': 'My Pantry',
-        'items': [
-          {'foodProduct': FirebaseFirestore.instance.collection('foodProducts').doc('hf58XDYIy4zU6Wjn34Jj'), 'isStaple': true, 'stock': 'ok'},
-          {'foodProduct': FirebaseFirestore.instance.collection('foodProducts').doc('l5A6RZppRSSqxBYxLqfd'), 'isStaple': true, 'stock': 'ok'},
-        ]
-      });
+      final newPantryDocRef = await FirebaseFirestore.instance.collection('pantries').add({'name': 'My Pantry', 'items': []});
+      String uid = newPantryDocRef.id;
+      await newPantryDocRef.update({'uid': uid});
+
+      final newShoppingListDocRef = await FirebaseFirestore.instance.collection('shoppingLists').add({'name': 'My Shopping List', 'items': []});
+      uid = newShoppingListDocRef.id;
+      await newShoppingListDocRef.update({'uid': uid});
+
+      final newWatchListDocRef = await FirebaseFirestore.instance.collection('watchLists').add({'name': 'My Watch List', 'items': []});
+      uid = newWatchListDocRef.id;
+      await newWatchListDocRef.update({'uid': uid});
 
       // Create the user document with the new pantry reference
       await userDocRef.set({
@@ -71,7 +73,7 @@ Future<void> linkUserWithDocument() async {
         'friends': [],
         'pantries': [newPantryDocRef],
         'recipes': [],
-        'shoppingList': [],
+        'shoppingList': [newShoppingListDocRef],
         'settings': {
           'darkMode': true,
           'language': 'en',
@@ -87,7 +89,7 @@ Future<void> linkUserWithDocument() async {
           'specificAllergens': [],
         },
         'uid': user.uid,
-        'watchList': [],
+        'watchList': newWatchListDocRef,
 
         // Add more fields as needed for user profile
       });

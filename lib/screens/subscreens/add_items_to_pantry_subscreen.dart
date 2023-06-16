@@ -6,12 +6,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:edgar/models/user.dart';
 import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/widgets/cards/product_to_add_to_pantry_card.dart';
+import 'package:edgar/services/database/data_repository.dart';
+import 'package:edgar/services/database/firestore_repository.dart';
 
 class AddItemsToPantrySubscreen extends ConsumerStatefulWidget {
-  const AddItemsToPantrySubscreen({super.key, required this.user, required this.foodProducts});
+  AddItemsToPantrySubscreen({super.key, required this.user, required this.foodProducts});
 
   final User user;
   final List<FoodProduct> foodProducts;
+  final DataRepository dataRepository = FirestoreRepository();
 
   @override
   AddItemsToPantrySubscreenState createState() => AddItemsToPantrySubscreenState();
@@ -23,11 +26,12 @@ class AddItemsToPantrySubscreenState extends ConsumerState<AddItemsToPantrySubsc
 
   void handleItemAdded(FoodProduct foodProduct, bool isStaple) {
     setState(() {
-      widget.user.pantries![widget.user.activePantry].addItem(PantryItem(
+      widget.user.pantries![widget.user.activePantry!].addItem(PantryItem(
         foodProduct: foodProduct,
         isStaple: isStaple,
       ));
     });
+    widget.dataRepository.updateData({'object': widget.user.pantries![widget.user.activePantry!]});
   }
 
   @override
@@ -36,7 +40,7 @@ class AddItemsToPantrySubscreenState extends ConsumerState<AddItemsToPantrySubsc
       statusBarColor: Theme.of(context).colorScheme.tertiary,
     ));
 
-    userFoodProductNames = widget.user.pantries![widget.user.activePantry].items.map((pantryItem) => pantryItem.foodProduct!.name).toList();
+    userFoodProductNames = widget.user.pantries![widget.user.activePantry!].items.map((pantryItem) => pantryItem.foodProduct!.name).toList();
     sortedList = widget.foodProducts.map((foodProduct) => foodProduct).where((a) => !userFoodProductNames.contains(a.name)).toList()
       ..sort((a, b) => a.name.compareTo(b.name));
 

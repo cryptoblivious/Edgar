@@ -4,21 +4,27 @@ import 'package:edgar/models/pantry.dart';
 import 'package:edgar/models/recipe.dart';
 
 class User {
-  Pantry pantry = Pantry();
-  int activePantry = 0;
-  List<Pantry>? pantries;
-  List<Recipe>? recipes = [];
-  List<FoodProduct>? watchList = [];
-  List<FoodProduct>? shoppingList = [];
-  List<String>? diets = [];
-  List<FoodProduct>? specificAllergens = [];
-  List<String>? broadAllergens = [];
+  String? uid;
+  String? name;
   String? email;
+  String? avatarURL;
+  int? activePantry;
+  List<Pantry>? pantries;
+  List<Recipe>? recipes;
+  List<FoodProduct>? watchList;
+  List<FoodProduct>? shoppingList;
+  List<String>? diets;
+  List<FoodProduct>? specificAllergens;
+  List<String>? broadAllergens;
   List<User>? friends;
 
   User();
 
   User._create(dynamic data) {
+    uid = (data['uid'] ?? '') as String;
+    name = (data['profile']['name'] ?? '') as String;
+    email = (data['profile']['email'] ?? '') as String;
+    avatarURL = (data['profile']['photoURL'] ?? '') as String;
     activePantry = (data['activePantry'] ?? 0) as int;
     pantries = [];
     recipes = [];
@@ -28,7 +34,6 @@ class User {
     specificAllergens = [];
     broadAllergens = [];
     friends = [];
-    email = '';
   }
 
   static Future<User> createAsync(DocumentSnapshot snapshot) async {

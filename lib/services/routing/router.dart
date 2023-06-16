@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 import 'package:edgar/services/providers/user.dart';
 import 'package:edgar/services/providers/food_products.dart';
@@ -13,14 +14,14 @@ import 'package:edgar/screens/loading_screen.dart';
 import 'package:edgar/widgets/bars/edgar_bottom_navigation_bar.dart';
 import 'package:edgar/services/routing/subroutes.dart';
 
-class RoutingScreen extends ConsumerStatefulWidget {
-  const RoutingScreen({super.key});
+class Router extends ConsumerStatefulWidget {
+  const Router({super.key});
 
   @override
-  RoutingScreenState createState() => RoutingScreenState();
+  RouterState createState() => RouterState();
 }
 
-class RoutingScreenState extends ConsumerState<RoutingScreen> {
+class RouterState extends ConsumerState<Router> {
   String currentScreen = '/pantry';
   User? initialUser;
   List<FoodProduct>? initialFoodProducts;
@@ -43,6 +44,7 @@ class RoutingScreenState extends ConsumerState<RoutingScreen> {
           return LoadingScreen();
         } else if (asyncUserDocumentSnapshot.error != null || asyncFoodProductsSnapshot.error != null) {
           // Error occurred while fetching a snapshot
+          FirebaseCrashlytics.instance.recordError(asyncUserDocumentSnapshot.error!, null);
           return Scaffold(
             body: Center(
               child: Text('Error occurred: ${asyncUserDocumentSnapshot.error}'),

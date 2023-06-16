@@ -4,6 +4,7 @@ import 'package:edgar/models/pantry_item.dart';
 
 class Pantry {
   String? name;
+  String? uid;
   List<PantryItem> items = [];
 
   Pantry({this.name = 'Home'});
@@ -20,8 +21,9 @@ class Pantry {
     items.remove(item);
   }
 
-  Pantry._create(dynamic item) {
-    name = (item['name'] ?? 'Home') as String;
+  Pantry._create(dynamic data) {
+    name = (data['name'] ?? 'My Pantry') as String;
+    uid = (data['uid'] ?? '') as String;
     items = [];
   }
 

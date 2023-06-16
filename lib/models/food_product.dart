@@ -8,6 +8,7 @@ import 'package:edgar/models/pricing.dart';
 
 class FoodProduct {
   String name;
+  String uid;
   String description;
   String mainCategory;
   IconData iconData;
@@ -17,6 +18,7 @@ class FoodProduct {
 
   FoodProduct({
     required this.name,
+    required this.uid,
     required this.description,
     required this.mainCategory,
     required this.iconData,
@@ -42,6 +44,7 @@ class FoodProduct {
 
     FoodProduct foodProduct = FoodProduct(
       name: data?['name'] as String? ?? '',
+      uid: data?['uid'] as String? ?? '',
       description: data?['description'] as String? ?? '',
       mainCategory: data?['mainCategory'] as String? ?? '',
       iconData: iconStringsToIcons[data?['mainCategory']] ?? FontAwesomeIcons.x,
