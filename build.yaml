@@ -1,6 +1,0 @@
-targets:
-  $default:
-    builders:
-      flutter_build_number:
-        options:
-          build_number: 14
