@@ -42,8 +42,8 @@ class _PantryItemUpdateFragmentState extends State<PantryItemUpdateFragment> {
   ];
 
   List<IconData> isInCookingPotIcons = [
-    FontAwesomeIcons.utensils,
-    FontAwesomeIcons.utensils,
+    FontAwesomeIcons.kitchenSet,
+    FontAwesomeIcons.fireBurner,
   ];
 
   void _handleItemChanged(String variable) {
