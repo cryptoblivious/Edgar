@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/services/utils/string_utils.dart';
@@ -28,7 +29,10 @@ class _PantryItemRemoveFragmentState extends State<PantryItemRemoveFragment> {
       style: TextButton.styleFrom(
         padding: const EdgeInsets.all(0),
       ),
-      onPressed: () => showGenericSnackbar(context, message: 'Long press to remove item from pantry.'),
+      onPressed: () => {
+        HapticFeedback.selectionClick(),
+        showGenericSnackbar(context, message: 'Long press to remove item from pantry.'),
+      },
       onLongPress: () => onLongPress(pantryItem),
       child: Container(
         height: double.maxFinite,

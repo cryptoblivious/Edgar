@@ -1,4 +1,3 @@
-import 'package:edgar/models/food_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,6 +6,7 @@ import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/models/stock.dart';
 import 'package:edgar/services/utils/string_utils.dart';
 import 'package:edgar/widgets/dialogs/food_product_description_dialog.dart';
+import 'package:edgar/widgets/snackbars/generic_snackbar.dart';
 
 class PantryItemGeneralFragment extends StatefulWidget {
   const PantryItemGeneralFragment({super.key, required this.pantryItem});
@@ -33,7 +33,10 @@ class _PantryItemGeneralFragmentState extends State<PantryItemGeneralFragment> {
       style: TextButton.styleFrom(
         padding: const EdgeInsets.all(0),
       ),
-      onPressed: () => HapticFeedback.selectionClick(),
+      onPressed: () => {
+        HapticFeedback.selectionClick(),
+        showGenericSnackbar(context, message: 'Long press to show product description.'),
+      },
       onLongPress: () {
         HapticFeedback.selectionClick();
         showfoodProductDescriptionDialog(context, pantryItem.foodProduct!);
@@ -75,7 +78,15 @@ class _PantryItemGeneralFragmentState extends State<PantryItemGeneralFragment> {
             ),
             const SizedBox(width: 16),
             Container(
-                color: pantryItem.isStaple! ? Colors.blue : Colors.deepOrange,
+                decoration: BoxDecoration(
+                  color: pantryItem.isStaple! ? Colors.blue : Colors.deepOrange,
+                  border: Border(
+                    left: BorderSide(
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                      width: 1.0,
+                    ),
+                  ),
+                ),
                 alignment: Alignment.center,
                 width: 50,
                 height: double.maxFinite,

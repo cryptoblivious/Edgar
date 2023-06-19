@@ -24,6 +24,7 @@ class _PantryItemUpdateFragmentState extends State<PantryItemUpdateFragment> {
   PantryItem get pantryItem => widget.pantryItem;
   Function(PantryItem, String) get onItemUpdated => widget.onItemUpdated;
   bool isOnWatchlist = false;
+  bool isInCookingPot = false;
   Map<Stock, IconData> stockLevelIcons = {
     Stock.ok: FontAwesomeIcons.hourglassStart,
     Stock.low: FontAwesomeIcons.hourglassHalf,
@@ -31,13 +32,18 @@ class _PantryItemUpdateFragmentState extends State<PantryItemUpdateFragment> {
   };
 
   List<IconData> isStapleIcons = [
-    FontAwesomeIcons.arrowsRotate,
     Icons.question_mark,
+    FontAwesomeIcons.arrowsRotate,
   ];
 
   List<IconData> isOnWatchlistIcons = [
-    FontAwesomeIcons.magnifyingGlassDollar,
     FontAwesomeIcons.magnifyingGlass,
+    FontAwesomeIcons.magnifyingGlassDollar,
+  ];
+
+  List<IconData> isInCookingPotIcons = [
+    FontAwesomeIcons.utensils,
+    FontAwesomeIcons.utensils,
   ];
 
   void _handleItemChanged(String variable) {
@@ -45,6 +51,8 @@ class _PantryItemUpdateFragmentState extends State<PantryItemUpdateFragment> {
       HapticFeedback.selectionClick();
       if (variable == 'isOnWatchlist') {
         isOnWatchlist = !isOnWatchlist;
+      } else if (variable == 'isInCookingPot') {
+        isInCookingPot = !isInCookingPot;
       }
     });
     onItemUpdated(pantryItem, variable);
@@ -76,19 +84,7 @@ class _PantryItemUpdateFragmentState extends State<PantryItemUpdateFragment> {
                       color: Theme.of(context).colorScheme.onPrimary,
                       iconSize: 20,
                     ),
-                    Text(pantryItem.isStaple! ? 'Remove staple' : 'Add staple', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onPrimary)),
-                  ],
-                ),
-                Column(
-                  children: [
-                    IconButton(
-                      icon: Icon(isOnWatchlistIcons[isOnWatchlist ? 1 : 0]),
-                      onPressed: () => _handleItemChanged('isOnWatchlist'),
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      iconSize: 24,
-                    ),
-                    Text(isOnWatchlist ? 'Remove from watchlist' : 'Add to watchlist',
-                        style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onPrimary)),
+                    Text(pantryItem.isStaple! ? 'Staple' : 'Occasional', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onPrimary)),
                   ],
                 ),
                 Column(children: [
@@ -105,6 +101,26 @@ class _PantryItemUpdateFragmentState extends State<PantryItemUpdateFragment> {
                               ? 'Low stock'
                               : 'Out of stock',
                       style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onPrimary)),
+                ]),
+                Column(
+                  children: [
+                    IconButton(
+                      icon: Icon(isOnWatchlistIcons[isOnWatchlist ? 1 : 0]),
+                      onPressed: () => _handleItemChanged('isOnWatchlist'),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      iconSize: 24,
+                    ),
+                    Text(isOnWatchlist ? 'Watching' : 'Watch', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onPrimary)),
+                  ],
+                ),
+                Column(children: [
+                  IconButton(
+                    icon: Icon(isInCookingPotIcons[isInCookingPot ? 1 : 0]),
+                    onPressed: () => _handleItemChanged('isInCookingPot'),
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    iconSize: 24,
+                  ),
+                  Text(isInCookingPot ? 'Cooking' : 'Cook', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onPrimary)),
                 ]),
               ],
             ),
