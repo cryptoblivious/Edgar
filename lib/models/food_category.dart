@@ -1,6 +1,7 @@
 enum FoodCategory {
   alcohol,
   beverage,
+  bread,
   broth,
   egg,
   canned,
