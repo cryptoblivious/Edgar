@@ -9,9 +9,10 @@ void showfoodProductDescriptionDialog(BuildContext context, FoodProduct foodProd
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: AutoSizeText(
+        title: Text(
           capitalize(foodProduct.name),
           maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondaryContainer),
           textAlign: TextAlign.center,
         ),
@@ -24,6 +25,10 @@ void showfoodProductDescriptionDialog(BuildContext context, FoodProduct foodProd
         actions: [
           Center(
             child: TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.secondary),
+                foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.onSecondary),
+              ),
               onPressed: () {
                 // Perform an action when the button is pressed
                 Navigator.of(context).pop();
