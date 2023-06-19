@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/models/user.dart';
 
 import 'package:edgar/screens/subscreens/owned_item_cards_subscreen.dart';
@@ -32,6 +31,7 @@ class _PantryScreenState extends State<PantryScreen> {
   @override
   Widget build(BuildContext context) {
     final user = widget.user; // Access the user object from the widget
+    const searchBar = PantryScreenSearchBar();
 
     return Scaffold(
       body: SafeArea(
@@ -39,10 +39,10 @@ class _PantryScreenState extends State<PantryScreen> {
           color: Theme.of(context).colorScheme.onSecondaryContainer,
           child: Column(
             children: [
-              const PantryScreenSearchBar(),
+              searchBar,
               _isAddItemsMenuOpen
                   ? AddItemsToPantrySubscreen(user: user, foodProducts: widget.foodProducts)
-                  : OwnedItemCardsSubscreen(user: user, onPressed: _toggleAddingItems),
+                  : OwnedItemCardsSubscreen(user: user, onPressed: _toggleAddingItems, sortSetting: 'stockInverted'),
             ],
           ),
         ),
