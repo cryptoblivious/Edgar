@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 void showGenericSnackbar(BuildContext context, {String? message}) {
   final String snackMessage = message ?? 'Generic Snackbar Message!';
@@ -6,8 +7,9 @@ void showGenericSnackbar(BuildContext context, {String? message}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Center(
-        child: Text(
+        child: AutoSizeText(
           snackMessage,
+          maxLines: 1,
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
