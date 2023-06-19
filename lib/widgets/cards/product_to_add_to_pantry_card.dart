@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:edgar/models/food_product.dart';
 import 'package:edgar/widgets/dialogs/food_product_description_dialog.dart';
 import 'package:edgar/services/utils/string_utils.dart';
+import 'package:edgar/widgets/snackbars/generic_snackbar.dart';
 
 class ProductToAddToPantryCard extends StatefulWidget {
   const ProductToAddToPantryCard({super.key, required this.foodProduct, required this.onItemAdded});
@@ -24,7 +25,10 @@ class _ProductToAddToPantryCardState extends State<ProductToAddToPantryCard> {
       style: TextButton.styleFrom(
         padding: const EdgeInsets.all(0),
       ),
-      onPressed: () => HapticFeedback.selectionClick(),
+      onPressed: () {
+        HapticFeedback.selectionClick();
+        showGenericSnackbar(context, message: 'Long press to see product description.');
+      },
       onLongPress: () {
         HapticFeedback.selectionClick();
         showfoodProductDescriptionDialog(context, widget.foodProduct);
