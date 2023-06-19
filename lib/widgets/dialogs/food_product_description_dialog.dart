@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:edgar/models/food_product.dart';
 import 'package:edgar/services/utils/string_utils.dart';
 
@@ -8,8 +9,9 @@ void showfoodProductDescriptionDialog(BuildContext context, FoodProduct foodProd
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text(
+        title: AutoSizeText(
           capitalize(foodProduct.name),
+          maxLines: 1,
           style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondaryContainer),
           textAlign: TextAlign.center,
         ),
