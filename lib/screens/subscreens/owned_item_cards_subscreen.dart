@@ -4,8 +4,9 @@ import 'package:flutter/services.dart';
 
 import 'package:edgar/models/user.dart';
 import 'package:edgar/models/pantry_item.dart';
-import 'package:edgar/widgets/cards/pantry_item_card.dart';
+import 'package:edgar/widgets/fragments/pantry_item_general_fragment.dart';
 import 'package:edgar/widgets/cards/add_to_pantry_prompt_card.dart';
+import 'package:edgar/widgets/cards/pantry_item_card.dart';
 import 'package:edgar/services/database/data_repository.dart';
 import 'package:edgar/services/database/firestore_repository.dart';
 
@@ -30,7 +31,7 @@ class _OwnedItemCardsSubscreenState extends State<OwnedItemCardsSubscreen> {
     widget.dataRepository.updateData({'object': widget.user.pantries![widget.user.activePantry!]});
   }
 
-  void handleItemSwiped(PantryItem pantryItem) {
+  void handleItemRemoved(PantryItem pantryItem) {
     setState(() {
       widget.user.pantries![widget.user.activePantry!].removeItem(pantryItem);
     });
@@ -53,7 +54,7 @@ class _OwnedItemCardsSubscreenState extends State<OwnedItemCardsSubscreen> {
               .map((pantryItem) => PantryItemCard(
                     pantryItem: pantryItem,
                     onItemUpdated: handleItemUpdated,
-                    onItemSwiped: handleItemSwiped,
+                    onItemRemoved: handleItemRemoved,
                   ))
               .toList(),
           AddToPantryPromptCard(onPressed: widget.onPressed),
