@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 Map<String, IconData> iconStringsToIcons = {
   'alcohol': FontAwesomeIcons.whiskeyGlass,
   'beverage': FontAwesomeIcons.glassWater,
+  'bread': FontAwesomeIcons.breadSlice,
   'broth': FontAwesomeIcons.cheese,
   'canned': FontAwesomeIcons.jar,
   'cereal': FontAwesomeIcons.plateWheat,
@@ -28,7 +29,7 @@ Map<String, IconData> iconStringsToIcons = {
   'seasoning': FontAwesomeIcons.jar,
   'seed': FontAwesomeIcons.bowlRice,
   'spice': FontAwesomeIcons.spoon,
-  'spread': FontAwesomeIcons.breadSlice,
+  'spread': FontAwesomeIcons.jar,
   'sweetener': FontAwesomeIcons.canadianMapleLeaf,
   'thickener': FontAwesomeIcons.jar,
   'vegetable': FontAwesomeIcons.carrot,
