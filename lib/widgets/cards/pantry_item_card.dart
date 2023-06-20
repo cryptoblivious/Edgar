@@ -26,8 +26,6 @@ class PantryItemCardState extends State<PantryItemCard> {
       _controller.jumpToPage(1);
     }
 
-    ;
-
     return Card(
       margin: const EdgeInsets.all(0),
       child: SizedBox(
