@@ -122,6 +122,7 @@ class _PantryCardsSubscreenState extends State<PantryCardsSubscreen> {
       widget.user.pantries![widget.user.activePantry!].removeItem(pantryItem);
     });
     widget.dataRepository.updateData({'object': widget.user.pantries![widget.user.activePantry!]});
+    sortList(); // Call sortList method to update the sortedList
   }
 
   @override
