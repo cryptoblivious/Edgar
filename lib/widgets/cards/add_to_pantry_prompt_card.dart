@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AddToPantryPromptCard extends StatelessWidget {
-  const AddToPantryPromptCard({super.key, required this.onPressed});
+class PromptCard extends StatelessWidget {
+  const PromptCard({super.key, required this.onPressed, this.message = 'Prompt card'});
 
   final Function() onPressed;
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class AddToPantryPromptCard extends StatelessWidget {
               )),
           child: Center(
             child: Text(
-              'Add more items to your pantry!',
+              message,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onTertiary),
             ),

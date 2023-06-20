@@ -81,7 +81,10 @@ class _OwnedItemCardsSubscreenState extends State<OwnedItemCardsSubscreen> {
                     onItemRemoved: handleItemRemoved,
                   ))
               .toList(),
-          AddToPantryPromptCard(onPressed: widget.onPressed),
+          PromptCard(
+            onPressed: widget.onPressed,
+            message: 'Add more items to your pantry!',
+          ),
           const SizedBox(height: 50),
         ],
       ),

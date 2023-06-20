@@ -32,6 +32,10 @@ class AddItemsToPantrySubscreenState extends ConsumerState<AddItemsToPantrySubsc
       ));
     });
     widget.dataRepository.updateData({'object': widget.user.pantries![widget.user.activePantry!]});
+    if (widget.user.shoppingLists![widget.user.activeShoppingList!].items.contains(foodProduct)) {
+      widget.user.shoppingLists![widget.user.activeShoppingList!].removeItem(foodProduct);
+      widget.dataRepository.updateData({'object': widget.user.shoppingLists![widget.user.activeShoppingList!]});
+    }
   }
 
   @override

@@ -4,14 +4,14 @@ import 'package:edgar/widgets/buttons/filter_button.dart';
 import 'package:edgar/widgets/buttons/view_options_button.dart';
 import 'package:edgar/widgets/boxes/mock_search_box.dart';
 
-class PantryScreenSearchBar extends StatefulWidget {
-  const PantryScreenSearchBar({super.key});
+class EdgarTopSearchBar extends StatefulWidget {
+  const EdgarTopSearchBar({super.key});
 
   @override
-  State<PantryScreenSearchBar> createState() => _PantryScreenSearchBarState();
+  State<EdgarTopSearchBar> createState() => _EdgarTopSearchBarState();
 }
 
-class _PantryScreenSearchBarState extends State<PantryScreenSearchBar> {
+class _EdgarTopSearchBarState extends State<EdgarTopSearchBar> {
   @override
   Widget build(BuildContext context) {
     return const Row(

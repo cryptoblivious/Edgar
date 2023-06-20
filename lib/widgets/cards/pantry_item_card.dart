@@ -44,16 +44,4 @@ class PantryItemCardState extends State<PantryItemCard> {
       ),
     );
   }
-
-  Widget _buildCard(Color color, String text) {
-    return Container(
-      color: color,
-      child: Center(
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
 }

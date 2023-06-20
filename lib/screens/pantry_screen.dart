@@ -31,7 +31,7 @@ class _PantryScreenState extends State<PantryScreen> {
   @override
   Widget build(BuildContext context) {
     final user = widget.user; // Access the user object from the widget
-    const searchBar = PantryScreenSearchBar();
+    const searchBar = EdgarTopSearchBar();
 
     return Scaffold(
       body: SafeArea(
