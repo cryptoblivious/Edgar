@@ -20,6 +20,7 @@ enum FoodCategory {
   mushroom,
   nut,
   oil,
+  pasta,
   poultry,
   sauce,
   seafood,
