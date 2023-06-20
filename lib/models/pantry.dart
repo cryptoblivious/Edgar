@@ -12,11 +12,6 @@ class Pantry {
     item.change(variable);
   }
 
-  bool checkAddToShoppingList(PantryItem item) {
-    if (item.isStaple! && (item.stock == Stock.low || item.stock == Stock.out)) return true;
-    return false;
-  }
-
   void addItem(PantryItem item) {
     items.add(item);
   }

@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:edgar/models/user.dart';
 
-import 'package:edgar/subscreens/owned_item_cards_subscreen.dart';
+import 'package:edgar/subscreens/pantry_cards_subscreen.dart';
 import 'package:edgar/subscreens/add_items_to_pantry_subscreen.dart';
 
 class PantryScreen extends StatefulWidget {
@@ -42,7 +42,7 @@ class _PantryScreenState extends State<PantryScreen> {
               searchBar,
               _isAddItemsMenuOpen
                   ? AddItemsToPantrySubscreen(user: user, foodProducts: widget.foodProducts)
-                  : OwnedItemCardsSubscreen(user: user, onPressed: _toggleAddingItems, sortSetting: 'stockInverted'),
+                  : PantryCardsSubscreen(user: user, onPressed: _toggleAddingItems, sortSetting: 'stockInverted'),
             ],
           ),
         ),

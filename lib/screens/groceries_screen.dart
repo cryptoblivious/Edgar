@@ -42,7 +42,7 @@ class _GroceryScreenState extends State<GroceryScreen> {
               searchBar,
               _isAddItemsMenuOpen
                   ? AddItemsToGroceriesSubscreen(user: user, foodProducts: widget.foodProducts)
-                  : GroceryCardsSubscreen(user: user, onPressed: _toggleAddingItems, sortSetting: 'stockInverted'),
+                  : GroceryCardsSubscreen(user: user, onPressed: _toggleAddingItems, sortSetting: 'name'),
             ],
           ),
         ),

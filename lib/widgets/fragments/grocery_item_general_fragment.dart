@@ -40,7 +40,7 @@ class _GroceryItemGeneralFragmentState extends State<GroceryItemGeneralFragment>
           border: Border.all(
             color: Theme.of(context).colorScheme.outlineVariant,
           ),
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.secondary,
         ),
         padding: const EdgeInsets.only(left: 15),
         child: SizedBox(
@@ -48,9 +48,9 @@ class _GroceryItemGeneralFragmentState extends State<GroceryItemGeneralFragment>
           child: Row(
             children: [
               Tooltip(
-                  textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onTertiary),
+                  textStyle: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onSecondary),
                   message: capitalize(foodProduct.mainCategory),
-                  child: Icon(foodProduct.iconData, color: Theme.of(context).colorScheme.onTertiary, size: 36)),
+                  child: Icon(foodProduct.iconData, color: Theme.of(context).colorScheme.onSecondary, size: 36)),
               const SizedBox(width: 10),
               Expanded(
                 child: AutoSizeText(

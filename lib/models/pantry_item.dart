@@ -37,6 +37,10 @@ class PantryItem {
     };
   }
 
+  void restock() {
+    stock = Stock.ok;
+  }
+
   void change(String variable) {
     if (variable == 'isStaple') {
       isStaple = !isStaple!;
