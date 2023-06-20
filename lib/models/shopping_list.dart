@@ -6,6 +6,8 @@ class ShoppingList {
   String? name;
   String? uid;
   List<FoodProduct> items = [];
+  // TODO : Add a field to link a shopping list to a pantry
+  String? relatedPantryUid;
 
   void addItem(FoodProduct product) {
     items.add(product);
