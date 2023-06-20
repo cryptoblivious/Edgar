@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Map<String, IconData> iconStringsToIcons = {
-  'alcohol': FontAwesomeIcons.whiskeyGlass,
+  'alcohol': FontAwesomeIcons.martiniGlass,
   'beverage': FontAwesomeIcons.glassWater,
   'bread': FontAwesomeIcons.breadSlice,
   'broth': FontAwesomeIcons.cheese,
@@ -28,6 +28,7 @@ Map<String, IconData> iconStringsToIcons = {
   'seafood': FontAwesomeIcons.shrimp,
   'seasoning': FontAwesomeIcons.jar,
   'seed': FontAwesomeIcons.bowlRice,
+  'snack': FontAwesomeIcons.cookieBite,
   'spice': FontAwesomeIcons.spoon,
   'spread': FontAwesomeIcons.jar,
   'sweetener': FontAwesomeIcons.canadianMapleLeaf,

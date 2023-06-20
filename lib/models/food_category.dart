@@ -25,6 +25,7 @@ enum FoodCategory {
   seafood,
   seasoning,
   seed,
+  snack,
   spice,
   spread,
   sweetener,
