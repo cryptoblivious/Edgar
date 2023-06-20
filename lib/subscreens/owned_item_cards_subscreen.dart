@@ -27,6 +27,12 @@ class _OwnedItemCardsSubscreenState extends State<OwnedItemCardsSubscreen> {
       widget.user.pantries![widget.user.activePantry!].changeItem(pantryItem, variable);
     });
     widget.dataRepository.updateData({'object': widget.user.pantries![widget.user.activePantry!]});
+    if (widget.user.pantries![widget.user.activePantry!].checkAddToShoppingList(pantryItem)) {
+      if (!widget.user.shoppingLists![widget.user.activeShoppingList!].items.contains(pantryItem.foodProduct)) {
+        widget.user.shoppingLists![widget.user.activeShoppingList!].addItem(pantryItem.foodProduct!);
+        widget.dataRepository.updateData({'object': widget.user.shoppingLists![widget.user.activeShoppingList!]});
+      }
+    }
   }
 
   void handleItemRemoved(PantryItem pantryItem) {

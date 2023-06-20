@@ -1,16 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:edgar/models/pantry_item.dart';
+import 'package:edgar/models/stock.dart';
 
 class Pantry {
   String? name;
   String? uid;
   List<PantryItem> items = [];
 
-  Pantry({this.name = 'Home'});
-
   void changeItem(PantryItem item, String variable) {
     item.change(variable);
+  }
+
+  bool checkAddToShoppingList(PantryItem item) {
+    if (item.isStaple! && (item.stock == Stock.low || item.stock == Stock.out)) return true;
+    return false;
   }
 
   void addItem(PantryItem item) {

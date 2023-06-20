@@ -6,8 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:edgar/models/user.dart';
 
-import 'package:edgar/screens/subscreens/owned_item_cards_subscreen.dart';
-import 'package:edgar/screens/subscreens/add_items_to_pantry_subscreen.dart';
+import 'package:edgar/subscreens/owned_item_cards_subscreen.dart';
+import 'package:edgar/subscreens/add_items_to_pantry_subscreen.dart';
 
 class PantryScreen extends StatefulWidget {
   final User user;
@@ -49,8 +49,6 @@ class _PantryScreenState extends State<PantryScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO : Add view component for adding items
-          // Probably the best way will be to turn the current content widget into a content switcher and add a new content widget for adding items
           HapticFeedback.selectionClick();
           _toggleAddingItems();
         },

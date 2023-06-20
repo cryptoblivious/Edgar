@@ -73,7 +73,7 @@ Future<void> linkUserWithDocument() async {
         'friends': [],
         'pantries': [newPantryDocRef],
         'recipes': [],
-        'shoppingList': [newShoppingListDocRef],
+        'shoppingLists': [newShoppingListDocRef],
         'settings': {
           'darkMode': true,
           'language': 'en',

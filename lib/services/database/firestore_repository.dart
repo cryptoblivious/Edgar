@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:edgar/models/food_product.dart';
+import 'package:edgar/models/shopping_list.dart';
 
 import 'package:edgar/services/database/data_repository.dart';
 
@@ -19,10 +21,22 @@ class FirestoreRepository extends DataRepository {
   Future<void> updateDataImpl(Map<String, dynamic> data) async {
     if (data['object'] is Pantry) {
       updatePantry(data['object'] as Pantry);
+    } else if (data['object'] is ShoppingList) {
+      updateShoppingList(data['object'] as ShoppingList);
     }
   }
 
   // Add other methods specific to Firestore
+
+  Future<void> updateShoppingList(ShoppingList shoppingList) async {
+    final shoppingListDocRef = _firestore.collection('shoppingLists').doc(shoppingList.uid as String);
+    final shoppingListDocSnapshot = await shoppingListDocRef.get();
+    if (shoppingListDocSnapshot.exists) {
+      await shoppingListDocRef.update(_shoppingListToMap(shoppingList));
+    } else {
+      throw Exception('Shopping list does not exist');
+    }
+  }
 
   Future<void> updatePantry(Pantry pantry) async {
     final pantryDocRef = _firestore.collection('pantries').doc(pantry.uid as String);
@@ -32,6 +46,11 @@ class FirestoreRepository extends DataRepository {
     } else {
       throw Exception('Pantry does not exist');
     }
+  }
+
+  DocumentReference<Map<String, dynamic>> _foodProductToMap(FoodProduct foodProduct) {
+    final foodProductDocRef = FirebaseFirestore.instance.collection('foodProducts').doc(foodProduct.uid);
+    return foodProductDocRef;
   }
 
   Map<String, dynamic> _pantryItemToMap(PantryItem pantryItem) {
@@ -49,6 +68,16 @@ class FirestoreRepository extends DataRepository {
       'name': pantry.name,
       'items': pantry.items.map((item) {
         return _pantryItemToMap(item);
+      }).toList(),
+    };
+    return map;
+  }
+
+  Map<String, dynamic> _shoppingListToMap(ShoppingList shoppingList) {
+    Map<String, dynamic> map = {
+      'name': shoppingList.name,
+      'items': shoppingList.items.map((item) {
+        return _foodProductToMap(item);
       }).toList(),
     };
     return map;
