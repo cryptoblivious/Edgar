@@ -21,11 +21,6 @@ class PantryItemCardState extends State<PantryItemCard> {
 
   @override
   Widget build(BuildContext context) {
-    void removeItemAndResetPage(void _) {
-      widget.onItemRemoved(widget.pantryItem);
-      _controller.jumpToPage(1);
-    }
-
     return Card(
       margin: const EdgeInsets.all(0),
       child: SizedBox(
@@ -42,7 +37,7 @@ class PantryItemCardState extends State<PantryItemCard> {
             PantryItemGeneralFragment(pantryItem: widget.pantryItem),
             PantryItemRemoveFragment(
               pantryItem: widget.pantryItem,
-              onLongPress: removeItemAndResetPage,
+              onLongPress: widget.onItemRemoved,
             )
           ],
         ),

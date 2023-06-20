@@ -69,6 +69,7 @@ class _OwnedItemCardsSubscreenState extends State<OwnedItemCardsSubscreen> {
         children: [
           ...sortedList
               .map((pantryItem) => PantryItemCard(
+                    key: ValueKey(pantryItem.foodProduct!.uid),
                     pantryItem: pantryItem,
                     onItemUpdated: handleItemUpdated,
                     onItemRemoved: handleItemRemoved,
