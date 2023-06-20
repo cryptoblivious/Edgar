@@ -55,15 +55,16 @@ Future<void> linkUserWithDocument() async {
     final userDocRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
     final userDocSnapshot = await userDocRef.get();
     if (!userDocSnapshot.exists) {
-      final newPantryDocRef = await FirebaseFirestore.instance.collection('pantries').add({'name': 'My Pantry', 'items': []});
+      final newPantryDocRef = await FirebaseFirestore.instance.collection('pantries').add({'name': "${user.displayName}'s Pantry", 'items': []});
       String uid = newPantryDocRef.id;
       await newPantryDocRef.update({'uid': uid});
 
-      final newShoppingListDocRef = await FirebaseFirestore.instance.collection('shoppingLists').add({'name': 'My Shopping List', 'items': []});
+      final newShoppingListDocRef =
+          await FirebaseFirestore.instance.collection('shoppingLists').add({'name': "${user.displayName}'s Shopping List", 'items': []});
       uid = newShoppingListDocRef.id;
       await newShoppingListDocRef.update({'uid': uid});
 
-      final newWatchListDocRef = await FirebaseFirestore.instance.collection('watchLists').add({'name': 'My Watch List', 'items': []});
+      final newWatchListDocRef = await FirebaseFirestore.instance.collection('watchLists').add({'name': "${user.displayName}'s Watch List", 'items': []});
       uid = newWatchListDocRef.id;
       await newWatchListDocRef.update({'uid': uid});
 
