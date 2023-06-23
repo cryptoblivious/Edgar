@@ -17,7 +17,8 @@ class Pantry {
   }
 
   void removeItem(PantryItem item) {
-    items.remove(item);
+    String uid = item.foodProduct!.uid;
+    items.removeWhere((item) => item.foodProduct!.uid == uid);
   }
 
   Pantry._create(dynamic data) {

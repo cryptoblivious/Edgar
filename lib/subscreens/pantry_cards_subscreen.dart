@@ -102,11 +102,11 @@ class _PantryCardsSubscreenState extends State<PantryCardsSubscreen> {
     });
     if (variable == 'stock') {
       if (changingItem.stock == Stock.ok) {
-        if (widget.user.shoppingLists![widget.user.activeShoppingList!].items.contains(changingItem.foodProduct)) {
+        if (widget.user.shoppingLists![widget.user.activeShoppingList!].containsItem(changingItem.foodProduct!)) {
           widget.user.shoppingLists![widget.user.activeShoppingList!].removeItem(changingItem.foodProduct!);
           widget.dataRepository.updateData({'object': widget.user.shoppingLists![widget.user.activeShoppingList!]});
         }
-      } else if (changingItem.isStaple == true && !widget.user.shoppingLists![widget.user.activeShoppingList!].items.contains(changingItem.foodProduct)) {
+      } else if (changingItem.isStaple == true && !widget.user.shoppingLists![widget.user.activeShoppingList!].containsItem(changingItem.foodProduct!)) {
         widget.user.shoppingLists![widget.user.activeShoppingList!].addItem(changingItem.foodProduct!);
         widget.dataRepository.updateData({'object': widget.user.shoppingLists![widget.user.activeShoppingList!]});
       }

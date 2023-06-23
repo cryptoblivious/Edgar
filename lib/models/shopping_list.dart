@@ -14,7 +14,13 @@ class ShoppingList {
   }
 
   void removeItem(FoodProduct product) {
-    items.remove(product);
+    String uid = product.uid;
+    items.removeWhere((item) => item.uid == uid);
+  }
+
+  bool containsItem(FoodProduct product) {
+    String uid = product.uid;
+    return items.any((item) => item.uid == uid);
   }
 
   ShoppingList._create(dynamic data) {
