@@ -15,6 +15,7 @@ enum FoodCategory {
   egg,
   fermented,
   fish,
+  frozen,
   fruit,
   grain,
   herb,

@@ -66,7 +66,7 @@ class _PantryItemGeneralFragmentState extends State<PantryItemGeneralFragment> {
                         fontSize: 36,
                         color: Theme.of(context).colorScheme.onPrimary,
                       ),
-                      maxLines: 1, // Restrict the text to a single line
+                      maxLines: 2, // Restrict the text to a single line
                       overflow: TextOverflow.ellipsis, // Handle text overflow with ellipsis
                       minFontSize: 16, // Minimum font size
                       stepGranularity: 1, // Granularity for resizing the font size
