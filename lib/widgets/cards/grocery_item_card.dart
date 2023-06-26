@@ -1,4 +1,5 @@
 import 'package:edgar/models/food_product.dart';
+import 'package:edgar/services/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:edgar/widgets/fragments/grocery_item_general_fragment.dart';
 import 'package:edgar/widgets/fragments/grocery_item_remove_fragment.dart';
@@ -23,7 +24,7 @@ class GroceryItemCardState extends State<GroceryItemCard> {
     return Card(
       margin: const EdgeInsets.all(0),
       child: SizedBox(
-        height: 75, // Adjust the height according to your needs
+        height: cardHeight, // Adjust the height according to your needs
         child: PageView(
           controller: _controller,
           onPageChanged: (int page) {

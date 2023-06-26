@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:edgar/models/food_product.dart';
+import 'package:edgar/services/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,7 +28,7 @@ class _GroceryItemUpdateFragmentState extends State<GroceryItemUpdateFragment> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 75,
+      height: cardHeight,
       decoration: BoxDecoration(
           border: Border.all(
             color: Theme.of(context).colorScheme.outlineVariant,

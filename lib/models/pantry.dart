@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:edgar/models/pantry_item.dart';
-import 'package:edgar/models/stock.dart';
 
 class Pantry {
   String? name;

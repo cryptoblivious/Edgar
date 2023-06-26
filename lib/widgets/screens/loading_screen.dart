@@ -11,9 +11,9 @@ class LoadingScreen extends StatelessWidget {
     currentMessage = message ?? _randomizeMessage();
   }
 
-  static final List<String> loadingScreenMessages = [
+  static final Set<String> loadingScreenMessages = {
     'Bringing out the cookbooks...',
-    'Scrubbing the pots and pans...',
+    'Scrubbing pots and pans...',
     'Warming up the oven...',
     'Eating the leftovers...',
     'Baking fresh bread...',
@@ -21,16 +21,17 @@ class LoadingScreen extends StatelessWidget {
     'Tasting simmering soup...',
     'Savoring homemade desserts...',
     'Sharing the delicious feast...',
-    'Preparing the secret recipe...',
+    'Picking the secret ingredient...',
     'Simmering aromatic spices...',
-    'Chopping fresh ingredients...',
+    'Chopping fresh vegetables...',
     'Whisking creamy sauce...',
     'Steaming delectable dumplings...',
     'Garnishing dishes with love...',
     'Indulging in culinary creativity...',
-    'Tasting the melting chocolate...',
-    'Grilling the juicy steaks...',
-    'Roasting the tender vegetables...',
+    'Tasting melting chocolate...',
+    'Slicing fresh fruit...',
+    'Grilling juicy steaks...',
+    'Roasting tender vegetables...',
     'Experimenting with new flavors...',
     'Adding a pinch of magic...',
     'Plating an artful presentation...',
@@ -39,11 +40,15 @@ class LoadingScreen extends StatelessWidget {
     'Inventing flavor combinations...',
     'Smelling the aroma of success...',
     'Enjoying the culinary journey...',
-    'Spreading the joy of cooking...'
-  ];
+    'Spreading the joy of cooking...',
+    'Serving up a delicious meal...',
+    'Savoring the fruits of labor...',
+    'Satisfying the hunger...',
+  };
 
   static String _randomizeMessage() {
-    return loadingScreenMessages[Random().nextInt(loadingScreenMessages.length)];
+    List<String> loadingScreenMessagesList = LoadingScreen.loadingScreenMessages.toList();
+    return loadingScreenMessagesList[Random().nextInt(loadingScreenMessages.length)];
   }
 
   @override

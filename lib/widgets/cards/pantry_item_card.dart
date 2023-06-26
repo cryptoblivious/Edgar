@@ -1,3 +1,4 @@
+import 'package:edgar/services/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/widgets/fragments/pantry_item_general_fragment.dart';
@@ -24,7 +25,7 @@ class PantryItemCardState extends State<PantryItemCard> {
     return Card(
       margin: const EdgeInsets.all(0),
       child: SizedBox(
-        height: 75, // Adjust the height according to your needs
+        height: cardHeight, // Adjust the height according to your needs
         child: PageView(
           controller: _controller,
           onPageChanged: (int page) {

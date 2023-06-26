@@ -8,6 +8,7 @@ import 'package:edgar/widgets/cards/add_to_pantry_prompt_card.dart';
 import 'package:edgar/widgets/cards/pantry_item_card.dart';
 import 'package:edgar/services/database/data_repository.dart';
 import 'package:edgar/services/database/firestore_repository.dart';
+import 'package:edgar/services/utils/constants.dart';
 
 class PantryCardsSubscreen extends StatefulWidget {
   PantryCardsSubscreen({super.key, required this.user, required this.onPressed, required this.sortSetting});
@@ -78,14 +79,14 @@ class _PantryCardsSubscreenState extends State<PantryCardsSubscreen> {
     if (index != -1) {
       final RenderObject? renderObject = context.findRenderObject();
       if (renderObject is RenderBox) {
-        final itemPosition = renderObject.localToGlobal(Offset.zero).dy + (index * 75); // Replace ITEM_HEIGHT with the actual height of the item
+        final itemPosition = renderObject.localToGlobal(Offset.zero).dy + (index * cardHeight); // Replace ITEM_HEIGHT with the actual height of the item
         final viewportHeight = MediaQuery.of(context).size.height;
         final scrollOffset = _scrollController.offset;
 
         // Check if the item is within the visible range
         if (itemPosition < scrollOffset || itemPosition > scrollOffset + viewportHeight) {
           _scrollController.animateTo(
-            index * 75,
+            index * cardHeight,
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut,
           );

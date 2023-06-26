@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:edgar/widgets/bars/edgar_bottom_navigation_bar.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

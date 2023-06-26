@@ -1,3 +1,4 @@
+import 'package:edgar/services/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -80,7 +81,7 @@ class _ProductToAddToPantryCardState extends State<ProductToAddToPantryCard> {
           }
         },
         child: Container(
-          height: 75,
+          height: cardHeight,
           decoration: BoxDecoration(
             border: Border.all(
               color: Theme.of(context).colorScheme.outlineVariant,

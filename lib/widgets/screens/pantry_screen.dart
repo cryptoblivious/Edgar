@@ -6,8 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:edgar/models/user.dart';
 
-import 'package:edgar/widgets/subscreens/pantry_cards_subscreen.dart'en.dart';
-import 'package:edgar/widgets/subscreens/add_items_to_pantry_subscreen.dart'en.dart';
+import 'package:edgar/widgets/subscreens/pantry_cards_subscreen.dart';
+import 'package:edgar/widgets/subscreens/add_items_to_pantry_subscreen.dart';
 
 class PantryScreen extends StatefulWidget {
   final User user;

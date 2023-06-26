@@ -2,7 +2,6 @@ import 'package:edgar/models/food_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:edgar/models/pantry_item.dart';
 import 'package:edgar/services/utils/string_utils.dart';
 import 'package:edgar/widgets/snackbars/generic_snackbar.dart';
 

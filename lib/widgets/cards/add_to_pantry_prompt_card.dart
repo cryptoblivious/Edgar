@@ -1,3 +1,4 @@
+import 'package:edgar/services/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,7 +19,7 @@ class PromptCard extends StatelessWidget {
         onPressed();
       },
       child: Container(
-          height: 75,
+          height: cardHeight,
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.tertiary,
               border: Border.all(
