@@ -21,6 +21,5 @@ String capitalize(String input, {bool firstWordOnly = false}) {
       }
     }
   }
-
   return capitalizedWords.join(' ');
 }

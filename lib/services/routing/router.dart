@@ -8,7 +8,7 @@ import 'package:edgar/services/providers/food_products.dart';
 import 'package:edgar/models/user.dart';
 import 'package:edgar/models/food_product.dart';
 
-import 'package:edgar/screens/loading_screen.dart';
+import 'package:edgar/widgets/screens/loading_screen.dart';
 
 import 'package:edgar/widgets/bars/edgar_bottom_navigation_bar.dart';
 import 'package:edgar/services/routing/subroutes.dart';

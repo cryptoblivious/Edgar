@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:edgar/screens/loading_screen.dart';
-import 'package:edgar/screens/sign_in_screen.dart';
+import 'package:edgar/widgets/screens/loading_screen.dart';
+import 'package:edgar/widgets/screens/sign_in_screen.dart';
 import 'package:edgar/services/routing/router.dart' as edgar;
 
 class OpeningPageCommutator extends StatelessWidget {

@@ -1,11 +1,11 @@
 import 'package:edgar/services/routing/opening_page_commutator.dart';
 import 'package:flutter/material.dart';
 
-import 'package:edgar/screens/pantry_screen.dart';
-import 'package:edgar/screens/groceries_screen.dart';
-import 'package:edgar/screens/recipes_screen.dart';
-import 'package:edgar/screens/profile_screen.dart';
-import 'package:edgar/screens/settings_screen.dart';
+import 'package:edgar/widgets/screens/pantry_screen.dart';
+import 'package:edgar/widgets/screens/groceries_screen.dart';
+import 'package:edgar/widgets/screens/recipes_screen.dart';
+import 'package:edgar/widgets/screens/profile_screen.dart';
+import 'package:edgar/widgets/screens/settings_screen.dart';
 import 'package:edgar/models/user.dart';
 import 'package:edgar/models/food_product.dart';
 

@@ -6,20 +6,20 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:edgar/models/user.dart';
 
-import 'package:edgar/subscreens/grocery_cards_subscreen.dart';
-import 'package:edgar/subscreens/add_items_to_groceries_subscreen.dart';
+import 'package:edgar/widgets/subscreens/pantry_cards_subscreen.dart'en.dart';
+import 'package:edgar/widgets/subscreens/add_items_to_pantry_subscreen.dart'en.dart';
 
-class GroceryScreen extends StatefulWidget {
+class PantryScreen extends StatefulWidget {
   final User user;
   final List<FoodProduct> foodProducts;
 
-  const GroceryScreen({Key? key, required this.user, required this.foodProducts}) : super(key: key);
+  const PantryScreen({Key? key, required this.user, required this.foodProducts}) : super(key: key);
 
   @override
-  State<GroceryScreen> createState() => _GroceryScreenState();
+  State<PantryScreen> createState() => _PantryScreenState();
 }
 
-class _GroceryScreenState extends State<GroceryScreen> {
+class _PantryScreenState extends State<PantryScreen> {
   bool _isAddItemsMenuOpen = false;
 
   void _toggleAddingItems() {
@@ -41,8 +41,8 @@ class _GroceryScreenState extends State<GroceryScreen> {
             children: [
               searchBar,
               _isAddItemsMenuOpen
-                  ? AddItemsToGroceriesSubscreen(user: user, foodProducts: widget.foodProducts)
-                  : GroceryCardsSubscreen(user: user, onPressed: _toggleAddingItems, sortSetting: 'name'),
+                  ? AddItemsToPantrySubscreen(user: user, foodProducts: widget.foodProducts)
+                  : PantryCardsSubscreen(user: user, onPressed: _toggleAddingItems, sortSetting: 'stockInverted'),
             ],
           ),
         ),
