@@ -7,6 +7,7 @@ enum FoodCategory {
   canned,
   cereal,
   chocolate,
+  cheese,
   condiment,
   dairy,
   dessert,

@@ -9,6 +9,7 @@ Map<String, IconData> iconStringsToIcons = {
   'broth': FontAwesomeIcons.whiskeyGlass,
   'canned': FontAwesomeIcons.jar,
   'cereal': FontAwesomeIcons.plateWheat,
+  'cheese': FontAwesomeIcons.cheese,
   'chocolate': FontAwesomeIcons.candyCane,
   'condiment': FontAwesomeIcons.wineBottle,
   'dairy': FontAwesomeIcons.cheese,
