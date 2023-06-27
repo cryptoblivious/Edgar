@@ -41,12 +41,18 @@ class RouterState extends ConsumerState<Router> {
         if (asyncUserDocumentSnapshot.isLoading || asyncFoodProductsSnapshot.isLoading) {
           // Snapshot is not available yet
           return LoadingScreen();
-        } else if (asyncUserDocumentSnapshot.error != null || asyncFoodProductsSnapshot.error != null) {
-          // Error occurred while fetching a snapshot
+        } else if (asyncUserDocumentSnapshot.error != null) {
           FirebaseCrashlytics.instance.recordError(asyncUserDocumentSnapshot.error!, null);
           return Scaffold(
             body: Center(
               child: Text('Error occurred: ${asyncUserDocumentSnapshot.error}'),
+            ),
+          );
+        } else if (asyncFoodProductsSnapshot.error != null) {
+          FirebaseCrashlytics.instance.recordError(asyncFoodProductsSnapshot.error!, null);
+          return Scaffold(
+            body: Center(
+              child: Text('Error occurred: ${asyncFoodProductsSnapshot.error}'),
             ),
           );
         } else {
