@@ -30,23 +30,33 @@ class FoodProduct {
   factory FoodProduct.fromFirestore(DocumentSnapshot snapshot) {
     Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
 
-    // Convert the list of food categories from Firestore data to FoodCategory enum values
+// Convert the list of food categories from Firestore data to FoodCategory enum values
     List<dynamic> foodCategoryData = (data?['categories'] ?? []) as List<dynamic>;
     List<String> foodCategoryStrings = List<String>.from(foodCategoryData);
-    List<FoodCategory> foodCategories = foodCategoryStrings
-        .map((categoryString) => FoodCategory.values.firstWhere((category) => category.toString() == 'FoodCategory.$categoryString'))
-        .toList();
+    List<FoodCategory> foodCategories = foodCategoryStrings.map((categoryString) {
+      try {
+        return FoodCategory.values.firstWhere((category) => category.toString() == 'FoodCategory.$categoryString');
+      } catch (error) {
+        throw ArgumentError('Category $categoryString for food product ${data?['name']}');
+      }
+    }).toList();
 
     // Convert the list of diets from Firestore data to Diet enum values
     List<dynamic> dietsData = (data?['diets'] ?? []) as List<dynamic>;
     List<String> dietStrings = List<String>.from(dietsData);
-    List<Diet> diets = dietStrings.map((dietString) => Diet.values.firstWhere((diet) => diet.toString() == 'Diet.$dietString')).toList();
+    List<Diet> diets = dietStrings.map((dietString) {
+      try {
+        return Diet.values.firstWhere((diet) => diet.toString() == 'Diet.$dietString');
+      } catch (error) {
+        throw ArgumentError('Diet $dietString for food product ${data?['name']}');
+      }
+    }).toList();
 
     FoodProduct foodProduct = FoodProduct(
-      name: data?['name'] as String? ?? '',
-      uid: data?['uid'] as String? ?? '',
-      description: data?['description'] as String? ?? '',
-      mainCategory: data?['mainCategory'] as String? ?? '',
+      name: data?['name'] as String? ?? 'Missing',
+      uid: data?['uid'] as String? ?? 'Missing',
+      description: data?['description'] as String? ?? 'Missing',
+      mainCategory: data?['mainCategory'] as String? ?? 'Missing',
       iconData: iconStringsToIcons[data?['mainCategory']] ?? FontAwesomeIcons.x,
       categories: foodCategories,
       diets: diets,
