@@ -79,7 +79,8 @@ class _PantryCardsSubscreenState extends State<PantryCardsSubscreen> {
     if (index != -1) {
       final RenderObject? renderObject = context.findRenderObject();
       if (renderObject is RenderBox) {
-        final itemPosition = renderObject.localToGlobal(Offset.zero).dy + (index * cardHeight); // Replace ITEM_HEIGHT with the actual height of the item
+        final itemPosition =
+            renderObject.localToGlobal(Offset.zero).dy + (index * cardHeight) - cardHeight; // Replace ITEM_HEIGHT with the actual height of the item
         final viewportHeight = MediaQuery.of(context).size.height;
         final scrollOffset = _scrollController.offset;
 
@@ -135,6 +136,7 @@ class _PantryCardsSubscreenState extends State<PantryCardsSubscreen> {
     return Expanded(
       child: ListView(
         controller: _scrollController,
+        // TODO : Build a dynamic cache size so the list renders fast initially and is still performant when scrolling
         cacheExtent: 9999,
         children: [
           ...sortedList
