@@ -30,6 +30,7 @@ class User {
     activePantry = (data['activePantry'] ?? 0) as int;
     activeShoppingList = (data['activeShoppingList'] ?? 0) as int;
     pantries = [];
+    // TODO : Implement recipe book logic
     recipes = [];
     watchList = [];
     shoppingLists = [];

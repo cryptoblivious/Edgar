@@ -48,3 +48,6 @@ app.*.map.json
 
 # Exclude google-services.json from all submodules
 **/google-services.json
+
+# Exclude environment variables
+**/.env

@@ -1,4 +1,5 @@
 import 'package:edgar/services/routing/opening_page_commutator.dart';
+import 'package:edgar/widgets/screens/recipes_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:edgar/widgets/screens/pantry_screen.dart';
@@ -12,7 +13,7 @@ import 'package:edgar/widgets/placeholders/screen_ph.dart';
 Map<String, Widget Function(User, List<FoodProduct>)> subroutes = {
   '/pantry': (user, foodProducts) => PantryScreen(user: user, foodProducts: foodProducts),
   '/groceries': (user, foodProducts) => GroceryScreen(user: user, foodProducts: foodProducts),
-  '/recipes': (user, foodProducts) => const ScreenPlaceholder(name: 'Recipes Screen'),
+  '/recipes': (user, foodProducts) => RecipesScreen(user: user),
   '/profile': (user, foodProducts) => const ScreenPlaceholder(name: 'Profile Screen'),
   '/settings': (user, foodProducts) => const ScreenPlaceholder(name: 'Settings Screen'),
   '/': (user, foodProducts) => const OpeningPageCommutator(),

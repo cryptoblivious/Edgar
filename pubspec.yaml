@@ -32,7 +32,8 @@ dependencies:
     sdk: flutter
 
   auto_size_text: ^3.0.0
-
+  http: ^0.13.0
+  flutter_dotenv: ^5.0.0
   flutter_riverpod: ^2.3.6
   cloud_firestore: ^4.8.0
   firebase_core: ^2.13.1
@@ -79,6 +80,7 @@ flutter:
     - assets/images/
     - assets/languages/
     - assets/video/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
